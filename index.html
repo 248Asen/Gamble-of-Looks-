@@ -437,4 +437,451 @@
   }
   .lucky-chest-card::before {
     content: ''; position: absolute; inset: 0;
-    background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,
+    background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 40px);
+    pointer-events: none;
+  }
+  .lucky-chest-emoji {
+    font-size: 3.5rem; margin-bottom: 4px;
+    filter: drop-shadow(0 0 20px #34d399); animation: bobUp 1.5s infinite;
+  }
+  @keyframes bobUp { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+  .lucky-chest-title { font-size: 1.4rem; font-weight: bold; color: #34d399; margin-bottom: 4px; letter-spacing: 2px; }
+  .lucky-chest-sub { font-size: 0.85rem; color: #a7f3d0; margin-bottom: 12px; }
+  .lucky-chest-warn { font-size: 0.8rem; color: #fbbf24; margin-bottom: 16px; font-weight: bold; }
+  .lucky-open-btn {
+    padding: 14px 32px; border: none; border-radius: 12px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff; font-weight: bold; font-size: 1rem;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 0 20px rgba(16,185,129,0.4);
+    position: relative; z-index: 1;
+  }
+  .lucky-open-btn:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 0 40px rgba(16,185,129,0.7); }
+  .lucky-open-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+
+  .lucky-roulette {
+    max-width: 700px; margin: 0 auto 20px; height: 140px;
+    overflow: hidden; position: relative;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 14px; display: none;
+  }
+  .lucky-roulette.active { display: block; }
+  .lucky-roulette-marker {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 3px; height: 100%;
+    background: linear-gradient(to bottom, transparent, #34d399, transparent);
+    z-index: 10; pointer-events: none; box-shadow: 0 0 15px #34d399;
+  }
+  .lucky-strip { display:flex; gap:8px; height:100%; padding:15px 0; will-change:transform; }
+  .lucky-strip-item {
+    flex: 0 0 110px; height: 110px;
+    background: rgba(255,255,255,0.04);
+    border: 2px solid var(--lc, #666);
+    border-radius: 10px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 4px; padding: 8px; text-align: center;
+  }
+  .lucky-strip-emoji { font-size: 1.6rem; }
+  .lucky-strip-name { font-size: 0.65rem; font-weight: bold; color: #e5e7eb; line-height: 1.1; }
+  .lucky-strip-score { font-size: 0.55rem; color: #9ca3af; font-family: monospace; }
+
+  .lucky-result {
+    max-width: 700px; margin: 0 auto 20px; padding: 20px;
+    border-radius: 14px; text-align: center; display: none;
+    animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .lucky-result.show { display: block; }
+  .lucky-result.win { background: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(16,185,129,0.1)); border: 2px solid #10b981; }
+  .lucky-result.lose { background: linear-gradient(135deg, rgba(239,68,68,0.3), rgba(239,68,68,0.1)); border: 2px solid #ef4444; }
+  .lucky-result-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 8px; }
+  .lucky-result.win .lucky-result-title { color: #34d399; }
+  .lucky-result.lose .lucky-result-title { color: #f87171; }
+  .lucky-result-roll { font-size: 0.9rem; color: #9ca3af; margin-bottom: 12px; line-height: 1.6; }
+  .lucky-result-msg { font-size: 1rem; font-weight: bold; }
+  .lucky-result.win .lucky-result-msg { color: #a7f3d0; }
+  .lucky-result.lose .lucky-result-msg { color: #fca5a5; }
+
+  .celebration {
+    position: fixed; inset: 0; z-index: 2000;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .celebration.show { opacity: 1; pointer-events: auto; }
+  .celebration-inner {
+    background: linear-gradient(135deg, var(--cc, #6b7280) 22, #0f0f1e);
+    border: 3px solid var(--cc, #374151);
+    border-radius: 20px; padding: 40px 60px;
+    text-align: center;
+    animation: celebratePop 0.6s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 0 80px var(--cc, #374151);
+  }
+  @keyframes celebratePop {
+    0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+  }
+  .celebration-title { font-size: 0.8rem; letter-spacing: 4px; color: #9ca3af; text-transform: uppercase; margin-bottom: 12px; }
+  .celebration-emoji { font-size: 5rem; margin-bottom: 8px; animation: bobUp 1s infinite; }
+  .celebration-name { font-size: 2.4rem; font-weight: bold; color: var(--cc); margin-bottom: 4px; letter-spacing: 2px; }
+  .celebration-score { font-size: 1.2rem; color: #e5e7eb; margin-bottom: 16px; }
+  .celebration-msg { font-size: 0.9rem; color: #9ca3af; margin-bottom: 20px; max-width: 400px; }
+  .celebration-btn {
+    padding: 12px 32px; border: none; border-radius: 10px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #1a1a2e; font-weight: bold; font-size: 1rem;
+    cursor: pointer; transition: transform 0.2s;
+  }
+  .celebration-btn:hover { transform: scale(1.05); }
+
+  .xp-float {
+    position: fixed; pointer-events: none; z-index: 1500;
+    font-weight: bold; font-size: 1.2rem;
+    color: #60a5fa;
+    text-shadow: 0 0 10px rgba(96,165,250,0.8), 0 2px 4px rgba(0,0,0,0.8);
+    animation: floatUp 1.4s ease-out forwards;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(0.8); opacity: 0; }
+    20% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+    100% { transform: translateY(-100px) scale(1); opacity: 0; }
+  }
+
+  .flash-overlay {
+    position: fixed; inset: 0;
+    background: radial-gradient(circle, rgba(245,158,11,0.6), transparent 70%);
+    pointer-events: none; opacity: 0; z-index: 999;
+  }
+  .flash-overlay.flash { animation: flashAnim 0.8s ease-out; }
+  @keyframes flashAnim { 0%{opacity:0;} 20%{opacity:1;} 100%{opacity:0;} }
+  .flash-overlay.purple { background: radial-gradient(circle, rgba(168,85,247,0.7), transparent 70%); }
+
+  .toast {
+    position: fixed; bottom: 20px; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #1f2937; border: 1px solid #ef4444;
+    color: #fca5a5; padding: 12px 24px; border-radius: 10px;
+    font-weight: bold; transition: transform 0.3s; z-index: 1000;
+    max-width: 90vw; text-align: center;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.good { border-color: #22c55e; color: #86efac; }
+  .toast.gold { border-color: #f59e0b; color: #fbbf24; }
+  .toast.purple { border-color: #a855f7; color: #d8b4fe; }
+  .toast.blue { border-color: #3b82f6; color: #93c5fd; }
+
+  .save-indicator {
+    position: fixed; bottom: 20px; right: 20px;
+    background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.4);
+    color: #4ade80; padding: 6px 12px; border-radius: 8px;
+    font-size: 0.75rem; font-weight: bold;
+    opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1001;
+  }
+  .save-indicator.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="flash-overlay" id="flash"></div>
+<div class="toast" id="toast"></div>
+<div class="save-indicator" id="saveIndicator">💾 Gespeichert</div>
+
+<div class="celebration" id="celebration">
+  <div class="celebration-inner" id="celebrationInner">
+    <div class="celebration-title">Rang aufgestiegen!</div>
+    <div class="celebration-emoji" id="celebrationEmoji">🧬</div>
+    <div class="celebration-name" id="celebrationName">True Adam</div>
+    <div class="celebration-score" id="celebrationScore">PSL 8.0</div>
+    <div class="celebration-msg" id="celebrationMsg"></div>
+    <button class="celebration-btn" onclick="document.getElementById('celebration').classList.remove('show')">Weiter</button>
+  </div>
+</div>
+
+<div class="app">
+  <header>
+    <h1>🎰 LOOKSMAXXING</h1>
+    <div class="header-stats">
+      <div class="stat-pill wallet"><span id="coinAmount">1000</span> 🪙</div>
+      <div class="stat-pill psl" id="pslBadge">💀 Sub 3</div>
+      <div class="stat-pill luck" id="luckBadge">🍀 1x</div>
+      <div class="stat-pill world" id="worldBadge">🌍 Normal</div>
+      <button class="reset-btn" id="resetBtn">↻</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="gamble">🎰 Gambling</button>
+    <button class="tab" data-tab="psl">🧬 PSL</button>
+    <button class="tab" data-tab="charakter">👤 Charakter</button>
+    <button class="tab" data-tab="sammlung">📚 Sammlung <span class="badge" id="colBadge">0/85</span></button>
+    <button class="tab" data-tab="welt">🌍 Welt</button>
+    <button class="tab" data-tab="inventar">🎒 Inventar <span class="badge" id="invBadge">0</span></button>
+    <button class="tab" data-tab="erfolge">🏆 Erfolge <span class="badge" id="achBadge">0/12</span></button>
+  </nav>
+
+  <section class="tab-content active" data-content="gamble">
+    <section class="cases" id="cases"></section>
+
+    <section class="lucky-chest-section">
+      <div class="lucky-chest-card">
+        <div class="lucky-chest-emoji">🍀</div>
+        <div class="lucky-chest-title">LUCKY CHEST</div>
+        <div class="lucky-chest-sub">Ziehe einen Rang. Besser als dein aktueller? Belohnung!</div>
+        <div class="lucky-chest-warn">⚠️ Gleich oder schlechter → -150 Coins Strafe</div>
+        <button class="lucky-open-btn" id="luckyOpenBtn">🍀 Öffnen</button>
+      </div>
+    </section>
+
+    <div class="lucky-roulette" id="luckyRoulette">
+      <div class="lucky-roulette-marker"></div>
+      <div class="lucky-strip" id="luckyStrip"></div>
+    </div>
+
+    <div class="lucky-result" id="luckyResult"></div>
+
+    <div class="roulette-viewport" id="viewport">
+      <div class="roulette-marker"></div>
+      <div class="roulette-strip" id="strip"></div>
+      <div class="placeholder" id="placeholder">Wähle eine Kiste zum Öffnen</div>
+    </div>
+
+    <div class="result-panel" id="resultPanel"></div>
+  </section>
+
+  <section class="tab-content" data-content="psl">
+    <div class="psl-hero" id="pslHero"></div>
+    <h2 class="section-title">🎮 Minispiele <span class="count" id="minigameCount"></span></h2>
+    <div class="minigames-grid" id="minigamesGrid"></div>
+    <h2 class="section-title" style="margin-top:24px">🧬 PSL-Rangliste</h2>
+    <div class="psl-tierlist" id="pslTierlist"></div>
+  </section>
+
+  <section class="tab-content" data-content="charakter">
+    <div class="best-draw" id="bestDraw"></div>
+    <h2 class="section-title">👤 Dein aktueller Look <span class="count" id="charCount"></span></h2>
+    <div class="char-grid" id="charGrid"></div>
+  </section>
+
+  <section class="tab-content" data-content="sammlung">
+    <h2 class="section-title">📚 Sammlung <span class="count" id="colTitle"></span></h2>
+    <div class="collection-grid" id="collectionGrid"></div>
+  </section>
+
+  <section class="tab-content" data-content="welt">
+    <div class="world-hero" id="worldHero"></div>
+    <div class="prestige-info" id="prestigeInfo"></div>
+    <button class="prestige-btn" id="prestigeBtn">✨ Wiedergeburt</button>
+  </section>
+
+  <section class="tab-content" data-content="inventar">
+    <h2 class="section-title">🎒 Inventar <span class="count" id="invTitle"></span></h2>
+    <div class="inv-grid" id="invGrid"></div>
+  </section>
+
+  <section class="tab-content" data-content="erfolge">
+    <h2 class="section-title">🏆 Erfolge <span class="count" id="achTitle"></span></h2>
+    <div class="ach-grid" id="achGrid"></div>
+  </section>
+</div>
+
+<script>
+const SAVE_KEY = 'looksmaxxing_save_v1';
+
+const RAR_COLOR = { common:'#9ca3af', uncommon:'#22c55e', rare:'#3b82f6', epic:'#a855f7', legendary:'#f59e0b' };
+const RAR_NAME = { common:'Common', uncommon:'Uncommon', rare:'Rare', epic:'Epic', legendary:'Legendary ✨' };
+const RAR_ORDER = { common:0, uncommon:1, rare:2, epic:3, legendary:4 };
+const RAR_TIERS = ['common','uncommon','rare','epic','legendary'];
+const SELL_VALUES = { common:20, uncommon:80, rare:500, epic:2500, legendary:20000 };
+const DUP_BONUS_RATE = 0.5;
+const MYSTERY_CHANCE = 0.04;
+const MYSTERY_WEIGHTS = { common:5, uncommon:20, rare:35, epic:25, legendary:15 };
+const DRAW_XP = { common:1, uncommon:2, rare:5, epic:15, legendary:50 };
+const MINIGAME_COOLDOWN = 6000;
+const LUCKY_WEIGHTS = [20, 18, 15, 12, 10, 8, 6, 4, 3, 2, 1, 0.5, 0.3, 0.15, 0.04, 0.01];
+const LUCKY_PENALTY = 150;
+
+const CAT = {
+  groesse:      { n:'Körpergröße', e:'📏', t:['1,72 m','1,78 m','1,84 m','1,88 m','1,95 m'] },
+  augenfarbe:   { n:'Augenfarbe',  e:'👁️', t:['Braun','Haselnuss','Grün','Eisblau','Stechend Blau'] },
+  augenform:    { n:'Augenform',   e:'👀', t:['Rund','Mandel','Almond Eyes','Hunter Eyes','Deep Set Hunter'] },
+  augenbrauen:  { n:'Augenbrauen', e:'🤨', t:['Hoch gesetzt','Normal','Low Set Eyebrows','Straight Brows','Model Brows'] },
+  canthal:      { n:'Canthal Tilt',e:'📐', t:['Negativ','Neutral','Positive Canthal Tilt','Stark positiv','Perfekter Tilt'] },
+  jawline:      { n:'Jawline',     e:'🗿', t:['Weich','Definiert','Scharf','Kantig','Chad Jawline'] },
+  wangenknochen:{ n:'Wangenknochen',e:'🦴', t:['Flach','Leicht definiert','Definiert','High Cheekbones','Model Cheekbones'] },
+  hollow:       { n:'Hollow Cheeks',e:'💀', t:['Keine','Leicht','Moderat','Ausgeprägt','Extreme Hollow'] },
+  haut:         { n:'Haut',        e:'✨', t:['Normal','Gepflegt','Glatt','Porzellan','Perfekt rein'] },
+  haare:        { n:'Haare',       e:'💇', t:['Dünn','Gepflegt','Dicht','Löwenmähne','God Tier Hair'] },
+  gesichtsform: { n:'Gesichtsform',e:'🎭', t:['Rund','Oval','V-förmig','Diamond','Perfekt symmetrisch'] },
+  kiefer:       { n:'Kinn & Kiefer',e:'🦴', t:['Schmal','Normal','Breit','Eckig','Chad Chin'] },
+  nase:         { n:'Nase',        e:'👃', t:['Breit','Normal','Gerade','Schlank','Perfekte Nase'] },
+  zaehne:       { n:'Zähne',       e:'😁', t:['Krumm','Normal','Gerade','Veneers','Hollywood Smile'] },
+  statur:       { n:'Statur',      e:'💪', t:['Normal','Fit','Athletisch','Breit','Peak Male Physique'] },
+  mewing:       { n:'Mewing',      e:'👅', t:['Mundatmung','Mewing Basics','Mewing Routine','Hard Mewing','Mewing God'] },
+  genetik:      { n:'Genetik',     e:'🧬', t:['Durchschnitt','Gut','Sehr gut','Elite','Chad Genetik'] }
+};
+const CAT_KEYS = Object.keys(CAT);
+const TOTAL_ITEMS = CAT_KEYS.length * 5;
+
+const CASES = {
+  bronze: { name:'Bronze Case', emoji:'📦', price:100, cls:'bronze', weights:{ common:70, uncommon:22, rare:7, epic:0.9, legendary:0.1 } },
+  silber: { name:'Silber Case', emoji:'🎁', price:500, cls:'silber', weights:{ common:40, uncommon:35, rare:18, epic:6, legendary:1 } },
+  gold:   { name:'Gold Case', emoji:'💎', price:2000, cls:'gold', weights:{ common:15, uncommon:30, rare:30, epic:20, legendary:5 } }
+};
+
+const WORLDS = [
+  { name:'Normal World',       emoji:'🌍', color:'#9ca3af' },
+  { name:'Gym World',          emoji:'💪', color:'#22c55e' },
+  { name:'Instagram World',    emoji:'📸', color:'#3b82f6' },
+  { name:'Hollywood World',    emoji:'🎬', color:'#a855f7' },
+  { name:'Olymp World',        emoji:'🏛️', color:'#f59e0b' },
+  { name:'Chad Dimension',     emoji:'🧬', color:'#ef4444' },
+  { name:'Ascended Realm',     emoji:'✨', color:'#fbbf24' },
+  { name:'God Tier Dimension', emoji:'👑', color:'#fbbf24' },
+  { name:'Infinity Beyond',    emoji:'∞',  color:'#ec4899' }
+];
+function getWorld(level) { return WORLDS[Math.min(level, WORLDS.length - 1)]; }
+
+const PSL_TIERS = [
+  { name:'Sub 3',     score:'2.0',  xp:0,     emoji:'💀', color:'#4b5563', sell:0,   rating:'0/10',   rizz:'Non-existent',      model:'0%',   desc:'Am Tiefpunkt — der Start.' },
+  { name:'Sub 5',     score:'2.5',  xp:15,    emoji:'😞', color:'#6b7280', sell:0,   rating:'1/10',   rizz:'Bottom Tier',       model:'0%',   desc:'Unterdurchschnittlich' },
+  { name:'LLTN',      score:'3.0',  xp:40,    emoji:'😐', color:'#9ca3af', sell:0,   rating:'2/10',   rizz:'Sehr niedrig',      model:'0%',   desc:'Low Low Tier Normie' },
+  { name:'LTN',       score:'3.5',  xp:80,    emoji:'🫤', color:'#a3a3a3', sell:0,   rating:'3/10',   rizz:'Niedrig',           model:'5%',   desc:'Low Tier Normie' },
+  { name:'HLTN',      score:'4.0',  xp:140,   emoji:'🙂', color:'#86efac', sell:5,   rating:'4/10',   rizz:'Unterdurchschnitt', model:'10%',  desc:'High Low Tier Normie' },
+  { name:'LMTN',      score:'4.25', xp:220,   emoji:'😊', color:'#4ade80', sell:10,  rating:'4.5/10', rizz:'Niedrig-Mittel',    model:'15%',  desc:'Low Mid Tier Normie' },
+  { name:'MTN',       score:'4.5',  xp:350,   emoji:'😌', color:'#22c55e', sell:15,  rating:'5/10',   rizz:'Normal',            model:'25%',  desc:'Mid Tier Normie' },
+  { name:'HMTN',      score:'4.75', xp:500,   emoji:'😏', color:'#16a34a', sell:20,  rating:'5.5/10', rizz:'Mittel-Hoch',       model:'35%',  desc:'High Mid Tier Normie' },
+  { name:'LHTN',      score:'5.0',  xp:700,   emoji:'😎', color:'#38bdf8', sell:25,  rating:'6/10',   rizz:'Gut',               model:'50%',  desc:'Low High Tier Normie' },
+  { name:'HTN',       score:'5.25', xp:1000,  emoji:'⭐', color:'#3b82f6', sell:30,  rating:'6.5/10', rizz:'Stark',             model:'65%',  desc:'High Tier Normie' },
+  { name:'HHTN',      score:'5.5',  xp:1500,  emoji:'✨', color:'#2563eb', sell:35,  rating:'7/10',   rizz:'Sehr stark',        model:'75%',  desc:'High High Tier Normie' },
+  { name:'Chadlite',  score:'6.0',  xp:2500,  emoji:'🔥', color:'#a855f7', sell:45,  rating:'8/10',   rizz:'High Tier',         model:'85%',  desc:'Fast Chad' },
+  { name:'Chad',      score:'6.5',  xp:3500,  emoji:'👑', color:'#f59e0b', sell:55,  rating:'8.5/10', rizz:'Godlike',           model:'90%',  desc:'Chad — Top 1%' },
+  { name:'Adam Lite', score:'7.0',  xp:6000,  emoji:'💎', color:'#fbbf24', sell:70,  rating:'9/10',   rizz:'Elite',             model:'95%',  desc:'Adam Lite — Elite, fast am Gipfel' },
+  { name:'Adam',      score:'7.5',  xp:10000, emoji:'🌟', color:'#ef4444', sell:85,  rating:'9.5/10', rizz:'Mythisch',          model:'99%',  desc:'Adam — God Tier, fast Peak Human' },
+  { name:'True Adam', score:'8.0',  xp:15000, emoji:'🧬', color:'#ec4899', sell:100, rating:'10/10',  rizz:'Legendär',          model:'100%', desc:'Peak Human — Legendär. Das Schwierigste im Spiel.' }
+];
+
+const ACHIEVEMENTS = [
+  { id:'first_draw',   name:'Erste Schritte',  emoji:'👶', desc:'Öffne deine erste Kiste',                          check: s => s.stats.totalDraws >= 1 },
+  { id:'first_legend', name:'Legendär',        emoji:'🌟', desc:'Ziehe dein erstes Legendary Item',                 check: s => !!s.stats.firstLegendary },
+  { id:'gambler_100',  name:'Gambler',         emoji:'🎰', desc:'Öffne 100 Kisten',                                 check: s => s.stats.totalDraws >= 100 },
+  { id:'mystery',      name:'Mystery Hunter',  emoji:'🎁', desc:'Ziehe dein erstes Mystery Item',                   check: s => !!s.stats.firstMystery },
+  { id:'collector',    name:'Sammler',         emoji:'📚', desc:'Sammle alle 85 Items',                             check: s => countSeen() >= TOTAL_ITEMS },
+  { id:'mtn',          name:'Normie',          emoji:'😌', desc:'Erreiche MTN (PSL 4.5)',                           check: s => getPslTierIndex() >= 6 },
+  { id:'chad',         name:'Chad Status',     emoji:'👑', desc:'Erreiche Chad (PSL 6.5)',                          check: s => getPslTierIndex() >= 12 },
+  { id:'adam_lite',    name:'Adam Lite',       emoji:'💎', desc:'Erreiche Adam Lite (PSL 7.0)',                     check: s => getPslTierIndex() >= 13 },
+  { id:'adam',         name:'Adam',            emoji:'🌟', desc:'Erreiche Adam (PSL 7.5)',                          check: s => getPslTierIndex() >= 14 },
+  { id:'true_adam',    name:'TRUE ADAM',       emoji:'🧬', desc:'Erreiche den höchsten Rang — True Adam (PSL 8.0)', check: s => getPslTierIndex() >= 15, special:true },
+  { id:'prestige_1',   name:'Wiedergeboren',   emoji:'✨', desc:'Erste Wiedergeburt vollziehen',                    check: s => s.prestige >= 1 },
+  { id:'prestige_5',   name:'Seelenwanderer',  emoji:'👻', desc:'5 Wiedergeburten',                                 check: s => s.prestige >= 5 }
+];
+
+function freshState() {
+  return {
+    coins: 1000,
+    inventory: [],
+    nextId: 1,
+    collection: {},
+    bestDraw: null,
+    prestige: 0,
+    pslXP: 0,
+    lastKnownTier: 0,
+    lastMinigame: 0,
+    achievements: {},
+    stats: { totalDraws:0, firstLegendary:false, firstMystery:false, legendaryCount:0 }
+  };
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+    showSaveIndicator();
+  } catch (e) {
+    console.warn('Speichern fehlgeschlagen:', e);
+  }
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (!raw) return freshState();
+    const saved = JSON.parse(raw);
+    const fresh = freshState();
+    const merged = { ...fresh, ...saved };
+    merged.stats = { ...fresh.stats, ...(saved.stats || {}) };
+    merged.achievements = saved.achievements || {};
+    merged.collection = saved.collection || {};
+    merged.inventory = Array.isArray(saved.inventory) ? saved.inventory : [];
+    merged.coins = Number(merged.coins) || 0;
+    merged.pslXP = Number(merged.pslXP) || 0;
+    merged.prestige = Number(merged.prestige) || 0;
+    merged.nextId = Number(merged.nextId) || 1;
+    return merged;
+  } catch (e) {
+    console.warn('Laden fehlgeschlagen, starte neu:', e);
+    return freshState();
+  }
+}
+
+function showSaveIndicator() {
+  const el = document.getElementById('saveIndicator');
+  if (!el) return;
+  el.classList.add('show');
+  clearTimeout(showSaveIndicator._timer);
+  showSaveIndicator._timer = setTimeout(() => el.classList.remove('show'), 900);
+}
+
+let state = loadState();
+let isSpinning = false;
+let isLuckySpinning = false;
+
+let mewingState = { active:false, pos:0, dir:1, interval:null };
+let jawlineState = { active:false, count:0, startTime:0 };
+let reactionState = { active:false, timeoutId:null, startTime:0, phase:'idle' };
+
+function rollRarityBase(caseType) {
+  const w = CASES[caseType].weights;
+  const total = Object.values(w).reduce((a,b)=>a+b,0);
+  let r = Math.random() * total;
+  for (const [rarity, weight] of Object.entries(w)) {
+    r -= weight;
+    if (r <= 0) return rarity;
+  }
+  return 'common';
+}
+function rollRarityWeighted(weights) {
+  const total = Object.values(weights).reduce((a,b)=>a+b,0);
+  let r = Math.random() * total;
+  for (const [rarity, weight] of Object.entries(weights)) {
+    r -= weight;
+    if (r <= 0) return rarity;
+  }
+  return 'common';
+}
+function getLuck() { return 1 + state.prestige; }
+function rollRarityWithLuck(caseType) {
+  const luck = getLuck();
+  let best = null;
+  for (let i = 0; i < luck; i++) {
+    const r = rollRarityBase(caseType);
+    if (!best || RAR_ORDER[r] > RAR_ORDER[best]) best = r;
+  }
+  return best;
+}
+function makeItem(rarity, catKey, isMystery=false) {
+  const cat = CAT[catKey];
+  return { category: catKey, categoryName: cat.n, emoji: isMystery ? '🎁' : cat.e, rarity, name: cat.t[RAR_ORDER[rarity]], isMystery };
+}
+function rollItem(caseType) {
+  if (Math.random() < MYSTERY_CHANCE) {
+    const rarity = rollRarityWeighted(MYSTERY_WEIGHTS);
+    const catKey = CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)];
+    return makeItem(rarity, catKey, true);
+  }
+  const rarity = rollRarityWithLuck(caseType);
+  const catKey = CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)];
+  return makeItem(rarity, catKey, false);
+}
+function getEquipped() {
+  const eq = {};
+  for (const item of state.inventory) {
+    const cur =
