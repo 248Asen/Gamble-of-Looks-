@@ -16,64 +16,31 @@
     color: #e5e7eb; min-height: 100vh; padding: 20px;
   }
   .app { max-width: 1100px; margin: 0 auto; }
-
   header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px; }
-  h1 {
-    font-size: 1.4rem;
-    background: linear-gradient(90deg, #f59e0b, #a855f7, #3b82f6);
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+  h1 { font-size: 1.4rem; background: linear-gradient(90deg, #f59e0b, #a855f7, #3b82f6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
   .header-stats { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-  .stat-pill {
-    padding: 6px 14px; border-radius: 999px; font-weight: bold;
-    font-size: 0.85rem; transition: transform 0.2s; border: 1px solid; white-space: nowrap;
-  }
+  .stat-pill { padding: 6px 14px; border-radius: 999px; font-weight: bold; font-size: 0.85rem; transition: transform 0.2s; border: 1px solid; white-space: nowrap; }
   .stat-pill.wallet { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.4); color: #fbbf24; font-size: 1rem; }
   .stat-pill.luck { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.4); color: #4ade80; }
   .stat-pill.world { background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.4); color: #d8b4fe; }
   .stat-pill.psl { font-size: 1rem; }
   .stat-pill.flash { transform: scale(1.15); }
-  .reset-btn {
-    background: transparent; border: 1px solid rgba(255,255,255,0.2);
-    color: #9ca3af; padding: 6px 12px; border-radius: 8px;
-    cursor: pointer; font-size: 0.8rem; transition: all 0.2s;
-  }
+  .reset-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #9ca3af; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s; }
   .reset-btn:hover { border-color: #ef4444; color: #ef4444; }
-
-  .tabs {
-    display: flex; gap: 6px; margin-bottom: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    padding-bottom: 8px; flex-wrap: wrap;
-  }
-  .tab {
-    background: transparent; border: none; color: #9ca3af;
-    padding: 10px 14px; border-radius: 8px; cursor: pointer;
-    font-size: 0.85rem; font-weight: bold; transition: all 0.2s;
-    display: flex; align-items: center; gap: 6px;
-  }
+  .tabs { display: flex; gap: 6px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; flex-wrap: wrap; }
+  .tab { background: transparent; border: none; color: #9ca3af; padding: 10px 14px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
   .tab:hover { background: rgba(255,255,255,0.05); color: #e5e7eb; }
-  .tab.active {
-    background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(168,85,247,0.2));
-    color: #fbbf24; border: 1px solid rgba(245,158,11,0.4);
-  }
-  .tab .badge {
-    background: rgba(255,255,255,0.1); border-radius: 999px;
-    padding: 2px 8px; font-size: 0.65rem; color: #e5e7eb;
-  }
+  .tab.active { background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(168,85,247,0.2)); color: #fbbf24; border: 1px solid rgba(245,158,11,0.4); }
+  .tab .badge { background: rgba(255,255,255,0.1); border-radius: 999px; padding: 2px 8px; font-size: 0.65rem; color: #e5e7eb; }
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
   .cases { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:16px; margin-bottom:30px; }
-  .case-card {
-    background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 20px;
-    display: flex; flex-direction: column; gap: 12px; transition: all 0.25s;
-  }
+  .case-card { background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 12px; transition: all 0.25s; }
   .case-card:hover { transform: translateY(-4px); border-color: rgba(245,158,11,0.5); }
   .case-card.bronze { border-top: 3px solid #b45309; }
   .case-card.silber { border-top: 3px solid #9ca3af; }
-  .case-card.gold   { border-top: 3px solid #f59e0b; }
+  .case-card.gold { border-top: 3px solid #f59e0b; }
   .case-icon { font-size: 2.5rem; text-align: center; }
   .case-name { text-align: center; font-weight: bold; font-size: 1.05rem; }
   .case-price { text-align: center; color: #fbbf24; font-weight: bold; font-size: 1.15rem; }
@@ -82,74 +49,30 @@
   .drop-bar > div { height: 100%; }
   .drop-legend { display:flex; justify-content:space-between; font-size:0.7rem; gap:4px; }
   .drop-legend span { flex: 1; text-align: center; }
-  .open-btn {
-    padding: 12px; border: none; border-radius: 10px;
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #1a1a2e; font-weight: bold; font-size: 1rem;
-    cursor: pointer; transition: all 0.2s; margin-top: auto;
-  }
+  .open-btn { padding: 12px; border: none; border-radius: 10px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #1a1a2e; font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.2s; margin-top: auto; }
   .open-btn:hover:not(:disabled) { transform: scale(1.03); box-shadow: 0 4px 20px rgba(245,158,11,0.4); }
   .open-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  .roulette-viewport {
-    width: 100%; max-width: 700px; height: 190px; overflow: hidden;
-    position: relative; margin: 0 auto 20px;
-    background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 14px;
-  }
-  .roulette-marker {
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 2px; height: 100%;
-    background: linear-gradient(to bottom, transparent, #fbbf24, transparent);
-    z-index: 10; pointer-events: none; box-shadow: 0 0 12px #fbbf24;
-  }
-  .roulette-marker::before, .roulette-marker::after {
-    content: ''; position: absolute; left: 50%; transform: translateX(-50%);
-    border-left: 9px solid transparent; border-right: 9px solid transparent;
-  }
+  .roulette-viewport { width: 100%; max-width: 700px; height: 190px; overflow: hidden; position: relative; margin: 0 auto 20px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; }
+  .roulette-marker { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background: linear-gradient(to bottom, transparent, #fbbf24, transparent); z-index: 10; pointer-events: none; box-shadow: 0 0 12px #fbbf24; }
+  .roulette-marker::before, .roulette-marker::after { content: ''; position: absolute; left: 50%; transform: translateX(-50%); border-left: 9px solid transparent; border-right: 9px solid transparent; }
   .roulette-marker::before { top: -2px; border-top: 14px solid #fbbf24; }
   .roulette-marker::after { bottom: -2px; border-bottom: 14px solid #fbbf24; }
   .roulette-strip { display:flex; gap:10px; height:100%; padding:15px 0; will-change:transform; }
-  .strip-item {
-    flex: 0 0 140px; height: 160px;
-    background: rgba(255,255,255,0.04);
-    border: 2px solid var(--rc, #666); border-radius: 10px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 6px; padding: 10px; text-align: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.03);
-  }
-  .strip-item.mystery-slot {
-    background: linear-gradient(135deg, rgba(168,85,247,0.25), rgba(168,85,247,0.05));
-    border-color: #a855f7; animation: mysteryPulse 1s infinite;
-  }
-  @keyframes mysteryPulse {
-    0%,100% { box-shadow: 0 0 10px rgba(168,85,247,0.3); }
-    50% { box-shadow: 0 0 30px rgba(168,85,247,0.8); }
-  }
+  .strip-item { flex: 0 0 140px; height: 160px; background: rgba(255,255,255,0.04); border: 2px solid var(--rc, #666); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 10px; text-align: center; box-shadow: 0 0 10px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.03); }
+  .strip-item.mystery-slot { background: linear-gradient(135deg, rgba(168,85,247,0.25), rgba(168,85,247,0.05)); border-color: #a855f7; animation: mysteryPulse 1s infinite; }
+  @keyframes mysteryPulse { 0%,100% { box-shadow: 0 0 10px rgba(168,85,247,0.3); } 50% { box-shadow: 0 0 30px rgba(168,85,247,0.8); } }
   .strip-item-emoji { font-size: 1.8rem; }
   .strip-item-cat { font-size: 0.6rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; }
   .strip-item-name { font-size: 0.72rem; color: #e5e7eb; font-weight: bold; line-height: 1.2; }
   .strip-item-rar { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 1px; color: var(--rc); font-weight: bold; }
-  .placeholder {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    color: #6b7280; font-size: 1rem; pointer-events: none;
-  }
+  .placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 1rem; pointer-events: none; }
   .placeholder.hidden { display: none; }
 
-  .result-panel {
-    max-width: 700px; margin: 0 auto 30px; padding: 18px 24px;
-    border-radius: 14px; text-align: center; opacity: 0;
-    transform: translateY(-10px) scale(0.95);
-    transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
-    pointer-events: none;
-  }
+  .result-panel { max-width: 700px; margin: 0 auto 30px; padding: 18px 24px; border-radius: 14px; text-align: center; opacity: 0; transform: translateY(-10px) scale(0.95); transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none; }
   .result-panel.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
   .tag-row { display:flex; gap:6px; justify-content:center; margin-bottom:8px; flex-wrap:wrap; }
-  .tag {
-    display: inline-block; font-size: 0.65rem; padding: 3px 10px;
-    border-radius: 999px; font-weight: bold; letter-spacing: 1px;
-  }
+  .tag { display: inline-block; font-size: 0.65rem; padding: 3px 10px; border-radius: 999px; font-weight: bold; letter-spacing: 1px; }
   .tag.upgrade { background: linear-gradient(135deg,#22c55e,#16a34a); color:#fff; animation: pulse 1.5s infinite; }
   .tag.duplicate { background: linear-gradient(135deg,#f59e0b,#d97706); color:#fff; }
   .tag.mystery { background: linear-gradient(135deg,#a855f7,#7c3aed); color:#fff; animation: pulse 1s infinite; }
@@ -159,29 +82,14 @@
   .result-cat { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #9ca3af; margin-bottom: 4px; }
   .result-name { font-size: 1.3rem; font-weight: bold; margin-bottom: 4px; }
   .result-rarity { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-weight: bold; }
-  .sell-btn {
-    padding: 8px 20px; border: 1px solid currentColor;
-    background: rgba(0,0,0,0.3); color: inherit;
-    border-radius: 8px; cursor: pointer; font-size: 0.9rem;
-    font-weight: bold; transition: all 0.2s;
-  }
+  .sell-btn { padding: 8px 20px; border: 1px solid currentColor; background: rgba(0,0,0,0.3); color: inherit; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: bold; transition: all 0.2s; }
   .sell-btn:hover { background: rgba(255,255,255,0.1); }
   .mystery-reveal { animation: revealAnim 0.6s cubic-bezier(0.34,1.56,0.64,1); }
-  @keyframes revealAnim {
-    0% { opacity:0; transform:scale(0.3) rotate(-20deg); }
-    100% { opacity:1; transform:scale(1) rotate(0); }
-  }
+  @keyframes revealAnim { 0% { opacity:0; transform:scale(0.3) rotate(-20deg); } 100% { opacity:1; transform:scale(1) rotate(0); } }
 
-  .best-draw {
-    background: linear-gradient(135deg, var(--c, #6b7280) 22, #0f0f1e);
-    border: 1px solid var(--c, #374151);
-    border-radius: 14px; padding: 20px; margin-bottom: 24px;
-  }
+  .best-draw { background: linear-gradient(135deg, var(--c, #6b7280) 22, #0f0f1e); border: 1px solid var(--c, #374151); border-radius: 14px; padding: 20px; margin-bottom: 24px; }
   .best-draw.legendary { box-shadow: 0 0 30px rgba(245,158,11,0.25); }
-  .best-label {
-    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;
-    color: #9ca3af; margin-bottom: 12px; font-weight: bold;
-  }
+  .best-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #9ca3af; margin-bottom: 12px; font-weight: bold; }
   .best-content { display: flex; align-items: center; gap: 20px; }
   .best-emoji { font-size: 3.5rem; flex-shrink: 0; }
   .best-info { flex: 1; }
@@ -192,22 +100,12 @@
 
   .section-title { font-size:1.05rem; margin-bottom:14px; color:#e5e7eb; display:flex; align-items:center; gap:10px; }
   .section-title .count { color:#6b7280; font-weight:normal; font-size:0.85rem; }
-
   .char-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:10px; }
-  .char-card {
-    background: rgba(255,255,255,0.03);
-    border: 2px solid var(--c, rgba(255,255,255,0.1));
-    border-radius: 10px; padding: 12px;
-    display: flex; flex-direction: column; gap: 8px; transition: all 0.3s;
-  }
+  .char-card { background: rgba(255,255,255,0.03); border: 2px solid var(--c, rgba(255,255,255,0.1)); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; transition: all 0.3s; }
   .char-card.filled { background: linear-gradient(180deg, var(--c-tint, rgba(255,255,255,0.03)), rgba(255,255,255,0.02)); }
   .char-card.empty { opacity: 0.4; }
   .char-card.just-upgraded { animation: glowUp 1.2s ease-out; }
-  @keyframes glowUp {
-    0% { box-shadow: 0 0 0 0 var(--c); transform: scale(1.05); }
-    50% { box-shadow: 0 0 30px 5px var(--c); }
-    100% { box-shadow: 0 0 0 0 var(--c); transform: scale(1); }
-  }
+  @keyframes glowUp { 0% { box-shadow: 0 0 0 0 var(--c); transform: scale(1.05); } 50% { box-shadow: 0 0 30px 5px var(--c); } 100% { box-shadow: 0 0 0 0 var(--c); transform: scale(1); } }
   .char-head { display: flex; align-items: center; gap: 8px; }
   .char-emoji { font-size: 1.2rem; }
   .char-cat { font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
@@ -222,26 +120,12 @@
   .col-head-name { font-size: 0.85rem; font-weight: bold; }
   .col-head-progress { margin-left:auto; font-size:0.7rem; color:#6b7280; }
   .col-tiers { display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
-  .col-tier {
-    padding: 6px 3px; border-radius: 6px; font-size: 0.6rem;
-    text-align: center; font-weight: bold;
-    border: 1px solid var(--c, #374151);
-    background: var(--c-tint, rgba(255,255,255,0.03));
-    color: #e5e7eb; line-height: 1.2; min-height: 36px;
-    display: flex; align-items: center; justify-content: center;
-  }
+  .col-tier { padding: 6px 3px; border-radius: 6px; font-size: 0.6rem; text-align: center; font-weight: bold; border: 1px solid var(--c, #374151); background: var(--c-tint, rgba(255,255,255,0.03)); color: #e5e7eb; line-height: 1.2; min-height: 36px; display: flex; align-items: center; justify-content: center; }
   .col-tier.locked { opacity:0.35; color:#6b7280; font-style:italic; filter:grayscale(1); }
 
   .inv-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:10px; }
   .empty-inv { color:#6b7280; grid-column:1/-1; text-align:center; padding:40px; }
-  .inv-item {
-    background: rgba(255,255,255,0.03);
-    border: 2px solid var(--c, #666);
-    border-radius: 10px; padding: 12px 8px;
-    display: flex; flex-direction: column; align-items: center;
-    gap: 4px; text-align: center;
-    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  }
+  .inv-item { background: rgba(255,255,255,0.03); border: 2px solid var(--c, #666); border-radius: 10px; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
   @keyframes popIn { from{opacity:0; transform:scale(0.8);} to{opacity:1; transform:scale(1);} }
   .inv-emoji { font-size: 1.6rem; }
   .inv-cat { font-size: 0.55rem; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; }
@@ -249,144 +133,58 @@
   .inv-rar { font-size: 0.55rem; font-weight: bold; letter-spacing: 1px; color: var(--c); text-transform: uppercase; }
   .inv-item .sell-btn { font-size: 0.7rem; padding: 4px 10px; margin-top: 4px; }
 
-  .world-hero {
-    background: linear-gradient(135deg, var(--wc, #6b7280) 22, #0f0f1e);
-    border: 2px solid var(--wc, #374151);
-    border-radius: 16px; padding: 32px 20px;
-    text-align: center; margin-bottom: 24px;
-    box-shadow: 0 0 40px var(--wc-glow, rgba(107,114,128,0.2));
-  }
+  .world-hero { background: linear-gradient(135deg, var(--wc, #6b7280) 22, #0f0f1e); border: 2px solid var(--wc, #374151); border-radius: 16px; padding: 32px 20px; text-align: center; margin-bottom: 24px; box-shadow: 0 0 40px var(--wc-glow, rgba(107,114,128,0.2)); }
   .world-hero-emoji { font-size: 4rem; margin-bottom: 8px; }
   .world-hero-name { font-size: 1.8rem; font-weight: bold; color: var(--wc, #e5e7eb); margin-bottom: 4px; }
   .world-hero-sub { font-size: 0.9rem; color: #9ca3af; }
   .prestige-info { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:10px; margin-bottom:20px; }
-  .prestige-stat {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px; padding: 14px; text-align: center;
-  }
+  .prestige-stat { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 14px; text-align: center; }
   .prestige-stat-label { font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; color:#9ca3af; margin-bottom:6px; }
   .prestige-stat-value { font-size:1.2rem; font-weight:bold; color:#e5e7eb; }
-  .prestige-btn {
-    width: 100%; padding: 18px; border: none; border-radius: 12px;
-    background: linear-gradient(135deg, #a855f7, #7c3aed);
-    color: #fff; font-weight: bold; font-size: 1.05rem;
-    cursor: pointer; transition: all 0.2s;
-    box-shadow: 0 0 30px rgba(168,85,247,0.3);
-  }
+  .prestige-btn { width: 100%; padding: 18px; border: none; border-radius: 12px; background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; font-weight: bold; font-size: 1.05rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 0 30px rgba(168,85,247,0.3); }
   .prestige-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 0 40px rgba(168,85,247,0.6); }
   .prestige-btn:disabled { background: rgba(255,255,255,0.05); color: #6b7280; cursor: not-allowed; box-shadow: none; }
 
-  .psl-hero {
-    background: linear-gradient(135deg, var(--pc, #6b7280) 22, #0f0f1e);
-    border: 2px solid var(--pc, #374151);
-    border-radius: 16px; padding: 28px 20px;
-    text-align: center; margin-bottom: 20px;
-    box-shadow: 0 0 40px var(--pc-glow, rgba(107,114,128,0.2));
-    position: relative; overflow: hidden;
-  }
+  .psl-hero { background: linear-gradient(135deg, var(--pc, #6b7280) 22, #0f0f1e); border: 2px solid var(--pc, #374151); border-radius: 16px; padding: 28px 20px; text-align: center; margin-bottom: 20px; box-shadow: 0 0 40px var(--pc-glow, rgba(107,114,128,0.2)); position: relative; overflow: hidden; }
   .psl-hero.max { box-shadow: 0 0 60px var(--pc-glow, rgba(236,72,153,0.4)); animation: maxGlow 3s infinite; }
-  @keyframes maxGlow {
-    0%,100% { box-shadow: 0 0 40px rgba(236,72,153,0.3); }
-    50% { box-shadow: 0 0 80px rgba(236,72,153,0.7); }
-  }
+  @keyframes maxGlow { 0%,100% { box-shadow: 0 0 40px rgba(236,72,153,0.3); } 50% { box-shadow: 0 0 80px rgba(236,72,153,0.7); } }
   .psl-hero-emoji { font-size: 5rem; margin-bottom: 4px; }
   .psl-hero-name { font-size: 2rem; font-weight: bold; color: var(--pc); margin-bottom: 4px; letter-spacing: 2px; }
   .psl-hero-score { font-size: 1.1rem; color: #9ca3af; margin-bottom: 16px; }
   .psl-attrs { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:16px auto; max-width:500px; }
-  .psl-attr {
-    background: rgba(0,0,0,0.35);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 10px; padding: 10px 6px; text-align: center;
-  }
+  .psl-attr { background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 6px; text-align: center; }
   .psl-attr-label { font-size:0.62rem; text-transform:uppercase; letter-spacing:1px; color:#9ca3af; margin-bottom:4px; }
   .psl-attr-value { font-size:1.05rem; font-weight:bold; color:#e5e7eb; }
-  .psl-progress-wrap {
-    max-width: 500px; margin: 0 auto;
-    background: rgba(0,0,0,0.4); border-radius: 999px;
-    height: 24px; overflow: hidden; position: relative;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  .psl-progress-bar {
-    height: 100%; background: var(--pc);
-    transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1);
-    border-radius: 999px; box-shadow: 0 0 20px var(--pc);
-  }
-  .psl-progress-text {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.75rem; font-weight: bold; color: #fff;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-  }
+  .psl-progress-wrap { max-width: 500px; margin: 0 auto; background: rgba(0,0,0,0.4); border-radius: 999px; height: 24px; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.1); }
+  .psl-progress-bar { height: 100%; background: var(--pc); transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1); border-radius: 999px; box-shadow: 0 0 20px var(--pc); }
+  .psl-progress-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
   .psl-next { font-size: 0.85rem; color: #9ca3af; margin-top: 10px; }
 
   .minigames-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:12px; margin-bottom:20px; }
-  .minigame-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 12px; padding: 16px;
-    display: flex; flex-direction: column; gap: 10px; transition: all 0.2s;
-  }
+  .minigame-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; transition: all 0.2s; }
   .minigame-card:not(.on-cooldown):hover { border-color: rgba(245,158,11,0.4); }
   .minigame-card.on-cooldown { opacity: 0.5; }
   .minigame-head { display:flex; align-items:center; gap:8px; }
   .minigame-emoji { font-size: 1.4rem; }
   .minigame-name { font-weight: bold; font-size: 0.9rem; }
   .minigame-desc { font-size: 0.72rem; color: #9ca3af; line-height: 1.3; min-height: 2.5em; }
-  .minigame-btn {
-    padding: 10px; border: none; border-radius: 8px;
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
-    color: #fff; font-weight: bold; cursor: pointer;
-    transition: all 0.2s; font-size: 0.85rem;
-  }
+  .minigame-btn { padding: 10px; border: none; border-radius: 8px; background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; font-weight: bold; cursor: pointer; transition: all 0.2s; font-size: 0.85rem; }
   .minigame-btn:hover:not(:disabled) { transform: scale(1.02); }
   .minigame-btn:disabled { background: rgba(255,255,255,0.05); color: #6b7280; cursor: not-allowed; }
-  .mg-play-area {
-    background: rgba(0,0,0,0.3); border-radius: 8px;
-    padding: 12px; min-height: 60px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 8px; font-size: 0.8rem; position: relative; overflow: hidden;
-  }
-  .mewing-track {
-    width: 100%; height: 20px; background: rgba(255,255,255,0.05);
-    border-radius: 999px; position: relative; overflow: hidden;
-  }
-  .mewing-target {
-    position: absolute; top: 0; bottom: 0; left: 42%; width: 16%;
-    background: rgba(34,197,94,0.4);
-    border-left: 2px solid #22c55e; border-right: 2px solid #22c55e;
-  }
-  .mewing-cursor {
-    position: absolute; top: -4px; bottom: -4px; width: 3px;
-    background: #fbbf24; box-shadow: 0 0 10px #fbbf24; border-radius: 2px;
-  }
+  .mg-play-area { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 12px; min-height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 0.8rem; position: relative; overflow: hidden; }
+  .mewing-track { width: 100%; height: 20px; background: rgba(255,255,255,0.05); border-radius: 999px; position: relative; overflow: hidden; }
+  .mewing-target { position: absolute; top: 0; bottom: 0; left: 42%; width: 16%; background: rgba(34,197,94,0.4); border-left: 2px solid #22c55e; border-right: 2px solid #22c55e; }
+  .mewing-cursor { position: absolute; top: -4px; bottom: -4px; width: 3px; background: #fbbf24; box-shadow: 0 0 10px #fbbf24; border-radius: 2px; }
   .jawline-counter { font-size:2rem; font-weight:bold; color:#fbbf24; font-family:monospace; }
-  .jawline-btn-big {
-    padding: 20px 40px; border: none; border-radius: 12px;
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #1a1a2e; font-weight: bold; font-size: 1.1rem;
-    cursor: pointer; transition: transform 0.05s; user-select: none;
-  }
+  .jawline-btn-big { padding: 20px 40px; border: none; border-radius: 12px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #1a1a2e; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: transform 0.05s; user-select: none; }
   .jawline-btn-big:active { transform: scale(0.95); }
-  .reaction-box {
-    width: 100%; height: 80px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: bold; font-size: 1.1rem;
-    background: #374151; color: #e5e7eb;
-    cursor: pointer; transition: background 0.1s; user-select: none;
-  }
+  .reaction-box { width: 100%; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem; background: #374151; color: #e5e7eb; cursor: pointer; transition: background 0.1s; user-select: none; }
   .reaction-box.waiting { background: #1f2937; color: #6b7280; cursor: wait; }
   .reaction-box.ready { background: #22c55e; color: #fff; cursor: pointer; animation: reactionPulse 0.3s infinite; }
   @keyframes reactionPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.02);} }
 
   .psl-tierlist { display:grid; gap:6px; margin-top:16px; }
-  .psl-tier-row {
-    display: flex; align-items: center; gap: 12px;
-    padding: 10px 14px; border-radius: 8px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    font-size: 0.85rem;
-  }
+  .psl-tier-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 8px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); font-size: 0.85rem; }
   .psl-tier-row.achieved { background: linear-gradient(90deg, var(--c-t), rgba(255,255,255,0.02)); border-color: var(--c); }
   .psl-tier-row.current { border-width: 2px; box-shadow: 0 0 20px var(--c-t); }
   .psl-tier-row.locked { opacity: 0.4; }
@@ -397,28 +195,10 @@
   .psl-tier-row-bonus { font-size: 0.7rem; color: #4ade80; font-weight: bold; }
 
   .ach-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:12px; }
-  .ach-card {
-    background: rgba(255,255,255,0.03);
-    border: 2px solid rgba(255,255,255,0.08);
-    border-radius: 12px; padding: 16px;
-    display: flex; flex-direction: column; align-items: center;
-    gap: 8px; text-align: center; transition: all 0.3s; position: relative;
-  }
-  .ach-card.unlocked {
-    background: linear-gradient(180deg, rgba(245,158,11,0.15), rgba(168,85,247,0.08));
-    border-color: #f59e0b; box-shadow: 0 0 20px rgba(245,158,11,0.2);
-  }
-  .ach-card.special.unlocked {
-    background: linear-gradient(135deg, #ec4899, #a855f7, #3b82f6, #f59e0b, #ec4899);
-    background-size: 400% 400%;
-    animation: rainbowBg 3s infinite;
-    border-color: #ec4899;
-    box-shadow: 0 0 40px rgba(236,72,153,0.6);
-  }
-  @keyframes rainbowBg {
-    0%,100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
+  .ach-card { background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; transition: all 0.3s; position: relative; }
+  .ach-card.unlocked { background: linear-gradient(180deg, rgba(245,158,11,0.15), rgba(168,85,247,0.08)); border-color: #f59e0b; box-shadow: 0 0 20px rgba(245,158,11,0.2); }
+  .ach-card.special.unlocked { background: linear-gradient(135deg, #ec4899, #a855f7, #3b82f6, #f59e0b, #ec4899); background-size: 400% 400%; animation: rainbowBg 3s infinite; border-color: #ec4899; box-shadow: 0 0 40px rgba(236,72,153,0.6); }
+  @keyframes rainbowBg { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
   .ach-card.locked { opacity: 0.5; }
   .ach-emoji { font-size: 2.2rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); }
   .ach-card.locked .ach-emoji { filter: grayscale(1) opacity(0.5); }
@@ -428,69 +208,27 @@
   .ach-check { position:absolute; top:8px; right:10px; color:#22c55e; font-weight:bold; font-size:1.2rem; }
 
   .lucky-chest-section { margin-bottom: 24px; }
-  .lucky-chest-card {
-    background: linear-gradient(135deg, #065f46, #047857, #10b981);
-    border: 2px solid #34d399;
-    border-radius: 16px; padding: 24px;
-    text-align: center; position: relative; overflow: hidden;
-    box-shadow: 0 0 40px rgba(16,185,129,0.3);
-  }
-  .lucky-chest-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 40px);
-    pointer-events: none;
-  }
-  .lucky-chest-emoji {
-    font-size: 3.5rem; margin-bottom: 4px;
-    filter: drop-shadow(0 0 20px #34d399); animation: bobUp 1.5s infinite;
-  }
+  .lucky-chest-card { background: linear-gradient(135deg, #065f46, #047857, #10b981); border: 2px solid #34d399; border-radius: 16px; padding: 24px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 0 40px rgba(16,185,129,0.3); }
+  .lucky-chest-card::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 40px); pointer-events: none; }
+  .lucky-chest-emoji { font-size: 3.5rem; margin-bottom: 4px; filter: drop-shadow(0 0 20px #34d399); animation: bobUp 1.5s infinite; }
   @keyframes bobUp { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
   .lucky-chest-title { font-size: 1.4rem; font-weight: bold; color: #34d399; margin-bottom: 4px; letter-spacing: 2px; }
   .lucky-chest-sub { font-size: 0.85rem; color: #a7f3d0; margin-bottom: 12px; }
   .lucky-chest-warn { font-size: 0.8rem; color: #fbbf24; margin-bottom: 16px; font-weight: bold; }
-  .lucky-open-btn {
-    padding: 14px 32px; border: none; border-radius: 12px;
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: #fff; font-weight: bold; font-size: 1rem;
-    cursor: pointer; transition: all 0.2s;
-    box-shadow: 0 0 20px rgba(16,185,129,0.4);
-    position: relative; z-index: 1;
-  }
+  .lucky-open-btn { padding: 14px 32px; border: none; border-radius: 12px; background: linear-gradient(135deg, #10b981, #059669); color: #fff; font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 0 20px rgba(16,185,129,0.4); position: relative; z-index: 1; }
   .lucky-open-btn:hover:not(:disabled) { transform: scale(1.05); box-shadow: 0 0 40px rgba(16,185,129,0.7); }
   .lucky-open-btn:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
 
-  .lucky-roulette {
-    max-width: 700px; margin: 0 auto 20px; height: 140px;
-    overflow: hidden; position: relative;
-    background: rgba(0,0,0,0.4);
-    border: 1px solid rgba(16,185,129,0.3);
-    border-radius: 14px; display: none;
-  }
+  .lucky-roulette { max-width: 700px; margin: 0 auto 20px; height: 140px; overflow: hidden; position: relative; background: rgba(0,0,0,0.4); border: 1px solid rgba(16,185,129,0.3); border-radius: 14px; display: none; }
   .lucky-roulette.active { display: block; }
-  .lucky-roulette-marker {
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 3px; height: 100%;
-    background: linear-gradient(to bottom, transparent, #34d399, transparent);
-    z-index: 10; pointer-events: none; box-shadow: 0 0 15px #34d399;
-  }
+  .lucky-roulette-marker { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 3px; height: 100%; background: linear-gradient(to bottom, transparent, #34d399, transparent); z-index: 10; pointer-events: none; box-shadow: 0 0 15px #34d399; }
   .lucky-strip { display:flex; gap:8px; height:100%; padding:15px 0; will-change:transform; }
-  .lucky-strip-item {
-    flex: 0 0 110px; height: 110px;
-    background: rgba(255,255,255,0.04);
-    border: 2px solid var(--lc, #666);
-    border-radius: 10px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 4px; padding: 8px; text-align: center;
-  }
+  .lucky-strip-item { flex: 0 0 110px; height: 110px; background: rgba(255,255,255,0.04); border: 2px solid var(--lc, #666); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 8px; text-align: center; }
   .lucky-strip-emoji { font-size: 1.6rem; }
   .lucky-strip-name { font-size: 0.65rem; font-weight: bold; color: #e5e7eb; line-height: 1.1; }
   .lucky-strip-score { font-size: 0.55rem; color: #9ca3af; font-family: monospace; }
 
-  .lucky-result {
-    max-width: 700px; margin: 0 auto 20px; padding: 20px;
-    border-radius: 14px; text-align: center; display: none;
-    animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
-  }
+  .lucky-result { max-width: 700px; margin: 0 auto 20px; padding: 20px; border-radius: 14px; text-align: center; display: none; animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1); }
   .lucky-result.show { display: block; }
   .lucky-result.win { background: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(16,185,129,0.1)); border: 2px solid #10b981; }
   .lucky-result.lose { background: linear-gradient(135deg, rgba(239,68,68,0.3), rgba(239,68,68,0.1)); border: 2px solid #ef4444; }
@@ -502,81 +240,34 @@
   .lucky-result.win .lucky-result-msg { color: #a7f3d0; }
   .lucky-result.lose .lucky-result-msg { color: #fca5a5; }
 
-  .celebration {
-    position: fixed; inset: 0; z-index: 2000;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
-    opacity: 0; pointer-events: none; transition: opacity 0.3s;
-  }
+  .celebration { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
   .celebration.show { opacity: 1; pointer-events: auto; }
-  .celebration-inner {
-    background: linear-gradient(135deg, var(--cc, #6b7280) 22, #0f0f1e);
-    border: 3px solid var(--cc, #374151);
-    border-radius: 20px; padding: 40px 60px;
-    text-align: center;
-    animation: celebratePop 0.6s cubic-bezier(0.34,1.56,0.64,1);
-    box-shadow: 0 0 80px var(--cc, #374151);
-  }
-  @keyframes celebratePop {
-    0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
-    100% { transform: scale(1) rotate(0); opacity: 1; }
-  }
+  .celebration-inner { background: linear-gradient(135deg, var(--cc, #6b7280) 22, #0f0f1e); border: 3px solid var(--cc, #374151); border-radius: 20px; padding: 40px 60px; text-align: center; animation: celebratePop 0.6s cubic-bezier(0.34,1.56,0.64,1); box-shadow: 0 0 80px var(--cc, #374151); }
+  @keyframes celebratePop { 0% { transform: scale(0.3) rotate(-15deg); opacity: 0; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
   .celebration-title { font-size: 0.8rem; letter-spacing: 4px; color: #9ca3af; text-transform: uppercase; margin-bottom: 12px; }
   .celebration-emoji { font-size: 5rem; margin-bottom: 8px; animation: bobUp 1s infinite; }
   .celebration-name { font-size: 2.4rem; font-weight: bold; color: var(--cc); margin-bottom: 4px; letter-spacing: 2px; }
   .celebration-score { font-size: 1.2rem; color: #e5e7eb; margin-bottom: 16px; }
   .celebration-msg { font-size: 0.9rem; color: #9ca3af; margin-bottom: 20px; max-width: 400px; }
-  .celebration-btn {
-    padding: 12px 32px; border: none; border-radius: 10px;
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #1a1a2e; font-weight: bold; font-size: 1rem;
-    cursor: pointer; transition: transform 0.2s;
-  }
+  .celebration-btn { padding: 12px 32px; border: none; border-radius: 10px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #1a1a2e; font-weight: bold; font-size: 1rem; cursor: pointer; transition: transform 0.2s; }
   .celebration-btn:hover { transform: scale(1.05); }
 
-  .xp-float {
-    position: fixed; pointer-events: none; z-index: 1500;
-    font-weight: bold; font-size: 1.2rem;
-    color: #60a5fa;
-    text-shadow: 0 0 10px rgba(96,165,250,0.8), 0 2px 4px rgba(0,0,0,0.8);
-    animation: floatUp 1.4s ease-out forwards;
-  }
-  @keyframes floatUp {
-    0% { transform: translateY(0) scale(0.8); opacity: 0; }
-    20% { transform: translateY(-20px) scale(1.2); opacity: 1; }
-    100% { transform: translateY(-100px) scale(1); opacity: 0; }
-  }
+  .xp-float { position: fixed; pointer-events: none; z-index: 1500; font-weight: bold; font-size: 1.2rem; color: #60a5fa; text-shadow: 0 0 10px rgba(96,165,250,0.8), 0 2px 4px rgba(0,0,0,0.8); animation: floatUp 1.4s ease-out forwards; }
+  @keyframes floatUp { 0% { transform: translateY(0) scale(0.8); opacity: 0; } 20% { transform: translateY(-20px) scale(1.2); opacity: 1; } 100% { transform: translateY(-100px) scale(1); opacity: 0; } }
 
-  .flash-overlay {
-    position: fixed; inset: 0;
-    background: radial-gradient(circle, rgba(245,158,11,0.6), transparent 70%);
-    pointer-events: none; opacity: 0; z-index: 999;
-  }
+  .flash-overlay { position: fixed; inset: 0; background: radial-gradient(circle, rgba(245,158,11,0.6), transparent 70%); pointer-events: none; opacity: 0; z-index: 999; }
   .flash-overlay.flash { animation: flashAnim 0.8s ease-out; }
   @keyframes flashAnim { 0%{opacity:0;} 20%{opacity:1;} 100%{opacity:0;} }
   .flash-overlay.purple { background: radial-gradient(circle, rgba(168,85,247,0.7), transparent 70%); }
 
-  .toast {
-    position: fixed; bottom: 20px; left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: #1f2937; border: 1px solid #ef4444;
-    color: #fca5a5; padding: 12px 24px; border-radius: 10px;
-    font-weight: bold; transition: transform 0.3s; z-index: 1000;
-    max-width: 90vw; text-align: center;
-  }
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #1f2937; border: 1px solid #ef4444; color: #fca5a5; padding: 12px 24px; border-radius: 10px; font-weight: bold; transition: transform 0.3s; z-index: 1000; max-width: 90vw; text-align: center; }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.good { border-color: #22c55e; color: #86efac; }
   .toast.gold { border-color: #f59e0b; color: #fbbf24; }
   .toast.purple { border-color: #a855f7; color: #d8b4fe; }
   .toast.blue { border-color: #3b82f6; color: #93c5fd; }
 
-  .save-indicator {
-    position: fixed; bottom: 20px; right: 20px;
-    background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.4);
-    color: #4ade80; padding: 6px 12px; border-radius: 8px;
-    font-size: 0.75rem; font-weight: bold;
-    opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1001;
-  }
+  .save-indicator { position: fixed; bottom: 20px; right: 20px; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.4); color: #4ade80; padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1001; }
   .save-indicator.show { opacity: 1; }
 </style>
 </head>
@@ -701,23 +392,23 @@ const LUCKY_WEIGHTS = [20, 18, 15, 12, 10, 8, 6, 4, 3, 2, 1, 0.5, 0.3, 0.15, 0.0
 const LUCKY_PENALTY = 150;
 
 const CAT = {
-  groesse:      { n:'Körpergröße', e:'📏', t:['1,72 m','1,78 m','1,84 m','1,88 m','1,95 m'] },
-  augenfarbe:   { n:'Augenfarbe',  e:'👁️', t:['Braun','Haselnuss','Grün','Eisblau','Stechend Blau'] },
-  augenform:    { n:'Augenform',   e:'👀', t:['Rund','Mandel','Almond Eyes','Hunter Eyes','Deep Set Hunter'] },
-  augenbrauen:  { n:'Augenbrauen', e:'🤨', t:['Hoch gesetzt','Normal','Low Set Eyebrows','Straight Brows','Model Brows'] },
-  canthal:      { n:'Canthal Tilt',e:'📐', t:['Negativ','Neutral','Positive Canthal Tilt','Stark positiv','Perfekter Tilt'] },
-  jawline:      { n:'Jawline',     e:'🗿', t:['Weich','Definiert','Scharf','Kantig','Chad Jawline'] },
-  wangenknochen:{ n:'Wangenknochen',e:'🦴', t:['Flach','Leicht definiert','Definiert','High Cheekbones','Model Cheekbones'] },
-  hollow:       { n:'Hollow Cheeks',e:'💀', t:['Keine','Leicht','Moderat','Ausgeprägt','Extreme Hollow'] },
-  haut:         { n:'Haut',        e:'✨', t:['Normal','Gepflegt','Glatt','Porzellan','Perfekt rein'] },
-  haare:        { n:'Haare',       e:'💇', t:['Dünn','Gepflegt','Dicht','Löwenmähne','God Tier Hair'] },
+  groesse: { n:'Körpergröße', e:'📏', t:['1,72 m','1,78 m','1,84 m','1,88 m','1,95 m'] },
+  augenfarbe: { n:'Augenfarbe', e:'👁️', t:['Braun','Haselnuss','Grün','Eisblau','Stechend Blau'] },
+  augenform: { n:'Augenform', e:'👀', t:['Rund','Mandel','Almond Eyes','Hunter Eyes','Deep Set Hunter'] },
+  augenbrauen: { n:'Augenbrauen', e:'🤨', t:['Hoch gesetzt','Normal','Low Set Eyebrows','Straight Brows','Model Brows'] },
+  canthal: { n:'Canthal Tilt',e:'📐', t:['Negativ','Neutral','Positive Canthal Tilt','Stark positiv','Perfekter Tilt'] },
+  jawline: { n:'Jawline', e:'🗿', t:['Weich','Definiert','Scharf','Kantig','Chad Jawline'] },
+  wangenknochen: { n:'Wangenknochen',e:'🦴', t:['Flach','Leicht definiert','Definiert','High Cheekbones','Model Cheekbones'] },
+  hollow: { n:'Hollow Cheeks',e:'💀', t:['Keine','Leicht','Moderat','Ausgeprägt','Extreme Hollow'] },
+  haut: { n:'Haut', e:'✨', t:['Normal','Gepflegt','Glatt','Porzellan','Perfekt rein'] },
+  haare: { n:'Haare', e:'💇', t:['Dünn','Gepflegt','Dicht','Löwenmähne','God Tier Hair'] },
   gesichtsform: { n:'Gesichtsform',e:'🎭', t:['Rund','Oval','V-förmig','Diamond','Perfekt symmetrisch'] },
-  kiefer:       { n:'Kinn & Kiefer',e:'🦴', t:['Schmal','Normal','Breit','Eckig','Chad Chin'] },
-  nase:         { n:'Nase',        e:'👃', t:['Breit','Normal','Gerade','Schlank','Perfekte Nase'] },
-  zaehne:       { n:'Zähne',       e:'😁', t:['Krumm','Normal','Gerade','Veneers','Hollywood Smile'] },
-  statur:       { n:'Statur',      e:'💪', t:['Normal','Fit','Athletisch','Breit','Peak Male Physique'] },
-  mewing:       { n:'Mewing',      e:'👅', t:['Mundatmung','Mewing Basics','Mewing Routine','Hard Mewing','Mewing God'] },
-  genetik:      { n:'Genetik',     e:'🧬', t:['Durchschnitt','Gut','Sehr gut','Elite','Chad Genetik'] }
+  kiefer: { n:'Kinn & Kiefer',e:'🦴', t:['Schmal','Normal','Breit','Eckig','Chad Chin'] },
+  nase: { n:'Nase', e:'👃', t:['Breit','Normal','Gerade','Schlank','Perfekte Nase'] },
+  zaehne: { n:'Zähne', e:'😁', t:['Krumm','Normal','Gerade','Veneers','Hollywood Smile'] },
+  statur: { n:'Statur', e:'💪', t:['Normal','Fit','Athletisch','Breit','Peak Male Physique'] },
+  mewing: { n:'Mewing', e:'👅', t:['Mundatmung','Mewing Basics','Mewing Routine','Hard Mewing','Mewing God'] },
+  genetik: { n:'Genetik', e:'🧬', t:['Durchschnitt','Gut','Sehr gut','Elite','Chad Genetik'] }
 };
 const CAT_KEYS = Object.keys(CAT);
 const TOTAL_ITEMS = CAT_KEYS.length * 5;
@@ -725,79 +416,62 @@ const TOTAL_ITEMS = CAT_KEYS.length * 5;
 const CASES = {
   bronze: { name:'Bronze Case', emoji:'📦', price:100, cls:'bronze', weights:{ common:70, uncommon:22, rare:7, epic:0.9, legendary:0.1 } },
   silber: { name:'Silber Case', emoji:'🎁', price:500, cls:'silber', weights:{ common:40, uncommon:35, rare:18, epic:6, legendary:1 } },
-  gold:   { name:'Gold Case', emoji:'💎', price:2000, cls:'gold', weights:{ common:15, uncommon:30, rare:30, epic:20, legendary:5 } }
+  gold: { name:'Gold Case', emoji:'💎', price:2000, cls:'gold', weights:{ common:15, uncommon:30, rare:30, epic:20, legendary:5 } }
 };
 
 const WORLDS = [
-  { name:'Normal World',       emoji:'🌍', color:'#9ca3af' },
-  { name:'Gym World',          emoji:'💪', color:'#22c55e' },
-  { name:'Instagram World',    emoji:'📸', color:'#3b82f6' },
-  { name:'Hollywood World',    emoji:'🎬', color:'#a855f7' },
-  { name:'Olymp World',        emoji:'🏛️', color:'#f59e0b' },
-  { name:'Chad Dimension',     emoji:'🧬', color:'#ef4444' },
-  { name:'Ascended Realm',     emoji:'✨', color:'#fbbf24' },
-  { name:'God Tier Dimension', emoji:'👑', color:'#fbbf24' },
-  { name:'Infinity Beyond',    emoji:'∞',  color:'#ec4899' }
+  { name:'Normal World', emoji:'🌍', color:'#9ca3af' }, { name:'Gym World', emoji:'💪', color:'#22c55e' },
+  { name:'Instagram World', emoji:'📸', color:'#3b82f6' }, { name:'Hollywood World', emoji:'🎬', color:'#a855f7' },
+  { name:'Olymp World', emoji:'🏛️', color:'#f59e0b' }, { name:'Chad Dimension', emoji:'🧬', color:'#ef4444' },
+  { name:'Ascended Realm', emoji:'✨', color:'#fbbf24' }, { name:'God Tier Dimension', emoji:'👑', color:'#fbbf24' },
+  { name:'Infinity Beyond', emoji:'∞', color:'#ec4899' }
 ];
 function getWorld(level) { return WORLDS[Math.min(level, WORLDS.length - 1)]; }
 
 const PSL_TIERS = [
-  { name:'Sub 3',     score:'2.0',  xp:0,     emoji:'💀', color:'#4b5563', sell:0,   rating:'0/10',   rizz:'Non-existent',      model:'0%',   desc:'Am Tiefpunkt — der Start.' },
-  { name:'Sub 5',     score:'2.5',  xp:15,    emoji:'😞', color:'#6b7280', sell:0,   rating:'1/10',   rizz:'Bottom Tier',       model:'0%',   desc:'Unterdurchschnittlich' },
-  { name:'LLTN',      score:'3.0',  xp:40,    emoji:'😐', color:'#9ca3af', sell:0,   rating:'2/10',   rizz:'Sehr niedrig',      model:'0%',   desc:'Low Low Tier Normie' },
-  { name:'LTN',       score:'3.5',  xp:80,    emoji:'🫤', color:'#a3a3a3', sell:0,   rating:'3/10',   rizz:'Niedrig',           model:'5%',   desc:'Low Tier Normie' },
-  { name:'HLTN',      score:'4.0',  xp:140,   emoji:'🙂', color:'#86efac', sell:5,   rating:'4/10',   rizz:'Unterdurchschnitt', model:'10%',  desc:'High Low Tier Normie' },
-  { name:'LMTN',      score:'4.25', xp:220,   emoji:'😊', color:'#4ade80', sell:10,  rating:'4.5/10', rizz:'Niedrig-Mittel',    model:'15%',  desc:'Low Mid Tier Normie' },
-  { name:'MTN',       score:'4.5',  xp:350,   emoji:'😌', color:'#22c55e', sell:15,  rating:'5/10',   rizz:'Normal',            model:'25%',  desc:'Mid Tier Normie' },
-  { name:'HMTN',      score:'4.75', xp:500,   emoji:'😏', color:'#16a34a', sell:20,  rating:'5.5/10', rizz:'Mittel-Hoch',       model:'35%',  desc:'High Mid Tier Normie' },
-  { name:'LHTN',      score:'5.0',  xp:700,   emoji:'😎', color:'#38bdf8', sell:25,  rating:'6/10',   rizz:'Gut',               model:'50%',  desc:'Low High Tier Normie' },
-  { name:'HTN',       score:'5.25', xp:1000,  emoji:'⭐', color:'#3b82f6', sell:30,  rating:'6.5/10', rizz:'Stark',             model:'65%',  desc:'High Tier Normie' },
-  { name:'HHTN',      score:'5.5',  xp:1500,  emoji:'✨', color:'#2563eb', sell:35,  rating:'7/10',   rizz:'Sehr stark',        model:'75%',  desc:'High High Tier Normie' },
-  { name:'Chadlite',  score:'6.0',  xp:2500,  emoji:'🔥', color:'#a855f7', sell:45,  rating:'8/10',   rizz:'High Tier',         model:'85%',  desc:'Fast Chad' },
-  { name:'Chad',      score:'6.5',  xp:3500,  emoji:'👑', color:'#f59e0b', sell:55,  rating:'8.5/10', rizz:'Godlike',           model:'90%',  desc:'Chad — Top 1%' },
-  { name:'Adam Lite', score:'7.0',  xp:6000,  emoji:'💎', color:'#fbbf24', sell:70,  rating:'9/10',   rizz:'Elite',             model:'95%',  desc:'Adam Lite — Elite, fast am Gipfel' },
-  { name:'Adam',      score:'7.5',  xp:10000, emoji:'🌟', color:'#ef4444', sell:85,  rating:'9.5/10', rizz:'Mythisch',          model:'99%',  desc:'Adam — God Tier, fast Peak Human' },
-  { name:'True Adam', score:'8.0',  xp:15000, emoji:'🧬', color:'#ec4899', sell:100, rating:'10/10',  rizz:'Legendär',          model:'100%', desc:'Peak Human — Legendär. Das Schwierigste im Spiel.' }
+  { name:'Sub 3', score:'2.0', xp:0, emoji:'💀', color:'#4b5563', sell:0, rating:'0/10', rizz:'Non-existent', model:'0%', desc:'Am Tiefpunkt.' },
+  { name:'Sub 5', score:'2.5', xp:15, emoji:'😞', color:'#6b7280', sell:0, rating:'1/10', rizz:'Bottom Tier', model:'0%', desc:'Unterdurchschnittlich.' },
+  { name:'LLTN', score:'3.0', xp:40, emoji:'😐', color:'#9ca3af', sell:0, rating:'2/10', rizz:'Sehr niedrig', model:'0%', desc:'Low Low Tier Normie.' },
+  { name:'LTN', score:'3.5', xp:80, emoji:'🫤', color:'#a3a3a3', sell:0, rating:'3/10', rizz:'Niedrig', model:'5%', desc:'Low Tier Normie.' },
+  { name:'HLTN', score:'4.0', xp:140, emoji:'🙂', color:'#86efac', sell:5, rating:'4/10', rizz:'Unterdurchschnitt', model:'10%', desc:'High Low Tier Normie.' },
+  { name:'LMTN', score:'4.25', xp:220, emoji:'😊', color:'#4ade80', sell:10, rating:'4.5/10', rizz:'Niedrig-Mittel', model:'15%', desc:'Low Mid Tier Normie.' },
+  { name:'MTN', score:'4.5', xp:350, emoji:'😌', color:'#22c55e', sell:15, rating:'5/10', rizz:'Normal', model:'25%', desc:'Mid Tier Normie.' },
+  { name:'HMTN', score:'4.75', xp:500, emoji:'😏', color:'#16a34a', sell:20, rating:'5.5/10', rizz:'Mittel-Hoch', model:'35%', desc:'High Mid Tier Normie.' },
+  { name:'LHTN', score:'5.0', xp:700, emoji:'😎', color:'#38bdf8', sell:25, rating:'6/10', rizz:'Gut', model:'50%', desc:'Low High Tier Normie.' },
+  { name:'HTN', score:'5.25', xp:1000, emoji:'⭐', color:'#3b82f6', sell:30, rating:'6.5/10', rizz:'Stark', model:'65%', desc:'High Tier Normie.' },
+  { name:'HHTN', score:'5.5', xp:1500, emoji:'✨', color:'#2563eb', sell:35, rating:'7/10', rizz:'Sehr stark', model:'75%', desc:'High High Tier Normie.' },
+  { name:'Chadlite', score:'6.0', xp:2500, emoji:'🔥', color:'#a855f7', sell:45, rating:'8/10', rizz:'High Tier', model:'85%', desc:'Fast Chad.' },
+  { name:'Chad', score:'6.5', xp:3500, emoji:'👑', color:'#f59e0b', sell:55, rating:'8.5/10', rizz:'Godlike', model:'90%', desc:'Chad — Top 1%.' },
+  { name:'Adam Lite', score:'7.0', xp:6000, emoji:'💎', color:'#fbbf24', sell:70, rating:'9/10', rizz:'Elite', model:'95%', desc:'Adam Lite — Elite.' },
+  { name:'Adam', score:'7.5', xp:10000, emoji:'🌟', color:'#ef4444', sell:85, rating:'9.5/10', rizz:'Mythisch', model:'99%', desc:'Adam — God Tier.' },
+  { name:'True Adam', score:'8.0', xp:15000, emoji:'🧬', color:'#ec4899', sell:100, rating:'10/10', rizz:'Legendär', model:'100%', desc:'Peak Human.' }
 ];
 
 const ACHIEVEMENTS = [
-  { id:'first_draw',   name:'Erste Schritte',  emoji:'👶', desc:'Öffne deine erste Kiste',                          check: s => s.stats.totalDraws >= 1 },
-  { id:'first_legend', name:'Legendär',        emoji:'🌟', desc:'Ziehe dein erstes Legendary Item',                 check: s => !!s.stats.firstLegendary },
-  { id:'gambler_100',  name:'Gambler',         emoji:'🎰', desc:'Öffne 100 Kisten',                                 check: s => s.stats.totalDraws >= 100 },
-  { id:'mystery',      name:'Mystery Hunter',  emoji:'🎁', desc:'Ziehe dein erstes Mystery Item',                   check: s => !!s.stats.firstMystery },
-  { id:'collector',    name:'Sammler',         emoji:'📚', desc:'Sammle alle 85 Items',                             check: s => countSeen() >= TOTAL_ITEMS },
-  { id:'mtn',          name:'Normie',          emoji:'😌', desc:'Erreiche MTN (PSL 4.5)',                           check: s => getPslTierIndex() >= 6 },
-  { id:'chad',         name:'Chad Status',     emoji:'👑', desc:'Erreiche Chad (PSL 6.5)',                          check: s => getPslTierIndex() >= 12 },
-  { id:'adam_lite',    name:'Adam Lite',       emoji:'💎', desc:'Erreiche Adam Lite (PSL 7.0)',                     check: s => getPslTierIndex() >= 13 },
-  { id:'adam',         name:'Adam',            emoji:'🌟', desc:'Erreiche Adam (PSL 7.5)',                          check: s => getPslTierIndex() >= 14 },
-  { id:'true_adam',    name:'TRUE ADAM',       emoji:'🧬', desc:'Erreiche den höchsten Rang — True Adam (PSL 8.0)', check: s => getPslTierIndex() >= 15, special:true },
-  { id:'prestige_1',   name:'Wiedergeboren',   emoji:'✨', desc:'Erste Wiedergeburt vollziehen',                    check: s => s.prestige >= 1 },
-  { id:'prestige_5',   name:'Seelenwanderer',  emoji:'👻', desc:'5 Wiedergeburten',                                 check: s => s.prestige >= 5 }
+  { id:'first_draw', name:'Erste Schritte', emoji:'👶', desc:'Öffne deine erste Kiste', check: s => s.stats.totalDraws >= 1 },
+  { id:'first_legend', name:'Legendär', emoji:'🌟', desc:'Ziehe dein erstes Legendary Item', check: s => !!s.stats.firstLegendary },
+  { id:'gambler_100', name:'Gambler', emoji:'🎰', desc:'Öffne 100 Kisten', check: s => s.stats.totalDraws >= 100 },
+  { id:'mystery', name:'Mystery Hunter', emoji:'🎁', desc:'Ziehe dein erstes Mystery Item', check: s => !!s.stats.firstMystery },
+  { id:'collector', name:'Sammler', emoji:'📚', desc:'Sammle alle 85 Items', check: s => countSeen() >= TOTAL_ITEMS },
+  { id:'mtn', name:'Normie', emoji:'😌', desc:'Erreiche MTN (PSL 4.5)', check: s => getPslTierIndex() >= 6 },
+  { id:'chad', name:'Chad Status', emoji:'👑', desc:'Erreiche Chad (PSL 6.5)', check: s => getPslTierIndex() >= 12 },
+  { id:'adam_lite', name:'Adam Lite', emoji:'💎', desc:'Erreiche Adam Lite (PSL 7.0)', check: s => getPslTierIndex() >= 13 },
+  { id:'adam', name:'Adam', emoji:'🌟', desc:'Erreiche Adam (PSL 7.5)', check: s => getPslTierIndex() >= 14 },
+  { id:'true_adam', name:'TRUE ADAM', emoji:'🧬', desc:'Erreiche True Adam (PSL 8.0)', check: s => getPslTierIndex() >= 15, special:true },
+  { id:'prestige_1', name:'Wiedergeboren', emoji:'✨', desc:'Erste Wiedergeburt', check: s => s.prestige >= 1 },
+  { id:'prestige_5', name:'Seelenwanderer', emoji:'👻', desc:'5 Wiedergeburten', check: s => s.prestige >= 5 }
 ];
 
 function freshState() {
-  return {
-    coins: 1000,
-    inventory: [],
-    nextId: 1,
-    collection: {},
-    bestDraw: null,
-    prestige: 0,
-    pslXP: 0,
-    lastKnownTier: 0,
-    lastMinigame: 0,
-    achievements: {},
-    stats: { totalDraws:0, firstLegendary:false, firstMystery:false, legendaryCount:0 }
-  };
+  return { coins: 1000, inventory: [], nextId: 1, collection: {}, bestDraw: null, prestige: 0, pslXP: 0, lastKnownTier: 0, lastMinigame: 0, achievements: {}, stats: { totalDraws:0, firstLegendary:false, firstMystery:false, legendaryCount:0 } };
 }
 
 function saveState() {
   try {
     localStorage.setItem(SAVE_KEY, JSON.stringify(state));
-    showSaveIndicator();
-  } catch (e) {
-    console.warn('Speichern fehlgeschlagen:', e);
-  }
+    const el = document.getElementById('saveIndicator');
+    if (el) { el.classList.add('show'); clearTimeout(showSaveIndicator._timer); showSaveIndicator._timer = setTimeout(() => el.classList.remove('show'), 900); }
+  } catch (e) { console.warn('Speichern fehlgeschlagen:', e); }
 }
 
 function loadState() {
@@ -816,24 +490,12 @@ function loadState() {
     merged.prestige = Number(merged.prestige) || 0;
     merged.nextId = Number(merged.nextId) || 1;
     return merged;
-  } catch (e) {
-    console.warn('Laden fehlgeschlagen, starte neu:', e);
-    return freshState();
-  }
-}
-
-function showSaveIndicator() {
-  const el = document.getElementById('saveIndicator');
-  if (!el) return;
-  el.classList.add('show');
-  clearTimeout(showSaveIndicator._timer);
-  showSaveIndicator._timer = setTimeout(() => el.classList.remove('show'), 900);
+  } catch (e) { return freshState(); }
 }
 
 let state = loadState();
 let isSpinning = false;
 let isLuckySpinning = false;
-
 let mewingState = { active:false, pos:0, dir:1, interval:null };
 let jawlineState = { active:false, count:0, startTime:0 };
 let reactionState = { active:false, timeoutId:null, startTime:0, phase:'idle' };
@@ -842,19 +504,13 @@ function rollRarityBase(caseType) {
   const w = CASES[caseType].weights;
   const total = Object.values(w).reduce((a,b)=>a+b,0);
   let r = Math.random() * total;
-  for (const [rarity, weight] of Object.entries(w)) {
-    r -= weight;
-    if (r <= 0) return rarity;
-  }
+  for (const [rarity, weight] of Object.entries(w)) { r -= weight; if (r <= 0) return rarity; }
   return 'common';
 }
 function rollRarityWeighted(weights) {
   const total = Object.values(weights).reduce((a,b)=>a+b,0);
   let r = Math.random() * total;
-  for (const [rarity, weight] of Object.entries(weights)) {
-    r -= weight;
-    if (r <= 0) return rarity;
-  }
+  for (const [rarity, weight] of Object.entries(weights)) { r -= weight; if (r <= 0) return rarity; }
   return 'common';
 }
 function getLuck() { return 1 + state.prestige; }
@@ -884,4 +540,468 @@ function rollItem(caseType) {
 function getEquipped() {
   const eq = {};
   for (const item of state.inventory) {
-    const cur =
+    const cur = eq[item.category];
+    if (!cur || RAR_ORDER[item.rarity] > RAR_ORDER[cur.rarity]) eq[item.category] = item;
+  }
+  return eq;
+}
+function countSeen() { let c = 0; for (const k of CAT_KEYS) c += Object.keys(state.collection[k] || {}).length; return c; }
+function canPrestige() { return countSeen() >= TOTAL_ITEMS; }
+function getSellPrice(item) { const base = SELL_VALUES[item.rarity]; const bonusPct = getPslTier().sell; return base + Math.floor(base * bonusPct / 100); }
+function getPslTierIndex() { let idx = 0; for (let i = 0; i < PSL_TIERS.length; i++) { if (state.pslXP >= PSL_TIERS[i].xp) idx = i; } return idx; }
+function getPslTier() { return PSL_TIERS[getPslTierIndex()]; }
+function getNextPslTier() { const idx = getPslTierIndex(); return idx < PSL_TIERS.length - 1 ? PSL_TIERS[idx + 1] : null; }
+
+function addPslXP(amount, x, y) {
+  const before = getPslTierIndex();
+  state.pslXP += amount;
+  const after = getPslTierIndex();
+  if (after > before) { state.lastKnownTier = after; setTimeout(() => showRankUp(after), 400); }
+  if (x !== undefined) showXpFloat(amount, x, y);
+  renderPslTab(); renderHeaderStats(); saveState(); checkAchievements();
+}
+function showXpFloat(amount, x, y) {
+  const el = document.createElement('div');
+  el.className = 'xp-float'; el.textContent = `+${amount} PSL`;
+  el.style.left = x + 'px'; el.style.top = y + 'px';
+  document.body.appendChild(el); setTimeout(() => el.remove(), 1400);
+}
+function showRankUp(tierIdx) {
+  const tier = PSL_TIERS[tierIdx];
+  const celeb = document.getElementById('celebration');
+  document.getElementById('celebrationInner').style.setProperty('--cc', tier.color);
+  document.getElementById('celebrationEmoji').textContent = tier.emoji;
+  document.getElementById('celebrationName').textContent = tier.name;
+  document.getElementById('celebrationScore').textContent = `PSL ${tier.score} · Rating ${tier.rating}`;
+  document.getElementById('celebrationMsg').textContent = tierIdx === PSL_TIERS.length - 1 ? '🧬 TRUE ADAM ERREICHT!' : `${tier.desc}${tier.sell > 0 ? ` · +${tier.sell}% Sell-Bonus` : ''}`;
+  celeb.classList.add('show'); screenFlash(tierIdx === PSL_TIERS.length - 1);
+}
+
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show' + (type ? ' ' + type : '');
+  clearTimeout(t._timer); t._timer = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+function flashCoins() { const w = document.querySelector('.stat-pill.wallet'); w.classList.add('flash'); setTimeout(()=>w.classList.remove('flash'), 200); }
+function screenFlash(purple=false) {
+  const f = document.getElementById('flash');
+  f.className = 'flash-overlay' + (purple ? ' purple' : '');
+  f.classList.remove('flash'); void f.offsetWidth; f.classList.add('flash');
+}
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector(`.tab-content[data-content="${tab.dataset.tab}"]`).classList.add('active');
+    if (tab.dataset.tab === 'psl') renderPslTab();
+  });
+});
+
+function renderHeaderStats() {
+  const tier = getPslTier(); const badge = document.getElementById('pslBadge');
+  badge.textContent = `${tier.emoji} ${tier.name}`;
+  badge.style.background = `${tier.color}22`; badge.style.borderColor = tier.color; badge.style.color = tier.color;
+  document.getElementById('coinAmount').textContent = state.coins.toLocaleString('de-DE');
+  const world = getWorld(state.prestige);
+  document.getElementById('worldBadge').textContent = `${world.emoji} ${world.name.split(' ')[0]}`;
+  document.getElementById('luckBadge').textContent = `🍀 ${getLuck()}x`;
+}
+
+function renderCases() {
+  const container = document.getElementById('cases'); container.innerHTML = '';
+  for (const [key, c] of Object.entries(CASES)) {
+    const w = c.weights; const card = document.createElement('div');
+    card.className = `case-card ${c.cls}`;
+    card.innerHTML = `
+      <div class="case-icon">${c.emoji}</div><div class="case-name">${c.name}</div>
+      <div class="case-price">${c.price.toLocaleString('de-DE')} 🪙</div>
+      <div class="case-mystery-hint">🎁 ${(MYSTERY_CHANCE*100).toFixed(0)}% Mystery</div>
+      <div class="drop-bar">
+        <div style="width:${w.common}%;background:var(--common)"></div><div style="width:${w.uncommon}%;background:var(--uncommon)"></div>
+        <div style="width:${w.rare}%;background:var(--rare)"></div><div style="width:${w.epic}%;background:var(--epic)"></div>
+        <div style="width:${w.legendary}%;background:var(--legendary)"></div>
+      </div>
+      <div class="drop-legend">
+        <span style="color:var(--common)">${w.common}%</span><span style="color:var(--uncommon)">${w.uncommon}%</span>
+        <span style="color:var(--rare)">${w.rare}%</span><span style="color:var(--epic)">${w.epic}%</span><span style="color:var(--legendary)">${w.legendary}%</span>
+      </div>
+      <button class="open-btn" data-case="${key}">Öffnen</button>`;
+    container.appendChild(card);
+  }
+}
+
+function renderPslTab() {
+  const tierIdx = getPslTierIndex(); const tier = PSL_TIERS[tierIdx]; const nextTier = getNextPslTier(); const isMax = !nextTier;
+  const hero = document.getElementById('pslHero');
+  hero.className = 'psl-hero' + (isMax ? ' max' : '');
+  hero.style.setProperty('--pc', tier.color); hero.style.setProperty('--pc-glow', tier.color + '55');
+  let progressPct = 100, progressText = 'MAX';
+  if (!isMax) {
+    const currXP = PSL_TIERS[tierIdx].xp; const nextXP = nextTier.xp;
+    progressPct = Math.min(100, (state.pslXP - currXP) / (nextXP - currXP) * 100);
+    progressText = `${state.pslXP - currXP} / ${nextXP - currXP} XP`;
+  }
+  hero.innerHTML = `
+    <div class="psl-hero-emoji">${tier.emoji}</div><div class="psl-hero-name">${tier.name}</div>
+    <div class="psl-hero-score">PSL Score: ${tier.score} / 8.0</div>
+    <div class="psl-attrs">
+      <div class="psl-attr"><div class="psl-attr-label">Rating</div><div class="psl-attr-value" style="color:${tier.color}">${tier.rating}</div></div>
+      <div class="psl-attr"><div class="psl-attr-label">Rizz</div><div class="psl-attr-value">${tier.rizz}</div></div>
+      <div class="psl-attr"><div class="psl-attr-label">Model Potential</div><div class="psl-attr-value" style="color:${tier.color}">${tier.model}</div></div>
+    </div>
+    <div class="psl-progress-wrap"><div class="psl-progress-bar" style="width:${progressPct}%"></div><div class="psl-progress-text">${progressText}</div></div>
+    <div class="psl-next">${isMax ? '🏆 Maximaler Rang erreicht! True Adam.' : `Nächster Rang: ${nextTier.emoji} ${nextTier.name} (${nextTier.score}) — noch ${nextTier.xp - state.pslXP} XP`}</div>`;
+  document.getElementById('pslTierlist').innerHTML = PSL_TIERS.map((t, i) => {
+    const achieved = state.pslXP >= t.xp; const isCurrent = i === tierIdx;
+    return `<div class="psl-tier-row ${achieved ? 'achieved' : 'locked'} ${isCurrent ? 'current' : ''}" style="--c:${t.color};--c-t:${t.color}33">
+        <span class="psl-tier-row-emoji">${t.emoji}</span><span class="psl-tier-row-name">${t.name}</span>
+        <span class="psl-tier-row-score">${t.score} · ${t.rating}</span><span class="psl-tier-row-xp">${t.xp} XP</span>
+        ${t.sell > 0 ? `<span class="psl-tier-row-bonus">+${t.sell}%</span>` : ''}
+        <span style="font-size:1rem">${isCurrent ? '👈' : (achieved ? '✓' : '🔒')}</span></div>`;
+  }).join('');
+  renderMinigames();
+}
+
+function renderMinigames() {
+  const now = Date.now(); const cooldownLeft = Math.max(0, MINIGAME_COOLDOWN - (now - state.lastMinigame));
+  const onCD = cooldownLeft > 0; const cdSecs = Math.ceil(cooldownLeft / 1000);
+  const mc = document.getElementById('minigameCount'); if (mc) mc.textContent = onCD ? `(Cooldown: ${cdSecs}s)` : '';
+  const grid = document.getElementById('minigamesGrid'); if (!grid) return;
+  if (mewingState.active || jawlineState.active || reactionState.active) return;
+  grid.innerHTML = `
+    <div class="minigame-card ${onCD ? 'on-cooldown' : ''}" id="mgMewing"><div class="minigame-head"><span class="minigame-emoji">👅</span><span class="minigame-name">Mewing</span></div><div class="minigame-desc">Stoppe den Zeiger im grünen Bereich! Perfekt = 20 XP</div><div class="mg-play-area" id="mewingArea">Klicke Start</div><button class="minigame-btn" id="mewingBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start Mewing'}</button></div>
+    <div class="minigame-card ${onCD ? 'on-cooldown' : ''}" id="mgJawline"><div class="minigame-head"><span class="minigame-emoji">💪</span><span class="minigame-name">Jawline Clench</span></div><div class="minigame-desc">Klicke 20× so schnell wie möglich! Max 25 XP</div><div class="mg-play-area" id="jawlineArea">Klicke Start</div><button class="minigame-btn" id="jawlineBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button></div>
+    <div class="minigame-card ${onCD ? 'on-cooldown' : ''}" id="mgReaction"><div class="minigame-head"><span class="minigame-emoji">⚡</span><span class="minigame-name">Reaction Test</span></div><div class="minigame-desc">Warte auf GRÜN und klicke schnell! Max 20 XP</div><div class="mg-play-area" id="reactionArea">Klicke Start</div><button class="minigame-btn" id="reactionBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button></div>`;
+  document.getElementById('mewingBtn').onclick = startMewing; document.getElementById('jawlineBtn').onclick = startJawline; document.getElementById('reactionBtn').onclick = startReaction;
+  if (onCD) { clearTimeout(renderMinigames._timer); renderMinigames._timer = setTimeout(renderMinigames, 1000); }
+}
+
+function grantMinigameXP(xp, label) {
+  state.lastMinigame = Date.now();
+  const badge = document.getElementById('pslBadge'); const rect = badge.getBoundingClientRect();
+  addPslXP(xp, rect.left + rect.width/2 - 30, rect.top + rect.height/2);
+  if (label) showToast(`${label} +${xp} PSL-XP`, 'blue');
+  renderMinigames();
+}
+
+function startMewing() {
+  if (Date.now() - state.lastMinigame < MINIGAME_COOLDOWN) { showToast('Cooldown aktiv!'); return; }
+  if (mewingState.active) return; mewingState.active = true; mewingState.pos = 0; mewingState.dir = 1;
+  const area = document.getElementById('mewingArea'); if (!area) return;
+  area.innerHTML = `<div class="mewing-track"><div class="mewing-target"></div><div class="mewing-cursor" id="mewingCursor" style="left:0%"></div></div><button class="minigame-btn" id="mewingStopBtn" style="margin-top:8px">STOPP!</button>`;
+  document.getElementById('mewingStopBtn').onclick = stopMewing;
+  mewingState.interval = setInterval(() => {
+    mewingState.pos += mewingState.dir * 2.5;
+    if (mewingState.pos >= 100) { mewingState.pos = 100; mewingState.dir = -1; }
+    if (mewingState.pos <= 0) { mewingState.pos = 0; mewingState.dir = 1; }
+    const cur = document.getElementById('mewingCursor'); if (cur) cur.style.left = mewingState.pos + '%';
+  }, 16);
+}
+function stopMewing() {
+  if (!mewingState.active) return; clearInterval(mewingState.interval); mewingState.active = false;
+  const p = mewingState.pos; let xp = 3, label = '❌ Verfehlt!';
+  if (p >= 45 && p <= 55) { xp = 20; label = '🎯 PERFECT!'; } else if (p >= 38 && p <= 62) { xp = 10; label = '✅ Gut!'; }
+  grantMinigameXP(xp, label);
+}
+
+function startJawline() {
+  if (Date.now() - state.lastMinigame < MINIGAME_COOLDOWN) { showToast('Cooldown aktiv!'); return; }
+  if (jawlineState.active) return; jawlineState.active = true; jawlineState.count = 0; jawlineState.startTime = Date.now();
+  const area = document.getElementById('jawlineArea'); if (!area) return;
+  area.innerHTML = `<div class="jawline-counter" id="jawlineCounter">0 / 20</div><button class="jawline-btn-big" id="jawlineClickBtn">CLENCH!</button>`;
+  document.getElementById('jawlineClickBtn').onclick = () => {
+    jawlineState.count++; const c = document.getElementById('jawlineCounter'); if (c) c.textContent = `${jawlineState.count} / 20`;
+    if (jawlineState.count >= 20) finishJawline();
+  };
+}
+function finishJawline() {
+  jawlineState.active = false; const elapsed = (Date.now() - jawlineState.startTime) / 1000; let xp, label;
+  if (elapsed < 3) { xp = 25; label = `🔥 Blazing! ${elapsed.toFixed(1)}s`; } else if (elapsed < 5) { xp = 18; label = `⚡ Schnell! ${elapsed.toFixed(1)}s`; } else if (elapsed < 8) { xp = 10; label = `✅ OK! ${elapsed.toFixed(1)}s`; } else { xp = 5; label = `🐢 Langsam! ${elapsed.toFixed(1)}s`; }
+  grantMinigameXP(xp, label);
+}
+
+function startReaction() {
+  if (Date.now() - state.lastMinigame < MINIGAME_COOLDOWN) { showToast('Cooldown aktiv!'); return; }
+  if (reactionState.active) return; reactionState.active = true; reactionState.phase = 'waiting';
+  const area = document.getElementById('reactionArea'); if (!area) return;
+  area.innerHTML = `<div class="reaction-box waiting" id="reactionBox">Warte auf GRÜN…</div>`;
+  const box = document.getElementById('reactionBox');
+  box.onclick = () => {
+    if (reactionState.phase === 'waiting') { clearTimeout(reactionState.timeoutId); reactionState.active = false; grantMinigameXP(2, '❌ Zu früh!'); return; }
+    if (reactionState.phase === 'ready') {
+      const ms = Date.now() - reactionState.startTime; reactionState.active = false; let xp, label;
+      if (ms < 250) { xp = 20; label = `⚡ ${ms}ms — Blitzschnell!`; } else if (ms < 350) { xp = 15; label = `🔥 ${ms}ms — Sehr schnell!`; } else if (ms < 500) { xp = 10; label = `✅ ${ms}ms — Solide`; } else { xp = 5; label = `🐢 ${ms}ms — Übe mehr!`; }
+      grantMinigameXP(xp, label);
+    }
+  };
+  const delay = 1000 + Math.random() * 2500;
+  reactionState.timeoutId = setTimeout(() => {
+    reactionState.phase = 'ready'; reactionState.startTime = Date.now();
+    const b = document.getElementById('reactionBox'); if (b) { b.className = 'reaction-box ready'; b.textContent = 'KLICK!'; }
+  }, delay);
+}
+
+function renderCharacter(highlightCat=null) {
+  const equipped = getEquipped(); let filled = 0;
+  document.getElementById('charGrid').innerHTML = CAT_KEYS.map(k => {
+    const cat = CAT[k]; const eq = equipped[k]; if (eq) filled++;
+    const color = eq ? RAR_COLOR[eq.rarity] : 'rgba(255,255,255,0.1)'; const tint = eq ? `${RAR_COLOR[eq.rarity]}15` : 'transparent';
+    const upgraded = highlightCat === k ? ' just-upgraded' : '';
+    return `<div class="char-card ${eq?'filled':'empty'}${upgraded}" style="--c:${color};--c-tint:${tint}"><div class="char-head"><span class="char-emoji">${cat.e}</span><span class="char-cat">${cat.n}</span></div><div class="char-val">${eq ? eq.name : '—'}</div>${eq ? `<div class="char-rar">${RAR_NAME[eq.rarity]}</div>` : ''}</div>`;
+  }).join('');
+  document.getElementById('charCount').textContent = `(${filled}/${CAT_KEYS.length})`;
+}
+
+function renderBestDraw() {
+  const box = document.getElementById('bestDraw');
+  if (!state.bestDraw) {
+    box.className = 'best-draw'; box.style.setProperty('--c', '#374151');
+    box.innerHTML = `<div class="best-label">🏆 Beste Ziehung</div><div class="best-empty">Noch nichts gezogen — öffne deine erste Kiste!</div>`;
+    return;
+  }
+  const b = state.bestDraw; const color = RAR_COLOR[b.rarity];
+  box.className = `best-draw ${b.rarity === 'legendary' ? 'legendary' : ''}`; box.style.setProperty('--c', color);
+  box.innerHTML = `<div class="best-label">🏆 Beste Ziehung</div><div class="best-content"><div class="best-emoji">${b.emoji}</div><div class="best-info"><div class="best-cat">${b.categoryName}</div><div class="best-name">${b.name}</div><div class="best-rar">${RAR_NAME[b.rarity]}</div></div></div>`;
+}
+
+function renderCollection() {
+  const grid = document.getElementById('collectionGrid');
+  grid.innerHTML = CAT_KEYS.map(k => {
+    const cat = CAT[k]; const seen = state.collection[k] || {}; const count = Object.keys(seen).length;
+    const tiers = RAR_TIERS.map((rar, i) => {
+      const isSeen = seen[rar]; const color = RAR_COLOR[rar];
+      return `<div class="col-tier ${isSeen?'':'locked'}" style="--c:${color};--c-tint:${isSeen ? color+'20' : 'transparent'}">${isSeen ? cat.t[i] : '???'}</div>`;
+    }).join('');
+    return `<div class="col-cat"><div class="col-head"><span class="col-head-emoji">${cat.e}</span><span class="col-head-name">${cat.n}</span><span class="col-head-progress">${count}/5</span></div><div class="col-tiers">${tiers}</div></div>`;
+  }).join('');
+  const seen = countSeen();
+  document.getElementById('colBadge').textContent = `${seen}/${TOTAL_ITEMS}`; document.getElementById('colTitle').textContent = `(${seen}/${TOTAL_ITEMS})`;
+}
+
+function renderInventory() {
+  const grid = document.getElementById('invGrid'); document.getElementById('invBadge').textContent = state.inventory.length; document.getElementById('invTitle').textContent = `(${state.inventory.length})`;
+  if (state.inventory.length === 0) { grid.innerHTML = '<p class="empty-inv">Noch keine Items — öffne eine Kiste!</p>'; return; }
+  const sorted = [...state.inventory].sort((a,b) => RAR_ORDER[b.rarity] - RAR_ORDER[a.rarity]);
+  grid.innerHTML = sorted.map(item => {
+    const sellPrice = getSellPrice(item); const bonus = sellPrice - SELL_VALUES[item.rarity];
+    return `<div class="inv-item" style="--c:${RAR_COLOR[item.rarity]}"><div class="inv-emoji">${item.emoji}</div><div class="inv-cat">${item.categoryName}</div><div class="inv-name">${item.name}</div><div class="inv-rar">${RAR_NAME[item.rarity]}</div><button class="sell-btn" data-id="${item.id}">${sellPrice} 🪙${bonus > 0 ? ` (+${bonus})` : ''}</button></div>`;
+  }).join('');
+}
+
+function renderWorld() {
+  const world = getWorld(state.prestige); const hero = document.getElementById('worldHero');
+  hero.style.setProperty('--wc', world.color); hero.style.setProperty('--wc-glow', world.color + '40');
+  hero.innerHTML = `<div class="world-hero-emoji">${world.emoji}</div><div class="world-hero-name">${world.name}</div><div class="world-hero-sub">Wiedergeburt #${state.prestige} · 🍀 ${getLuck()}x Luck</div>`;
+  const seen = countSeen(); const nextWorld = getWorld(state.prestige + 1);
+  document.getElementById('prestigeInfo').innerHTML = `
+    <div class="prestige-stat"><div class="prestige-stat-label">Aktueller Luck</div><div class="prestige-stat-value">🍀 ${getLuck()}x</div></div>
+    <div class="prestige-stat"><div class="prestige-stat-label">Sammlung</div><div class="prestige-stat-value">${seen}/${TOTAL_ITEMS} (${Math.round(seen/TOTAL_ITEMS*100)}%)</div></div>
+    <div class="prestige-stat"><div class="prestige-stat-label">Nächste Welt</div><div class="prestige-stat-value">${nextWorld.emoji} ${nextWorld.name}</div></div>
+    <div class="prestige-stat"><div class="prestige-stat-label">Luck danach</div><div class="prestige-stat-value">🍀 ${getLuck() + 1}x</div></div>`;
+  const btn = document.getElementById('prestigeBtn'); btn.disabled = !canPrestige();
+  btn.textContent = canPrestige() ? `✨ Wiedergeburt #${state.prestige + 1} vollziehen!` : `Noch ${TOTAL_ITEMS - seen} Items sammeln`;
+}
+
+function renderAchievements() {
+  const grid = document.getElementById('achGrid'); if (!grid) return;
+  const unlockedCount = Object.keys(state.achievements).length;
+  const badge = document.getElementById('achBadge'); const title = document.getElementById('achTitle');
+  if (badge) badge.textContent = `${unlockedCount}/${ACHIEVEMENTS.length}`; if (title) title.textContent = `(${unlockedCount}/${ACHIEVEMENTS.length})`;
+  grid.innerHTML = ACHIEVEMENTS.map(ach => {
+    const unlocked = !!state.achievements[ach.id]; const special = ach.special ? ' special' : '';
+    return `<div class="ach-card ${unlocked ? 'unlocked' : 'locked'}${special}"><div class="ach-emoji">${unlocked ? ach.emoji : '🔒'}</div><div class="ach-name">${ach.name}</div><div class="ach-desc">${ach.desc}</div>${unlocked ? '<div class="ach-check">✓</div>' : ''}</div>`;
+  }).join('');
+}
+
+function checkAchievements() {
+  const newOnes = [];
+  for (const ach of ACHIEVEMENTS) {
+    if (state.achievements[ach.id]) continue;
+    try { if (ach.check(state)) { state.achievements[ach.id] = true; newOnes.push(ach); } } catch(e) {}
+  }
+  if (newOnes.length) {
+    newOnes.forEach((ach, i) => setTimeout(() => {
+      const t = document.getElementById('toast'); t.textContent = `${ach.emoji} Erfolg: ${ach.name}!`;
+      t.className = 'toast show ' + (ach.special ? 'purple' : 'gold'); clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2600);
+      if (ach.special) screenFlash(true);
+    }, i * 700));
+    renderAchievements(); saveState();
+  }
+}
+
+function rollLuckyRank() {
+  const total = LUCKY_WEIGHTS.reduce((a,b)=>a+b,0); let r = Math.random() * total;
+  for (let i = 0; i < LUCKY_WEIGHTS.length; i++) { r -= LUCKY_WEIGHTS[i]; if (r <= 0) return i; }
+  return 0;
+}
+function buildLuckyStrip(winnerIdx) {
+  const strip = []; for (let i = 0; i < 40; i++) strip.push(i === 35 ? winnerIdx : rollLuckyRank()); return strip;
+}
+function renderLuckyStrip(rankIndices) {
+  document.getElementById('luckyStrip').innerHTML = rankIndices.map(idx => {
+    const tier = PSL_TIERS[idx];
+    return `<div class="lucky-strip-item" style="--lc:${tier.color}"><div class="lucky-strip-emoji">${tier.emoji}</div><div class="lucky-strip-name">${tier.name}</div><div class="lucky-strip-score">${tier.score}</div></div>`;
+  }).join('');
+}
+function animateLuckyStrip(targetIdx) {
+  return new Promise(resolve => {
+    const strip = document.getElementById('luckyStrip'); const vp = document.getElementById('luckyRoulette');
+    const iw = 110, gap = 8, spacing = iw + gap; const itemCenter = targetIdx * spacing + iw/2;
+    const jitter = (Math.random()-0.5) * (iw*0.6); const targetOffset = itemCenter - vp.offsetWidth/2 + jitter;
+    strip.style.transition = 'none'; strip.style.transform = 'translateX(0)'; void strip.offsetWidth;
+    strip.style.transition = 'transform 4s cubic-bezier(0.12, 0.85, 0.2, 1)'; strip.style.transform = `translateX(-${targetOffset}px)`;
+    setTimeout(resolve, 4100);
+  });
+}
+function updateLuckyBtn() {
+  const btn = document.getElementById('luckyOpenBtn'); if (!btn) return;
+  const currentIdx = getPslTierIndex(); const isMax = currentIdx >= PSL_TIERS.length - 1;
+  if (isMax) { btn.disabled = true; btn.textContent = '🧬 Du bist am Gipfel — True Adam'; return; }
+  if (state.coins < LUCKY_PENALTY) { btn.disabled = true; btn.textContent = `🍀 Mind. ${LUCKY_PENALTY} Coins nötig`; return; }
+  btn.disabled = false; btn.textContent = '🍀 Öffnen';
+}
+function showLuckyResult(isWin, rolledTier, currentIdx, coins, xp) {
+  const r = document.getElementById('luckyResult'); r.className = 'lucky-result show ' + (isWin ? 'win' : 'lose');
+  const currentTier = PSL_TIERS[currentIdx];
+  if (isWin) {
+    r.innerHTML = `<div class="lucky-result-title">🍀 GLÜCK GEHABT!</div><div class="lucky-result-roll">Gewürfelt: ${rolledTier.emoji} <strong>${rolledTier.name}</strong> (${rolledTier.score})<br>Dein Rang: ${currentTier.emoji} ${currentTier.name} (${currentTier.score})</div><div class="lucky-result-msg">+${coins} 🪙 Coins · +${xp} PSL-XP</div>`;
+  } else {
+    r.innerHTML = `<div class="lucky-result-title">💀 PECH GEHABT!</div><div class="lucky-result-roll">Gewürfelt: ${rolledTier.emoji} <strong>${rolledTier.name}</strong> (${rolledTier.score})<br>Dein Rang: ${currentTier.emoji} ${currentTier.name} (${currentTier.score})</div><div class="lucky-result-msg">-${LUCKY_PENALTY} 🪙 Strafe</div>`;
+  }
+}
+function hideLuckyResult() { document.getElementById('luckyResult').classList.remove('show'); }
+async function openLuckyChest() {
+  if (isLuckySpinning || isSpinning) return;
+  if (state.coins < LUCKY_PENALTY) { showToast('Nicht genug Coins!'); return; }
+  const currentIdx = getPslTierIndex(); if (currentIdx >= PSL_TIERS.length - 1) { showToast('Du bist am Gipfel! 🧬', 'gold'); return; }
+  isLuckySpinning = true; document.getElementById('luckyOpenBtn').disabled = true; hideLuckyResult(); hideResult();
+  document.getElementById('luckyRoulette').classList.add('active');
+  const rolledIdx = rollLuckyRank(); const strip = buildLuckyStrip(rolledIdx); renderLuckyStrip(strip);
+  await animateLuckyStrip(35);
+  const rolledTier = PSL_TIERS[rolledIdx]; const isWin = rolledIdx > currentIdx;
+  if (isWin) {
+    const diff = rolledIdx - currentIdx; const coinsReward = 200 * diff; const xpReward = 50 * diff;
+    state.coins += coinsReward; addPslXP(xpReward); showLuckyResult(true, rolledTier, currentIdx, coinsReward, xpReward);
+    showToast(`🍀 LUCKY! +${coinsReward} 🪙 +${xpReward} XP`, 'good'); screenFlash(false);
+  } else {
+    state.coins -= LUCKY_PENALTY; showLuckyResult(false, rolledTier, currentIdx); showToast(`💀 PECH! -${LUCKY_PENALTY} Coins`); screenFlash(true);
+  }
+  renderHeaderStats(); updateAll(); saveState(); checkAchievements();
+  isLuckySpinning = false; document.getElementById('luckyRoulette').classList.remove('active'); updateLuckyBtn();
+}
+
+function updateAll() {
+  renderHeaderStats(); renderCharacter(); renderBestDraw(); renderCollection(); renderInventory(); renderWorld(); renderPslTab(); renderAchievements(); updateLuckyBtn();
+}
+
+function buildStrip(caseType, winner, winnerIdx) { const strip = []; for (let i = 0; i < 40; i++) strip.push(i === winnerIdx ? winner : rollItem(caseType)); return strip; }
+function renderStrip(items) {
+  document.getElementById('strip').innerHTML = items.map(item => {
+    if (item.isMystery) return `<div class="strip-item mystery-slot" style="--rc:#a855f7"><div class="strip-item-emoji">🎁</div><div class="strip-item-cat">Mystery</div><div class="strip-item-name">???</div><div class="strip-item-rar" style="color:#a855f7">???</div></div>`;
+    return `<div class="strip-item" style="--rc:${RAR_COLOR[item.rarity]}"><div class="strip-item-emoji">${item.emoji}</div><div class="strip-item-cat">${item.categoryName}</div><div class="strip-item-name">${item.name}</div><div class="strip-item-rar">${item.rarity}</div></div>`;
+  }).join('');
+}
+function animateStrip(targetIdx) {
+  return new Promise(resolve => {
+    const strip = document.getElementById('strip'); const vp = document.getElementById('viewport');
+    const iw = 140, gap = 10, spacing = iw + gap; const itemCenter = targetIdx * spacing + iw/2;
+    const jitter = (Math.random()-0.5) * (iw*0.6); const targetOffset = itemCenter - vp.offsetWidth/2 + jitter;
+    strip.style.transition = 'none'; strip.style.transform = 'translateX(0)'; void strip.offsetWidth;
+    strip.style.transition = 'transform 5s cubic-bezier(0.12, 0.85, 0.2, 1)'; strip.style.transform = `translateX(-${targetOffset}px)`;
+    setTimeout(resolve, 5100);
+  });
+}
+
+async function openCase(caseType) {
+  if (isSpinning || isLuckySpinning) return;
+  const c = CASES[caseType]; if (state.coins < c.price) { showToast('Nicht genug Coins!'); return; }
+  state.coins -= c.price; isSpinning = true; renderHeaderStats(); flashCoins();
+  document.querySelectorAll('.open-btn').forEach(b => b.disabled = true); hideResult(); document.getElementById('placeholder').classList.add('hidden');
+  const winner = rollItem(caseType); const strip = buildStrip(caseType, winner, 35); renderStrip(strip);
+  await animateStrip(35);
+  const isDuplicate = !!state.collection[winner.category]?.[winner.rarity];
+  if (!state.collection[winner.category]) state.collection[winner.category] = {}; state.collection[winner.category][winner.rarity] = true;
+  let isBestDrawUpgrade = false;
+  if (!state.bestDraw || RAR_ORDER[winner.rarity] > RAR_ORDER[state.bestDraw.rarity]) { state.bestDraw = { ...winner, id: state.nextId++ }; isBestDrawUpgrade = true; }
+  let dupBonus = 0; if (isDuplicate) { dupBonus = Math.floor(SELL_VALUES[winner.rarity] * DUP_BONUS_RATE); state.coins += dupBonus; }
+  const equippedBefore = getEquipped(); const prevInCat = equippedBefore[winner.category];
+  const isUpgrade = !prevInCat || RAR_ORDER[winner.rarity] > RAR_ORDER[prevInCat.rarity];
+  const invItem = { ...winner, id: state.nextId++ }; state.inventory.push(invItem);
+  state.stats.totalDraws++; if (winner.rarity === 'legendary') { state.stats.firstLegendary = true; state.stats.legendaryCount++; }
+  if (winner.isMystery) state.stats.firstMystery = true;
+  let xp = DRAW_XP[winner.rarity]; if (winner.isMystery) xp *= 2;
+  const badgeRect = document.getElementById('pslBadge').getBoundingClientRect();
+  addPslXP(xp, badgeRect.left + badgeRect.width/2 - 30, badgeRect.top + badgeRect.height/2);
+  updateAll(); saveState(); if (isUpgrade) renderCharacter(winner.category);
+  if (winner.isMystery) showMysteryReveal(winner, isUpgrade, dupBonus, isDuplicate, xp);
+  else showResult(winner, isUpgrade, dupBonus, isDuplicate, xp);
+  if (winner.rarity === 'legendary') screenFlash(winner.isMystery);
+  setTimeout(() => {
+    if (winner.isMystery) showToast(`🎁 MYSTERY! ${RAR_NAME[winner.rarity]} (+${xp} XP)!`, 'purple');
+    else if (isBestDrawUpgrade) showToast(`🏆 Neue beste Ziehung: ${RAR_NAME[winner.rarity]}!`, 'gold');
+    else if (isDuplicate) showToast(`📦 Duplikat → +${dupBonus} 🪙 Bonus!`, 'good');
+    else if (isUpgrade) showToast(`⬆️ Upgrade: ${winner.categoryName}!`, 'good');
+  }, winner.isMystery ? 1200 : 200);
+  checkAchievements();
+  isSpinning = false; document.querySelectorAll('.open-btn').forEach(b => b.disabled = false);
+}
+
+function buildTags(isUpgrade, dupBonus, isDuplicate, isMystery, xp) {
+  const tags = []; if (isMystery) tags.push('<span class="tag mystery">🎁 MYSTERY</span>');
+  if (isUpgrade) tags.push('<span class="tag upgrade">⬆️ UPGRADE!</span>');
+  if (isDuplicate) tags.push(`<span class="tag duplicate">📦 +${dupBonus} 🪙</span>`);
+  tags.push(`<span class="tag xp">+${xp} PSL-XP</span>`); return `<div class="tag-row">${tags.join('')}</div>`;
+}
+function showResult(item, isUpgrade, dupBonus, isDuplicate, xp) {
+  const panel = document.getElementById('resultPanel'); const color = RAR_COLOR[item.rarity]; const sellPrice = getSellPrice(item);
+  panel.style.background = `linear-gradient(135deg, ${color}22, ${color}11)`; panel.style.border = `1px solid ${color}`; panel.style.color = color;
+  panel.innerHTML = `${buildTags(isUpgrade, dupBonus, isDuplicate, item.isMystery, xp)}<div class="result-emoji mystery-reveal">${item.emoji === '🎁' ? CAT[item.category].e : item.emoji}</div><div class="result-cat">${item.categoryName}</div><div class="result-name">${item.name}</div><div class="result-rarity" style="color:${color}">${RAR_NAME[item.rarity]}</div><button class="sell-btn" data-id="${item.id}">Verkaufen für ${sellPrice} 🪙</button>`;
+  panel.classList.add('show');
+}
+function showMysteryReveal(item, isUpgrade, dupBonus, isDuplicate, xp) {
+  const panel = document.getElementById('resultPanel');
+  panel.style.background = 'linear-gradient(135deg, #a855f733, #7c3aed22)'; panel.style.border = '1px solid #a855f7'; panel.style.color = '#a855f7';
+  panel.innerHTML = `<div class="result-emoji" style="font-size:3rem;animation:pulse 0.5s infinite">🎁</div><div class="result-name">Mystery Item</div><div class="result-rarity">Wird geöffnet…</div>`;
+  panel.classList.add('show'); setTimeout(() => showResult(item, isUpgrade, dupBonus, isDuplicate, xp), 900);
+}
+function hideResult() { document.getElementById('resultPanel').classList.remove('show'); }
+
+function sellItem(id) {
+  const idx = state.inventory.findIndex(i => i.id === Number(id)); if (idx === -1) return;
+  const item = state.inventory[idx]; const price = getSellPrice(item);
+  state.inventory.splice(idx, 1); state.coins += price;
+  updateAll(); saveState(); flashCoins(); hideResult();
+}
+
+function doPrestige() {
+  if (!canPrestige()) { showToast('Sammle erst alle 85 Items!'); return; }
+  const newLevel = state.prestige + 1; const newWorld = getWorld(newLevel);
+  if (!confirm(`✨ WIEDERGEBURT #${newLevel} ✨\n\nVERLOREN: Coins (→1000), Inventar, Sammlung\nBEHALTEN: Beste Ziehung, PSL-Rang, Prestige\nGEWONNEN: 🍀 ${getLuck()+1}x Luck (statt ${getLuck()}x), ${newWorld.name}\n\nWirklich wiedergeboren werden?`)) return;
+  state.coins = 1000; state.inventory = []; state.collection = {}; state.prestige = newLevel;
+  hideResult(); document.getElementById('placeholder').classList.remove('hidden'); document.getElementById('strip').innerHTML = '';
+  updateAll(); saveState(); screenFlash(true);
+  setTimeout(() => showToast(`✨ Willkommen in ${newWorld.emoji} ${newWorld.name}!`, 'purple'), 400);
+  checkAchievements();
+}
+
+document.addEventListener('click', (e) => {
+  const ob = e.target.closest('.open-btn'); if (ob) { openCase(ob.dataset.case); return; }
+  const sb = e.target.closest('.sell-btn'); if (sb && sb.dataset.id) { sellItem(sb.dataset.id); }
+});
+document.getElementById('prestigeBtn').addEventListener('click', doPrestige);
+document.getElementById('luckyOpenBtn').addEventListener('click', openLuckyChest);
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if (!confirm('KOMPLETT-RESET: ALLES geht verloren, auch PSL und Prestige!\n\nDrücke OK um zu bestätigen.')) return;
+  try { localStorage.removeItem(SAVE_KEY); } catch(e) {}
+  state = freshState(); hideResult(); hideLuckyResult(); document.getElementById('placeholder').classList.remove('hidden'); document.getElementById('strip').innerHTML = '';
+  updateAll(); saveState();
+});
+window.addEventListener('beforeunload', () => { try { saveState(); } catch(e) {} });
+
+renderCases();
+updateAll();
+</script>
+</body>
+</html>
