@@ -399,7 +399,7 @@
 </div>
 
 <script>
-const SAVE_KEY = 'looksmaxxing_save_v3';
+const SAVE_KEY = 'looksmaxxing_save_v4';
 
 const RAR_COLOR = { common:'#9ca3af', uncommon:'#22c55e', rare:'#3b82f6', epic:'#a855f7', legendary:'#f59e0b' };
 const RAR_NAME = { common:'Common', uncommon:'Uncommon', rare:'Rare', epic:'Epic', legendary:'Legendary ✨' };
@@ -412,7 +412,7 @@ const MYSTERY_WEIGHTS = { common:5, uncommon:20, rare:35, epic:25, legendary:15 
 const DRAW_XP = { common:1, uncommon:2, rare:5, epic:15, legendary:50 };
 const MINIGAME_COOLDOWN = 6000;
 const LUCKY_WEIGHTS = [20, 18, 15, 12, 10, 8, 6, 4, 3, 2, 1, 0.5, 0.3, 0.15, 0.04, 0.01];
-const LUCKY_PENALTY = 100; // Geändert auf 100 Coins
+const LUCKY_PENALTY = 100;
 const LUCK_MULTIPLIER_CHANCE = 0.20;
 const LUCK_VALUES = [2, 3, 5, 8];
 
@@ -560,7 +560,7 @@ let reactionState = { active:false, timeoutId:null, startTime:0, phase:'idle' };
 let coinClickerState = { active:false, count:0, endTime:0, interval:null };
 let targetState = { active:false, hits:0, endTime:0, spawnTimeout:null };
 let barryState = { active:false, count:0, endTime:0, interval:null };
-let mathState = { active:false, answer:0 };
+let mathState = { active:false, answer:0, timeout:null };
 
 function rollRarityBase(caseType) {
   const w = CASES[caseType].weights;
@@ -934,19 +934,17 @@ function startMath() {
   let timeLeft = 5;
   const timer = setInterval(() => {
     timeLeft--;
-    document.getElementById('mathTimer').textContent = timeLeft;
+    const el = document.getElementById('mathTimer'); if (el) el.textContent = timeLeft;
     if (timeLeft <= 0) {
       clearInterval(timer);
       finishMath(false);
     }
   }, 1000);
   
-  const timeout = setTimeout(() => {
+  mathState.timeout = setTimeout(() => {
     clearInterval(timer);
     finishMath(false);
   }, 5000);
-  
-  mathState.timeout = timeout;
 }
 
 function finishMath(success) {
@@ -1163,13 +1161,11 @@ async function openLuckyChest() {
   const rolledTier = PSL_TIERS[rolledIdx]; const isWin = rolledIdx > currentIdx;
   
   if (isWin) {
-    // Besseren Rang ausrüsten (XP hochsetzen)
     state.pslXP = PSL_TIERS[rolledIdx].xp;
     const diff = rolledIdx - currentIdx; const coinsReward = 200 * diff; const xpReward = 50 * diff;
     state.coins += coinsReward; addPslXP(xpReward); showLuckyResult(true, rolledTier, currentIdx, coinsReward, xpReward);
     showToast(`🍀 LUCKY! +${coinsReward} 🪙 +${xpReward} XP`, 'good'); screenFlash(false);
   } else {
-    // Schlechteren Rang ausrüsten & Strafe zahlen (wenn er schlechter ist)
     if (rolledIdx < currentIdx) {
         state.pslXP = PSL_TIERS[rolledIdx].xp;
         state.coins -= LUCKY_PENALTY;
@@ -1268,7 +1264,6 @@ async function executeSpinSequence() {
     };
   } else {
     let winner;
-    // LUCK TIER LOGIC (8x = Epic+, 16x = Legendary)
     if (accumulatedLuck >= 16) {
         winner = makeItem('legendary', CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false);
     } else if (accumulatedLuck >= 8) {
@@ -1306,7 +1301,7 @@ function processItemResult(winner) {
   const prevInCat = equippedBefore[winner.category];
   const isUpgrade = !prevInCat || RAR_ORDER[winner.rarity] > RAR_ORDER[prevInCat.rarity];
   
-  const invItem = { ...winner, id: state.nextId++, isDuplicate: isDuplicate }; // Save isDuplicate flag for selling!
+  const invItem = { ...winner, id: state.nextId++, isDuplicate: isDuplicate };
   state.inventory.push(invItem);
   
   state.stats.totalDraws++; 
@@ -1374,7 +1369,6 @@ function sellItem(id) {
   state.inventory.splice(idx, 1); 
   state.coins += price;
   
-  // XP ABZIEHEN (Wenn es KEIN Duplikat ist)
   if (!item.isDuplicate) {
       state.pslXP = Math.max(0, state.pslXP - DRAW_XP[item.rarity]);
       showToast(`📉 ${item.name} verkauft. PSL XP gesunken!`, 'bad');
