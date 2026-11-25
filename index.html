@@ -742,28 +742,28 @@ function renderCoinMinigames() {
     <div class="minigame-card ${onCD ? 'on-cooldown' : ''}">
       <div class="minigame-head"><span class="minigame-emoji">🪙</span><span class="minigame-name">Coin Clicker</span></div>
       <div class="minigame-desc">Klicke 50× in 10 Sekunden!</div>
-      <div class="minigame-reward">Belohnung: 100 Coins + 50 PSL XP</div>
+      <div class="minigame-reward">Belohnung: 100 Coins</div>
       <div class="mg-play-area" id="clickerArea">Bereit?</div>
       <button class="minigame-btn" id="clickerBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button>
     </div>
     <div class="minigame-card ${onCD ? 'on-cooldown' : ''}">
       <div class="minigame-head"><span class="minigame-emoji">🎯</span><span class="minigame-name">Target Practice</span></div>
       <div class="minigame-desc">Triff den Kreis 5× in 8 Sekunden!</div>
-      <div class="minigame-reward">Belohnung: 100 Coins + 50 PSL XP</div>
+      <div class="minigame-reward">Belohnung: 100 Coins</div>
       <div class="mg-play-area" id="targetAreaContainer">Bereit?</div>
       <button class="minigame-btn" id="targetBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button>
     </div>
     <div class="minigame-card ${onCD ? 'on-cooldown' : ''}">
       <div class="minigame-head"><span class="minigame-emoji">🔋</span><span class="minigame-name">Power Bar</span></div>
       <div class="minigame-desc">Klicke so schnell du kannst auf 100% in 5s!</div>
-      <div class="minigame-reward">Belohnung: 100 Coins + 50 PSL XP</div>
+      <div class="minigame-reward">Belohnung: 100 Coins</div>
       <div class="mg-play-area" id="barryContainer">Bereit?</div>
       <button class="minigame-btn" id="barryBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button>
     </div>
     <div class="minigame-card ${onCD ? 'on-cooldown' : ''}">
       <div class="minigame-head"><span class="minigame-emoji">🧮</span><span class="minigame-name">Quick Math</span></div>
       <div class="minigame-desc">Löse die Rechnung in 5s!</div>
-      <div class="minigame-reward">Belohnung: 100 Coins + 50 PSL XP</div>
+      <div class="minigame-reward">Belohnung: 100 Coins</div>
       <div class="mg-play-area" id="mathContainer">Bereit?</div>
       <button class="minigame-btn" id="mathBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button>
     </div>`;
@@ -796,8 +796,8 @@ function startCoinClicker() {
       coinClickerState.active = false;
       state.lastCoinMinigame = Date.now();
       if (coinClickerState.count >= 50) {
-        addCoins(100); addPslXP(50);
-        showToast('🎉 GESCHAFFT! +100 Coins +50 XP', 'good');
+        addCoins(100);
+        showToast('🎉 GESCHAFFT! +100 Coins', 'good');
         screenFlash(false);
       } else {
         showToast(`❌ Knapp verfehlt! (${coinClickerState.count}/50)`, 'bad');
@@ -847,8 +847,8 @@ function finishTargetPractice() {
   targetState.active = false;
   state.lastCoinMinigame = Date.now();
   if (targetState.hits >= 5) {
-    addCoins(100); addPslXP(50);
-    showToast('🎉 GESCHAFFT! +100 Coins +50 XP', 'good');
+    addCoins(100);
+    showToast('🎉 GESCHAFFT! +100 Coins', 'good');
     screenFlash(false);
   } else {
     showToast(`❌ Zeit abgelaufen! (${targetState.hits}/5)`, 'bad');
@@ -872,8 +872,8 @@ function startBarry() {
       clearInterval(barryState.interval);
       barryState.active = false;
       state.lastCoinMinigame = Date.now();
-      addCoins(100); addPslXP(50);
-      showToast('🎉 GESCHAFFT! +100 Coins +50 XP', 'good');
+      addCoins(100);
+      showToast('🎉 GESCHAFFT! +100 Coins', 'good');
       screenFlash(false);
       renderCoinMinigames();
     }
@@ -954,8 +954,8 @@ function finishMath(success) {
   state.lastCoinMinigame = Date.now();
   
   if (success) {
-    addCoins(100); addPslXP(50);
-    showToast('🎉 RICHTIG! +100 Coins +50 XP', 'good');
+    addCoins(100);
+    showToast('🎉 RICHTIG! +100 Coins', 'good');
     screenFlash(false);
   } else {
     showToast('❌ Falsch oder Zeit abgelaufen!', 'bad');
