@@ -1081,4 +1081,353 @@ function renderWorld() {
     <div class="prestige-stat"><div class="prestige-stat-label">Aktueller Luck</div><div class="prestige-stat-value">🍀 ${getLuck()}x</div></div>
     <div class="prestige-stat"><div class="prestige-stat-label">Sammlung</div><div class="prestige-stat-value">${seen}/${TOTAL_ITEMS} (${Math.round(seen/TOTAL_ITEMS*100)}%)</div></div>
     <div class="prestige-stat"><div class="prestige-stat-label">Nächste Welt</div><div class="prestige-stat-value">${nextWorld.emoji} ${nextWorld.name}</div></div>
-    <div class="prestige-stat"><
+    <div class="prestige-stat"><div class="prestige-stat-label">Luck danach</div><div class="prestige-stat-value">🍀 ${getLuck() + 1}x</div></div>`;
+  const btn = document.getElementById('prestigeBtn'); btn.disabled = !canPrestige();
+  btn.textContent = canPrestige() ? `✨ Wiedergeburt #${state.rebirths + 1} vollziehen!` : `Noch ${TOTAL_ITEMS - seen} Items sammeln`;
+}
+function renderAchievements() {
+  const grid = document.getElementById('achGrid'); if (!grid) return;
+  const unlockedCount = Object.keys(state.achievements).length;
+  const badge = document.getElementById('achBadge'); const title = document.getElementById('achTitle');
+  if (badge) badge.textContent = `${unlockedCount}/${ACHIEVEMENTS.length}`; if (title) title.textContent = `(${unlockedCount}/${ACHIEVEMENTS.length})`;
+  grid.innerHTML = ACHIEVEMENTS.map(ach => {
+    const unlocked = !!state.achievements[ach.id]; const special = ach.special ? ' special' : '';
+    return `<div class="ach-card ${unlocked ? 'unlocked' : 'locked'}${special}"><div class="ach-emoji">${unlocked ? ach.emoji : '🔒'}</div><div class="ach-name">${ach.name}</div><div class="ach-desc">${ach.desc}</div>${unlocked ? '<div class="ach-check">✓</div>' : ''}</div>`;
+  }).join('');
+}
+function checkAchievements() {
+  const newOnes = [];
+  for (const ach of ACHIEVEMENTS) {
+    if (state.achievements[ach.id]) continue;
+    try { if (ach.check(state)) { state.achievements[ach.id] = true; newOnes.push(ach); } } catch(e) {}
+  }
+  if (newOnes.length) {
+    newOnes.forEach((ach, i) => setTimeout(() => {
+      const t = document.getElementById('toast'); t.textContent = `${ach.emoji} Erfolg: ${ach.name}!`;
+      t.className = 'toast show ' + (ach.special ? 'purple' : 'gold'); clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2600);
+      if (ach.special) screenFlash(true);
+    }, i * 700));
+    renderAchievements(); saveState();
+  }
+}
+
+function rollLuckyRank() {
+  const total = LUCKY_WEIGHTS.reduce((a,b)=>a+b,0); let r = Math.random() * total;
+  for (let i = 0; i < LUCKY_WEIGHTS.length; i++) { r -= LUCKY_WEIGHTS[i]; if (r <= 0) return i; }
+  return 0;
+}
+function buildLuckyStrip(winnerIdx) {
+  const strip = []; for (let i = 0; i < 40; i++) strip.push(i === 35 ? winnerIdx : rollLuckyRank()); return strip;
+}
+function renderLuckyStrip(rankIndices) {
+  document.getElementById('luckyStrip').innerHTML = rankIndices.map(idx => {
+    const tier = PSL_TIERS[idx];
+    return `<div class="lucky-strip-item" style="--lc:${tier.color}"><div class="lucky-strip-emoji">${tier.emoji}</div><div class="lucky-strip-name">${tier.name}</div><div class="lucky-strip-score">${tier.score}</div></div>`;
+  }).join('');
+}
+function animateLuckyStrip(targetIdx) {
+  return new Promise(resolve => {
+    const strip = document.getElementById('luckyStrip'); const vp = document.getElementById('luckyRoulette');
+    const iw = 110, gap = 8, spacing = iw + gap; const itemCenter = targetIdx * spacing + iw/2;
+    const jitter = (Math.random()-0.5) * (iw*0.6); const targetOffset = itemCenter - vp.offsetWidth/2 + jitter;
+    strip.style.transition = 'none'; strip.style.transform = 'translateX(0)'; void strip.offsetWidth;
+    strip.style.transition = 'transform 4s cubic-bezier(0.12, 0.85, 0.2, 1)'; strip.style.transform = `translateX(-${targetOffset}px)`;
+    setTimeout(resolve, 4100);
+  });
+}
+function updateLuckyBtn() {
+  const btn = document.getElementById('luckyOpenBtn'); if (!btn) return;
+  const currentIdx = getPslTierIndex(); const isMax = currentIdx >= PSL_TIERS.length - 1;
+  if (isMax) { btn.disabled = true; btn.textContent = '🧬 Du bist am Gipfel — True Adam'; return; }
+  if (state.coins < LUCKY_PENALTY) { btn.disabled = true; btn.textContent = `🍀 Mind. ${LUCKY_PENALTY} Coins nötig`; return; }
+  btn.disabled = false; btn.textContent = '🍀 Öffnen';
+}
+function showLuckyResult(isWin, rolledTier, currentIdx, coins, xp) {
+  const r = document.getElementById('luckyResult'); r.className = 'lucky-result show ' + (isWin ? 'win' : 'lose');
+  const currentTier = PSL_TIERS[currentIdx];
+  if (isWin) {
+    r.innerHTML = `<div class="lucky-result-title">🍀 GLÜCK GEHABT!</div><div class="lucky-result-roll">Gewürfelt: ${rolledTier.emoji} <strong>${rolledTier.name}</strong> (${rolledTier.score})<br>Dein Rang: ${currentTier.emoji} ${currentTier.name} (${currentTier.score})</div><div class="lucky-result-msg">+${coins} 🪙 Coins · +${xp} PSL-XP</div>`;
+  } else {
+    r.innerHTML = `<div class="lucky-result-title">💀 PECH GEHABT!</div><div class="lucky-result-roll">Gewürfelt: ${rolledTier.emoji} <strong>${rolledTier.name}</strong> (${rolledTier.score})<br>Dein Rang: ${currentTier.emoji} ${currentTier.name} (${currentTier.score})</div><div class="lucky-result-msg">-${LUCKY_PENALTY} 🪙 Strafe</div>`;
+  }
+}
+function hideLuckyResult() { document.getElementById('luckyResult').classList.remove('show'); }
+async function openLuckyChest() {
+  if (isLuckySpinning || isSpinning) return;
+  if (state.coins < LUCKY_PENALTY) { showToast('Nicht genug Coins!'); return; }
+  const currentIdx = getPslTierIndex(); if (currentIdx >= PSL_TIERS.length - 1) { showToast('Du bist am Gipfel! 🧬', 'gold'); return; }
+  isLuckySpinning = true; document.getElementById('luckyOpenBtn').disabled = true; hideLuckyResult(); hideResult();
+  document.getElementById('luckyRoulette').classList.add('active');
+  const rolledIdx = rollLuckyRank(); const strip = buildLuckyStrip(rolledIdx); renderLuckyStrip(strip);
+  await animateLuckyStrip(35);
+  const rolledTier = PSL_TIERS[rolledIdx]; const isWin = rolledIdx > currentIdx;
+  
+  if (isWin) {
+    // Besseren Rang ausrüsten (XP hochsetzen)
+    state.pslXP = PSL_TIERS[rolledIdx].xp;
+    const diff = rolledIdx - currentIdx; const coinsReward = 200 * diff; const xpReward = 50 * diff;
+    state.coins += coinsReward; addPslXP(xpReward); showLuckyResult(true, rolledTier, currentIdx, coinsReward, xpReward);
+    showToast(`🍀 LUCKY! +${coinsReward} 🪙 +${xpReward} XP`, 'good'); screenFlash(false);
+  } else {
+    // Schlechteren Rang ausrüsten & Strafe zahlen (wenn er schlechter ist)
+    if (rolledIdx < currentIdx) {
+        state.pslXP = PSL_TIERS[rolledIdx].xp;
+        state.coins -= LUCKY_PENALTY;
+    }
+    showLuckyResult(false, rolledTier, currentIdx); showToast(`💀 PECH! -${LUCKY_PENALTY} Coins & Rang verloren`, 'bad'); screenFlash(true);
+  }
+  
+  renderHeaderStats(); updateAll(); saveState(); checkAchievements();
+  isLuckySpinning = false; document.getElementById('luckyRoulette').classList.remove('active'); updateLuckyBtn();
+}
+
+function updateAll() {
+  renderHeaderStats(); renderCharacter(); renderBestDraw(); renderCollection(); renderInventory(); renderWorld(); renderPslTab(); renderAchievements(); updateLuckyBtn();
+  renderCoinMinigames();
+}
+
+// --- LUCK MULTIPLIER CHEST LOGIC ---
+function buildStrip(caseType, winner, winnerIdx) {
+  const strip = [];
+  for (let i = 0; i < 40; i++) {
+    if (i === winnerIdx) { strip.push(winner); }
+    else {
+      if (Math.random() < 0.2) {
+        strip.push({ isLuck: true, mult: LUCK_VALUES[Math.floor(Math.random() * LUCK_VALUES.length)] });
+      } else {
+        strip.push(rollItem(caseType, 0));
+      }
+    }
+  }
+  return strip;
+}
+
+function renderStrip(items) {
+  document.getElementById('strip').innerHTML = items.map(item => {
+    if (item.isLuck) return `<div class="strip-item luck-slot" style="--rc:#22c55e"><div class="strip-item-emoji">🍀</div><div class="strip-item-cat">LUCK</div><div class="strip-item-name">${item.mult}x LUCK</div><div class="strip-item-rar" style="color:#22c55e">MULTIPLIER</div></div>`;
+    if (item.isMystery) return `<div class="strip-item mystery-slot" style="--rc:#a855f7"><div class="strip-item-emoji">🎁</div><div class="strip-item-cat">Mystery</div><div class="strip-item-name">???</div><div class="strip-item-rar" style="color:#a855f7">???</div></div>`;
+    return `<div class="strip-item" style="--rc:${RAR_COLOR[item.rarity]}"><div class="strip-item-emoji">${item.emoji}</div><div class="strip-item-cat">${item.categoryName}</div><div class="strip-item-name">${item.name}</div><div class="strip-item-rar">${item.rarity}</div></div>`;
+  }).join('');
+}
+
+function animateStrip(targetIdx) {
+  return new Promise(resolve => {
+    const strip = document.getElementById('strip'); const vp = document.getElementById('viewport');
+    const iw = 140, gap = 10, spacing = iw + gap; const itemCenter = targetIdx * spacing + iw/2;
+    const jitter = (Math.random()-0.5) * (iw*0.6); const targetOffset = itemCenter - vp.offsetWidth/2 + jitter;
+    strip.style.transition = 'none'; strip.style.transform = 'translateX(0)'; void strip.offsetWidth;
+    strip.style.transition = 'transform 5s cubic-bezier(0.12, 0.85, 0.2, 1)'; strip.style.transform = `translateX(-${targetOffset}px)`;
+    setTimeout(resolve, 5100);
+  });
+}
+
+async function openCase(caseType) {
+  if (isSpinning || isLuckySpinning) return;
+  const c = CASES[caseType]; 
+  if (state.coins < c.price) { showToast('Nicht genug Coins!'); return; }
+  
+  state.coins -= c.price; 
+  isSpinning = true; 
+  activeCaseType = caseType;
+  accumulatedLuck = 0;
+  
+  renderHeaderStats(); flashCoins();
+  document.querySelectorAll('.open-btn, .free-open-btn').forEach(b => b.disabled = true); 
+  hideResult(); document.getElementById('placeholder').classList.add('hidden');
+  
+  await executeSpinSequence();
+}
+
+async function executeSpinSequence() {
+  const isLuckRoll = Math.random() < LUCK_MULTIPLIER_CHANCE;
+  
+  if (isLuckRoll) {
+    const mult = LUCK_VALUES[Math.floor(Math.random() * LUCK_VALUES.length)];
+    accumulatedLuck += mult;
+    
+    const stripItem = { isLuck: true, mult: mult };
+    const strip = buildStrip(activeCaseType, stripItem, 35);
+    renderStrip(strip);
+    await animateStrip(35);
+    
+    const panel = document.getElementById('resultPanel');
+    panel.className = 'result-panel show luck-panel';
+    panel.innerHTML = `
+      <div class="result-emoji">🍀</div>
+      <div class="result-cat" style="color:#22c55e">LUCK MULTIPLIER</div>
+      <div class="result-name" style="color:#22c55e">+${mult}x LUCK!</div>
+      <div style="font-size:0.9rem; margin-bottom:12px; color:#86efac;">Gesammelt: <strong>${accumulatedLuck}x Luck</strong></div>
+      <button class="sell-btn" id="spinAgainBtn" style="background:#22c55e; color:#fff; border-color:#22c55e; font-size:1.1rem; padding:14px;">Weiter drehen mit ${accumulatedLuck}x Luck!</button>
+    `;
+    screenFlash(false);
+    showToast(`🍀 ${mult}x LUCK GEZOGEN!`, 'good');
+    
+    document.getElementById('spinAgainBtn').onpointerdown = async () => {
+      panel.classList.remove('show');
+      await executeSpinSequence();
+    };
+  } else {
+    let winner;
+    // LUCK TIER LOGIC (8x = Epic+, 16x = Legendary)
+    if (accumulatedLuck >= 16) {
+        winner = makeItem('legendary', CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false);
+    } else if (accumulatedLuck >= 8) {
+        const rar = Math.random() < 0.5 ? 'epic' : 'legendary';
+        winner = makeItem(rar, CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false);
+    } else {
+        winner = rollItem(activeCaseType, accumulatedLuck);
+    }
+
+    const strip = buildStrip(activeCaseType, winner, 35);
+    renderStrip(strip);
+    await animateStrip(35);
+    processItemResult(winner);
+  }
+}
+
+function processItemResult(winner) {
+  const isDuplicate = !!state.collection[winner.category]?.[winner.rarity];
+  if (!state.collection[winner.category]) state.collection[winner.category] = {}; 
+  state.collection[winner.category][winner.rarity] = true;
+  
+  let isBestDrawUpgrade = false;
+  if (!state.bestDraw || RAR_ORDER[winner.rarity] > RAR_ORDER[state.bestDraw.rarity]) { 
+    state.bestDraw = { ...winner, id: state.nextId++ }; 
+    isBestDrawUpgrade = true; 
+  }
+  
+  let dupBonus = 0; 
+  if (isDuplicate) { 
+    dupBonus = Math.floor(SELL_VALUES[winner.rarity] * DUP_BONUS_RATE); 
+    state.coins += dupBonus; 
+  }
+  
+  const equippedBefore = getEquipped(); 
+  const prevInCat = equippedBefore[winner.category];
+  const isUpgrade = !prevInCat || RAR_ORDER[winner.rarity] > RAR_ORDER[prevInCat.rarity];
+  
+  const invItem = { ...winner, id: state.nextId++, isDuplicate: isDuplicate }; // Save isDuplicate flag for selling!
+  state.inventory.push(invItem);
+  
+  state.stats.totalDraws++; 
+  if (winner.rarity === 'legendary') { state.stats.firstLegendary = true; state.stats.legendaryCount++; }
+  if (winner.isMystery) state.stats.firstMystery = true;
+  
+  let xp = DRAW_XP[winner.rarity]; 
+  if (winner.isMystery) xp *= 2;
+  if (accumulatedLuck > 0) xp += (accumulatedLuck * 5);
+  
+  const badgeRect = document.getElementById('pslBadge').getBoundingClientRect();
+  addPslXP(xp, badgeRect.left + badgeRect.width/2 - 30, badgeRect.top + badgeRect.height/2);
+  
+  updateAll(); saveState(); 
+  if (isUpgrade) renderCharacter(winner.category);
+  
+  if (winner.isMystery) showMysteryReveal(winner, isUpgrade, dupBonus, isDuplicate, xp);
+  else showResult(winner, isUpgrade, dupBonus, isDuplicate, xp);
+  
+  if (winner.rarity === 'legendary' || accumulatedLuck > 0) screenFlash(winner.isMystery);
+  
+  setTimeout(() => {
+    if (winner.isMystery) showToast(`🎁 MYSTERY! ${RAR_NAME[winner.rarity]} (+${xp} XP)!`, 'purple');
+    else if (isBestDrawUpgrade) showToast(`🏆 Neue beste Ziehung: ${RAR_NAME[winner.rarity]}!`, 'gold');
+    else if (isDuplicate) showToast(`📦 Duplikat → +${dupBonus} 🪙 Bonus!`, 'good');
+    else if (isUpgrade) showToast(`⬆️ Upgrade: ${winner.categoryName}!`, 'good');
+  }, winner.isMystery ? 1200 : 200);
+  
+  checkAchievements();
+  isSpinning = false; 
+  document.querySelectorAll('.open-btn, .free-open-btn').forEach(b => b.disabled = false);
+}
+
+function buildTags(isUpgrade, dupBonus, isDuplicate, isMystery, xp) {
+  const tags = []; 
+  if (isMystery) tags.push('<span class="tag mystery">🎁 MYSTERY</span>');
+  if (isUpgrade) tags.push('<span class="tag upgrade">⬆️ UPGRADE!</span>');
+  if (isDuplicate) tags.push(`<span class="tag duplicate">📦 +${dupBonus} 🪙</span>`);
+  if (accumulatedLuck > 0) tags.push(`<span class="tag luck">🍀 ${accumulatedLuck}x LUCK</span>`);
+  tags.push(`<span class="tag xp">+${xp} PSL-XP</span>`); 
+  return `<div class="tag-row">${tags.join('')}</div>`;
+}
+
+function showResult(item, isUpgrade, dupBonus, isDuplicate, xp) {
+  const panel = document.getElementById('resultPanel'); const color = RAR_COLOR[item.rarity]; const sellPrice = getSellPrice(item);
+  panel.className = 'result-panel show';
+  panel.style.background = `linear-gradient(135deg, ${color}22, ${color}11)`; panel.style.border = `1px solid ${color}`; panel.style.color = color;
+  panel.innerHTML = `${buildTags(isUpgrade, dupBonus, isDuplicate, item.isMystery, xp)}<div class="result-emoji mystery-reveal">${item.emoji === '🎁' ? CAT[item.category].e : item.emoji}</div><div class="result-cat">${item.categoryName}</div><div class="result-name">${item.name}</div><div class="result-rarity" style="color:${color}">${RAR_NAME[item.rarity]}</div><button class="sell-btn" data-id="${item.id}">Verkaufen für ${sellPrice} 🪙</button>`;
+}
+function showMysteryReveal(item, isUpgrade, dupBonus, isDuplicate, xp) {
+  const panel = document.getElementById('resultPanel');
+  panel.className = 'result-panel show';
+  panel.style.background = 'linear-gradient(135deg, #a855f733, #7c3aed22)'; panel.style.border = '1px solid #a855f7'; panel.style.color = '#a855f7';
+  panel.innerHTML = `<div class="result-emoji" style="font-size:3rem;animation:pulse 0.5s infinite">🎁</div><div class="result-name">Mystery Item</div><div class="result-rarity">Wird geöffnet…</div>`;
+  setTimeout(() => showResult(item, isUpgrade, dupBonus, isDuplicate, xp), 900);
+}
+function hideResult() { document.getElementById('resultPanel').classList.remove('show'); }
+
+function sellItem(id) {
+  const idx = state.inventory.findIndex(i => i.id === Number(id)); 
+  if (idx === -1) return;
+  
+  const item = state.inventory[idx]; 
+  const price = getSellPrice(item);
+  state.inventory.splice(idx, 1); 
+  state.coins += price;
+  
+  // XP ABZIEHEN (Wenn es KEIN Duplikat ist)
+  if (!item.isDuplicate) {
+      state.pslXP = Math.max(0, state.pslXP - DRAW_XP[item.rarity]);
+      showToast(`📉 ${item.name} verkauft. PSL XP gesunken!`, 'bad');
+  } else {
+      showToast(`💰 Duplikat verkauft. Nur Coins erhalten!`, 'good');
+  }
+  
+  updateAll(); saveState(); flashCoins(); hideResult();
+}
+
+function doPrestige() {
+  if (!canPrestige()) { showToast(`Sammle erst alle ${TOTAL_ITEMS} Items!`); return; }
+  const newLevel = state.rebirths + 1; const newWorld = getWorld(newLevel);
+  if (!confirm(`✨ WIEDERGEBURT #${newLevel} ✨\n\nVERLOREN: Coins (→1000), Inventar, Sammlung\nBEHALTEN: Beste Ziehung, PSL-Rang (XP)\nGEWONNEN: 🍀 ${getLuck()+1}x Luck (statt ${getLuck()}x), ${newWorld.name}\n\nWirklich wiedergeboren werden?`)) return;
+  
+  state.coins = 1000; 
+  state.inventory = []; 
+  state.collection = {}; 
+  state.rebirths = newLevel;
+  
+  hideResult(); document.getElementById('placeholder').classList.remove('hidden'); document.getElementById('strip').innerHTML = '';
+  updateAll(); saveState(); screenFlash(true);
+  setTimeout(() => showToast(`✨ Willkommen in ${newWorld.emoji} ${newWorld.name}!`, 'purple'), 400);
+  checkAchievements();
+}
+
+// Globale Event-Listener
+document.addEventListener('pointerdown', (e) => {
+  const tab = e.target.closest('.tab');
+  if (tab && tab.dataset.tab) { switchTab(tab.dataset.tab); return; }
+
+  const ob = e.target.closest('.open-btn, .free-open-btn'); 
+  if (ob && ob.dataset.case) { openCase(ob.dataset.case); return; }
+
+  const sb = e.target.closest('.sell-btn'); 
+  if (sb && sb.dataset.id) { sellItem(sb.dataset.id); return; }
+  
+  if (e.target.closest('#celebrationCloseBtn')) { document.getElementById('celebration').classList.remove('show'); }
+});
+
+document.getElementById('prestigeBtn').addEventListener('pointerdown', doPrestige);
+document.getElementById('luckyOpenBtn').addEventListener('pointerdown', openLuckyChest);
+document.getElementById('resetBtn').addEventListener('pointerdown', () => {
+  if (!confirm('KOMPLETT-RESET: ALLES geht verloren, auch PSL und Prestige!\n\nDrücke OK um zu bestätigen.')) return;
+  try { localStorage.removeItem(SAVE_KEY); } catch(e) {}
+  state = freshState(); hideResult(); hideLuckyResult(); document.getElementById('placeholder').classList.remove('hidden'); document.getElementById('strip').innerHTML = '';
+  updateAll(); saveState();
+});
+
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') saveState(); });
+
+renderCases();
+updateAll();
+</script>
+</body>
+</html>
