@@ -5,24 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Looksmaxxing Gambling 🎰</title>
 <style>
-  * { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
-    -webkit-tap-highlight-color: transparent; 
-    user-select: none; 
-    -webkit-user-select: none;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
   button { touch-action: manipulation; cursor: pointer; }
-  :root {
-    --common:#9ca3af; --uncommon:#22c55e; --rare:#3b82f6;
-    --epic:#a855f7; --legendary:#f59e0b;
-  }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: radial-gradient(ellipse at top, #1a1a2e 0%, #0f0f1e 70%);
-    color: #e5e7eb; min-height: 100vh; padding: 15px; overflow-x: hidden;
-  }
+  :root { --common:#9ca3af; --uncommon:#22c55e; --rare:#3b82f6; --epic:#a855f7; --legendary:#f59e0b; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: radial-gradient(ellipse at top, #1a1a2e 0%, #0f0f1e 70%); color: #e5e7eb; min-height: 100vh; padding: 15px; overflow-x: hidden; }
   .app { max-width: 1100px; margin: 0 auto; width: 100%; }
 
   header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px; }
@@ -44,28 +30,26 @@
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
-  /* Grids für Mobile angepasst */
-  .cases, .minigames-grid, .collection-grid, .char-grid, .inv-grid, .ach-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); 
-    gap: 12px; 
-    margin-bottom: 20px;
-  }
+  .cases, .minigames-grid, .collection-grid, .char-grid, .inv-grid, .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-bottom: 20px; }
   
   .case-card { background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
   .case-card.bronze { border-top: 3px solid #b45309; }
   .case-card.silber { border-top: 3px solid #9ca3af; }
   .case-card.gold { border-top: 3px solid #f59e0b; }
+  .case-card.free { border: 2px dashed #22c55e; background: linear-gradient(180deg, rgba(34,197,94,0.1), rgba(34,197,94,0.02)); }
   .case-icon { font-size: 2.5rem; text-align: center; }
   .case-name { text-align: center; font-weight: bold; font-size: 1.05rem; }
   .case-price { text-align: center; color: #fbbf24; font-weight: bold; font-size: 1.15rem; }
+  .case-price.free-text { color: #22c55e; }
   .case-mystery-hint { text-align: center; font-size: 0.7rem; color: #a855f7; font-weight: bold; }
+  .case-luck-hint { text-align: center; font-size: 0.7rem; color: #4ade80; font-weight: bold; }
   .drop-bar { display:flex; height:8px; border-radius:4px; overflow:hidden; background:rgba(0,0,0,0.3); }
   .drop-bar > div { height: 100%; }
   .drop-legend { display:flex; justify-content:space-between; font-size:0.7rem; gap:4px; }
   .drop-legend span { flex: 1; text-align: center; }
   
   .open-btn { padding: 14px; border: none; border-radius: 10px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #1a1a2e; font-weight: bold; font-size: 1rem; margin-top: auto; width: 100%; }
+  .open-btn.free-btn { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; }
   .open-btn:disabled { opacity: 0.5; }
 
   .roulette-viewport { width: 100%; max-width: 700px; height: 190px; overflow: hidden; position: relative; margin: 0 auto 20px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; }
@@ -75,6 +59,7 @@
   .roulette-marker::after { bottom: -2px; border-bottom: 14px solid #fbbf24; }
   .roulette-strip { display:flex; gap:10px; height:100%; padding:15px 0; will-change:transform; }
   .strip-item { flex: 0 0 140px; height: 160px; background: rgba(255,255,255,0.04); border: 2px solid var(--rc, #666); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 10px; text-align: center; }
+  .strip-item.luck-slot { background: linear-gradient(135deg, rgba(34,197,94,0.3), rgba(34,197,94,0.1)); border-color: #22c55e; animation: mysteryPulse 1s infinite; }
   .strip-item.mystery-slot { background: linear-gradient(135deg, rgba(168,85,247,0.25), rgba(168,85,247,0.05)); border-color: #a855f7; animation: mysteryPulse 1s infinite; }
   @keyframes mysteryPulse { 0%,100% { box-shadow: 0 0 10px rgba(168,85,247,0.3); } 50% { box-shadow: 0 0 30px rgba(168,85,247,0.8); } }
   .strip-item-emoji { font-size: 1.8rem; }
@@ -86,12 +71,14 @@
 
   .result-panel { max-width: 700px; margin: 0 auto 30px; padding: 18px 24px; border-radius: 14px; text-align: center; opacity: 0; transform: translateY(-10px) scale(0.95); transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none; }
   .result-panel.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+  .result-panel.luck-panel { background: linear-gradient(135deg, #22c55e33, #16a34a11); border: 2px solid #22c55e; color: #86efac; }
   .tag-row { display:flex; gap:6px; justify-content:center; margin-bottom:8px; flex-wrap:wrap; }
   .tag { display: inline-block; font-size: 0.65rem; padding: 3px 10px; border-radius: 999px; font-weight: bold; letter-spacing: 1px; }
   .tag.upgrade { background: linear-gradient(135deg,#22c55e,#16a34a); color:#fff; }
   .tag.duplicate { background: linear-gradient(135deg,#f59e0b,#d97706); color:#fff; }
   .tag.mystery { background: linear-gradient(135deg,#a855f7,#7c3aed); color:#fff; }
   .tag.xp { background: linear-gradient(135deg,#3b82f6,#2563eb); color:#fff; }
+  .tag.luck { background: linear-gradient(135deg,#22c55e,#16a34a); color:#fff; animation: pulse 1s infinite; }
   .result-emoji { font-size: 2.5rem; margin-bottom: 4px; }
   .result-cat { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: #9ca3af; margin-bottom: 4px; }
   .result-name { font-size: 1.3rem; font-weight: bold; margin-bottom: 4px; }
@@ -176,17 +163,15 @@
   .minigame-btn { padding: 12px; border: none; border-radius: 8px; background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; font-weight: bold; font-size: 0.85rem; width: 100%; }
   .minigame-btn:disabled { background: rgba(255,255,255,0.05); color: #6b7280; }
   .mg-play-area { background: rgba(0,0,0,0.3); border-radius: 8px; padding: 12px; min-height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 0.8rem; position: relative; overflow: hidden; }
-  .mewing-track { width: 100%; height: 20px; background: rgba(255,255,255,0.05); border-radius: 999px; position: relative; overflow: hidden; }
-  .mewing-target { position: absolute; top: 0; bottom: 0; left: 42%; width: 16%; background: rgba(34,197,94,0.4); border-left: 2px solid #22c55e; border-right: 2px solid #22c55e; }
-  .mewing-cursor { position: absolute; top: -4px; bottom: -4px; width: 3px; background: #fbbf24; box-shadow: 0 0 10px #fbbf24; border-radius: 2px; }
-  .jawline-counter { font-size:2rem; font-weight:bold; color:#fbbf24; font-family:monospace; }
-  .jawline-btn-big { padding: 20px 40px; border: none; border-radius: 12px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #1a1a2e; font-weight: bold; font-size: 1.1rem; width: 100%; }
-  .jawline-btn-big:active { transform: scale(0.95); }
-  .reaction-box { width: 100%; height: 80px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem; background: #374151; color: #e5e7eb; }
-  .reaction-box.waiting { background: #1f2937; color: #6b7280; }
-  .reaction-box.ready { background: #22c55e; color: #fff; animation: reactionPulse 0.3s infinite; }
-  @keyframes reactionPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.02);} }
-
+  
+  .clicker-btn { width: 100%; height: 100px; border-radius: 12px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; font-weight: bold; font-size: 1.2rem; border: none; }
+  .clicker-btn:active { transform: scale(0.95); }
+  .clicker-counter { font-size: 2rem; font-weight: bold; color: #fbbf24; font-family: monospace; }
+  
+  .target-area { width: 100%; height: 150px; background: rgba(0,0,0,0.5); border-radius: 8px; position: relative; overflow: hidden; }
+  .target-dot { width: 40px; height: 40px; background: #ef4444; border-radius: 50%; position: absolute; cursor: pointer; box-shadow: 0 0 15px #ef4444; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  .target-dot:active { transform: scale(0.8); }
+  
   .psl-tierlist { display:grid; gap:6px; margin-top:16px; }
   .psl-tier-row { display: flex; align-items: center; gap: 8px; padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); font-size: 0.8rem; flex-wrap: wrap; }
   .psl-tier-row.achieved { background: linear-gradient(90deg, var(--c-t), rgba(255,255,255,0.02)); border-color: var(--c); }
@@ -254,6 +239,7 @@
 
   .xp-float { position: fixed; pointer-events: none; z-index: 1500; font-weight: bold; font-size: 1.2rem; color: #60a5fa; text-shadow: 0 0 10px rgba(96,165,250,0.8), 0 2px 4px rgba(0,0,0,0.8); animation: floatUp 1.4s ease-out forwards; }
   @keyframes floatUp { 0% { transform: translateY(0) scale(0.8); opacity: 0; } 20% { transform: translateY(-20px) scale(1.2); opacity: 1; } 100% { transform: translateY(-100px) scale(1); opacity: 0; } }
+  .coin-float { color: #fbbf24; text-shadow: 0 0 10px rgba(245,158,11,0.8), 0 2px 4px rgba(0,0,0,0.8); }
 
   .flash-overlay { position: fixed; inset: 0; background: radial-gradient(circle, rgba(245,158,11,0.6), transparent 70%); pointer-events: none; opacity: 0; z-index: 999; }
   .flash-overlay.flash { animation: flashAnim 0.8s ease-out; }
@@ -302,6 +288,7 @@
 
   <nav class="tabs" id="tabsNav">
     <button class="tab active" data-tab="gamble">🎰 Gambling</button>
+    <button class="tab" data-tab="minigames">🎮 Minigames</button>
     <button class="tab" data-tab="psl">🧬 PSL</button>
     <button class="tab" data-tab="charakter">👤 Charakter</button>
     <button class="tab" data-tab="sammlung">📚 Sammlung <span class="badge" id="colBadge">0/85</span></button>
@@ -339,9 +326,16 @@
     <div class="result-panel" id="resultPanel"></div>
   </section>
 
+  <section class="tab-content" data-content="minigames">
+    <h2 class="section-title">🎮 Coins & PSL verdienen</h2>
+    <div class="minigames-grid" id="coinMinigamesGrid">
+      <!-- Wird per JS generiert -->
+    </div>
+  </section>
+
   <section class="tab-content" data-content="psl">
     <div class="psl-hero" id="pslHero"></div>
-    <h2 class="section-title">🎮 Minispiele <span class="count" id="minigameCount"></span></h2>
+    <h2 class="section-title">🎮 PSL Minispiele <span class="count" id="minigameCount"></span></h2>
     <div class="minigames-grid" id="minigamesGrid"></div>
     <h2 class="section-title" style="margin-top:24px">🧬 PSL-Rangliste</h2>
     <div class="psl-tierlist" id="pslTierlist"></div>
@@ -387,9 +381,12 @@ const DUP_BONUS_RATE = 0.5;
 const MYSTERY_CHANCE = 0.04;
 const MYSTERY_WEIGHTS = { common:5, uncommon:20, rare:35, epic:25, legendary:15 };
 const DRAW_XP = { common:1, uncommon:2, rare:5, epic:15, legendary:50 };
-const MINIGAME_COOLDOWN = 6000;
+const PSL_MINIGAME_COOLDOWN = 6000;
+const COIN_MINIGAME_COOLDOWN = 6000; // Geändert auf 6 Sekunden!
 const LUCKY_WEIGHTS = [20, 18, 15, 12, 10, 8, 6, 4, 3, 2, 1, 0.5, 0.3, 0.15, 0.04, 0.01];
 const LUCKY_PENALTY = 150;
+const LUCK_MULTIPLIER_CHANCE = 0.15; // 15% Chance auf Luck-Roll
+const LUCK_VALUES = [2, 3, 5, 8];
 
 const CAT = {
   groesse: { n:'Körpergröße', e:'📏', t:['1,72 m','1,78 m','1,84 m','1,88 m','1,95 m'] },
@@ -414,6 +411,7 @@ const CAT_KEYS = Object.keys(CAT);
 const TOTAL_ITEMS = CAT_KEYS.length * 5;
 
 const CASES = {
+  free: { name:'Free Chest', emoji:'🎁', price:0, cls:'free', weights:{ common:80, uncommon:15, rare:4, epic:0.9, legendary:0.1 } },
   bronze: { name:'Bronze Case', emoji:'📦', price:100, cls:'bronze', weights:{ common:70, uncommon:22, rare:7, epic:0.9, legendary:0.1 } },
   silber: { name:'Silber Case', emoji:'🎁', price:500, cls:'silber', weights:{ common:40, uncommon:35, rare:18, epic:6, legendary:1 } },
   gold: { name:'Gold Case', emoji:'💎', price:2000, cls:'gold', weights:{ common:15, uncommon:30, rare:30, epic:20, legendary:5 } }
@@ -463,7 +461,7 @@ const ACHIEVEMENTS = [
 ];
 
 function freshState() {
-  return { coins: 1000, inventory: [], nextId: 1, collection: {}, bestDraw: null, prestige: 0, pslXP: 0, lastKnownTier: 0, lastMinigame: 0, achievements: {}, stats: { totalDraws:0, firstLegendary:false, firstMystery:false, legendaryCount:0 } };
+  return { coins: 1000, inventory: [], nextId: 1, collection: {}, bestDraw: null, prestige: 0, pslXP: 0, lastKnownTier: 0, lastMinigame: 0, lastCoinMinigame: 0, achievements: {}, stats: { totalDraws:0, firstLegendary:false, firstMystery:false, legendaryCount:0 } };
 }
 
 function saveState() {
@@ -496,9 +494,14 @@ function loadState() {
 let state = loadState();
 let isSpinning = false;
 let isLuckySpinning = false;
+let activeCaseType = null;
+let accumulatedLuck = 0;
+
 let mewingState = { active:false, pos:0, dir:1, interval:null };
 let jawlineState = { active:false, count:0, startTime:0 };
 let reactionState = { active:false, timeoutId:null, startTime:0, phase:'idle' };
+let coinClickerState = { active:false, count:0, endTime:0, interval:null };
+let targetState = { active:false, hits:0, endTime:0, spawnTimeout:null };
 
 function rollRarityBase(caseType) {
   const w = CASES[caseType].weights;
@@ -514,8 +517,9 @@ function rollRarityWeighted(weights) {
   return 'common';
 }
 function getLuck() { return 1 + state.prestige; }
-function rollRarityWithLuck(caseType) {
-  const luck = getLuck(); let best = null;
+function rollRarityWithLuck(caseType, extraLuck) {
+  const luck = getLuck() + extraLuck;
+  let best = null;
   for (let i = 0; i < luck; i++) { const r = rollRarityBase(caseType); if (!best || RAR_ORDER[r] > RAR_ORDER[best]) best = r; }
   return best;
 }
@@ -523,13 +527,13 @@ function makeItem(rarity, catKey, isMystery=false) {
   const cat = CAT[catKey];
   return { category: catKey, categoryName: cat.n, emoji: isMystery ? '🎁' : cat.e, rarity, name: cat.t[RAR_ORDER[rarity]], isMystery };
 }
-function rollItem(caseType) {
+function rollItem(caseType, extraLuck=0) {
   if (Math.random() < MYSTERY_CHANCE) {
     const rarity = rollRarityWeighted(MYSTERY_WEIGHTS);
     const catKey = CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)];
     return makeItem(rarity, catKey, true);
   }
-  const rarity = rollRarityWithLuck(caseType);
+  const rarity = rollRarityWithLuck(caseType, extraLuck);
   const catKey = CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)];
   return makeItem(rarity, catKey, false);
 }
@@ -548,11 +552,16 @@ function getNextPslTier() { const idx = getPslTierIndex(); return idx < PSL_TIER
 function addPslXP(amount, x, y) {
   const before = getPslTierIndex(); state.pslXP += amount; const after = getPslTierIndex();
   if (after > before) { state.lastKnownTier = after; setTimeout(() => showRankUp(after), 400); }
-  if (x !== undefined) showXpFloat(amount, x, y);
+  if (x !== undefined) showXpFloat(amount, x, y, false);
   renderPslTab(); renderHeaderStats(); saveState(); checkAchievements();
 }
-function showXpFloat(amount, x, y) {
-  const el = document.createElement('div'); el.className = 'xp-float'; el.textContent = `+${amount} PSL`;
+function addCoins(amount, x, y) {
+  state.coins += amount;
+  if (x !== undefined) showXpFloat(amount, x, y, true);
+  renderHeaderStats(); saveState(); flashCoins();
+}
+function showXpFloat(amount, x, y, isCoin) {
+  const el = document.createElement('div'); el.className = 'xp-float' + (isCoin ? ' coin-float' : ''); el.textContent = `+${amount} ${isCoin ? '🪙' : 'PSL'}`;
   el.style.left = x + 'px'; el.style.top = y + 'px'; document.body.appendChild(el); setTimeout(() => el.remove(), 1400);
 }
 function showRankUp(tierIdx) {
@@ -582,6 +591,7 @@ function switchTab(tabId) {
   const targetContent = document.querySelector(`.tab-content[data-content="${tabId}"]`);
   if (targetTab && targetContent) { targetTab.classList.add('active'); targetContent.classList.add('active'); }
   if (tabId === 'psl') renderPslTab();
+  if (tabId === 'minigames') renderCoinMinigames();
 }
 
 function renderHeaderStats() {
@@ -601,7 +611,8 @@ function renderCases() {
     card.className = `case-card ${c.cls}`;
     card.innerHTML = `
       <div class="case-icon">${c.emoji}</div><div class="case-name">${c.name}</div>
-      <div class="case-price">${c.price.toLocaleString('de-DE')} 🪙</div>
+      <div class="case-price ${c.price === 0 ? 'free-text' : ''}">${c.price === 0 ? 'KOSTENLOS' : c.price.toLocaleString('de-DE') + ' 🪙'}</div>
+      <div class="case-luck-hint">🍀 ${(LUCK_MULTIPLIER_CHANCE*100).toFixed(0)}% Luck Multiplier</div>
       <div class="case-mystery-hint">🎁 ${(MYSTERY_CHANCE*100).toFixed(0)}% Mystery</div>
       <div class="drop-bar">
         <div style="width:${w.common}%;background:var(--common)"></div><div style="width:${w.uncommon}%;background:var(--uncommon)"></div>
@@ -612,7 +623,7 @@ function renderCases() {
         <span style="color:var(--common)">${w.common}%</span><span style="color:var(--uncommon)">${w.uncommon}%</span>
         <span style="color:var(--rare)">${w.rare}%</span><span style="color:var(--epic)">${w.epic}%</span><span style="color:var(--legendary)">${w.legendary}%</span>
       </div>
-      <button class="open-btn" data-case="${key}">Öffnen</button>`;
+      <button class="open-btn ${c.price === 0 ? 'free-btn' : ''}" data-case="${key}">Öffnen</button>`;
     container.appendChild(card);
   }
 }
@@ -650,7 +661,7 @@ function renderPslTab() {
 }
 
 function renderMinigames() {
-  const now = Date.now(); const cooldownLeft = Math.max(0, MINIGAME_COOLDOWN - (now - state.lastMinigame));
+  const now = Date.now(); const cooldownLeft = Math.max(0, PSL_MINIGAME_COOLDOWN - (now - state.lastMinigame));
   const onCD = cooldownLeft > 0; const cdSecs = Math.ceil(cooldownLeft / 1000);
   const mc = document.getElementById('minigameCount'); if (mc) mc.textContent = onCD ? `(Cooldown: ${cdSecs}s)` : '';
   const grid = document.getElementById('minigamesGrid'); if (!grid) return;
@@ -663,6 +674,113 @@ function renderMinigames() {
   if (onCD) { clearTimeout(renderMinigames._timer); renderMinigames._timer = setTimeout(renderMinigames, 1000); }
 }
 
+function renderCoinMinigames() {
+  const now = Date.now(); const cooldownLeft = Math.max(0, COIN_MINIGAME_COOLDOWN - (now - state.lastCoinMinigame));
+  const onCD = cooldownLeft > 0; const cdSecs = Math.ceil(cooldownLeft / 1000);
+  const grid = document.getElementById('coinMinigamesGrid'); if (!grid) return;
+  if (coinClickerState.active || targetState.active) return;
+  
+  grid.innerHTML = `
+    <div class="minigame-card ${onCD ? 'on-cooldown' : ''}">
+      <div class="minigame-head"><span class="minigame-emoji">🪙</span><span class="minigame-name">Coin Clicker</span></div>
+      <div class="minigame-desc">Klicke 40× in 10 Sekunden!<br>Belohnung: 100 Coins + 50 PSL XP</div>
+      <div class="mg-play-area" id="clickerArea">Bereit?</div>
+      <button class="minigame-btn" id="clickerBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button>
+    </div>
+    <div class="minigame-card ${onCD ? 'on-cooldown' : ''}">
+      <div class="minigame-head"><span class="minigame-emoji">🎯</span><span class="minigame-name">Target Practice</span></div>
+      <div class="minigame-desc">Triff den Kreis 5× in 8 Sekunden!<br>Belohnung: 100 Coins + 50 PSL XP</div>
+      <div class="mg-play-area" id="targetAreaContainer">Bereit?</div>
+      <button class="minigame-btn" id="targetBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button>
+    </div>`;
+    
+  document.getElementById('clickerBtn').onclick = startCoinClicker;
+  document.getElementById('targetBtn').onclick = startTargetPractice;
+  
+  if (onCD) { clearTimeout(renderCoinMinigames._timer); renderCoinMinigames._timer = setTimeout(renderCoinMinigames, 1000); }
+}
+
+// --- COIN MINIGAMES LOGIC ---
+function startCoinClicker() {
+  if (Date.now() - state.lastCoinMinigame < COIN_MINIGAME_COOLDOWN) { showToast('Cooldown aktiv!'); return; }
+  if (coinClickerState.active) return;
+  coinClickerState.active = true; coinClickerState.count = 0; coinClickerState.endTime = Date.now() + 10000;
+  const area = document.getElementById('clickerArea');
+  area.innerHTML = `<div class="clicker-counter" id="clickerCounter">0 / 40</div><button class="clicker-btn" id="clickerClickBtn">KLICK!</button>`;
+  
+  document.getElementById('clickerClickBtn').onclick = () => {
+    if (Date.now() > coinClickerState.endTime) return;
+    coinClickerState.count++;
+    document.getElementById('clickerCounter').textContent = `${coinClickerState.count} / 40`;
+  };
+  
+  coinClickerState.interval = setInterval(() => {
+    if (Date.now() >= coinClickerState.endTime) {
+      clearInterval(coinClickerState.interval);
+      coinClickerState.active = false;
+      state.lastCoinMinigame = Date.now();
+      if (coinClickerState.count >= 40) {
+        addCoins(100); addPslXP(50);
+        showToast('🎉 GESCHAFFT! +100 Coins +50 XP', 'good');
+        screenFlash(false);
+      } else {
+        showToast(`❌ Knapp verfehlt! (${coinClickerState.count}/40)`, 'bad');
+      }
+      renderCoinMinigames();
+    }
+  }, 100);
+}
+
+function startTargetPractice() {
+  if (Date.now() - state.lastCoinMinigame < COIN_MINIGAME_COOLDOWN) { showToast('Cooldown aktiv!'); return; }
+  if (targetState.active) return;
+  targetState.active = true; targetState.hits = 0; targetState.endTime = Date.now() + 8000;
+  const area = document.getElementById('targetAreaContainer');
+  area.innerHTML = `<div class="target-area" id="targetArea"><div class="target-dot" id="targetDot" style="left:50%; top:50%;">🎯</div></div>`;
+  
+  const dot = document.getElementById('targetDot');
+  const box = document.getElementById('targetArea');
+  
+  const moveDot = () => {
+    if (!targetState.active || Date.now() > targetState.endTime) return;
+    const maxX = box.offsetWidth - 50; const maxY = box.offsetHeight - 50;
+    dot.style.left = Math.random() * maxX + 'px';
+    dot.style.top = Math.random() * maxY + 'px';
+  };
+  
+  dot.onclick = (e) => {
+    e.stopPropagation();
+    if (!targetState.active || Date.now() > targetState.endTime) return;
+    targetState.hits++;
+    showToast(`Treffer! ${targetState.hits}/5`, 'gold');
+    if (targetState.hits >= 5) {
+      finishTargetPractice();
+    } else {
+      moveDot();
+    }
+  };
+  
+  moveDot();
+  targetState.spawnTimeout = setInterval(() => {
+    if (Date.now() >= targetState.endTime) finishTargetPractice();
+  }, 100);
+}
+
+function finishTargetPractice() {
+  clearInterval(targetState.spawnTimeout);
+  targetState.active = false;
+  state.lastCoinMinigame = Date.now();
+  if (targetState.hits >= 5) {
+    addCoins(100); addPslXP(50);
+    showToast('🎉 GESCHAFFT! +100 Coins +50 XP', 'good');
+    screenFlash(false);
+  } else {
+    showToast(`❌ Zeit abgelaufen! (${targetState.hits}/5)`, 'bad');
+  }
+  renderCoinMinigames();
+}
+
+// --- PSL MINIGAMES LOGIC ---
 function grantMinigameXP(xp, label) {
   state.lastMinigame = Date.now();
   const badge = document.getElementById('pslBadge'); const rect = badge.getBoundingClientRect();
@@ -670,9 +788,8 @@ function grantMinigameXP(xp, label) {
   if (label) showToast(`${label} +${xp} PSL-XP`, 'blue');
   renderMinigames();
 }
-
 function startMewing() {
-  if (Date.now() - state.lastMinigame < MINIGAME_COOLDOWN) { showToast('Cooldown aktiv!'); return; }
+  if (Date.now() - state.lastMinigame < PSL_MINIGAME_COOLDOWN) { showToast('Cooldown aktiv!'); return; }
   if (mewingState.active) return; mewingState.active = true; mewingState.pos = 0; mewingState.dir = 1;
   const area = document.getElementById('mewingArea'); if (!area) return;
   area.innerHTML = `<div class="mewing-track"><div class="mewing-target"></div><div class="mewing-cursor" id="mewingCursor" style="left:0%"></div></div><button class="minigame-btn" id="mewingStopBtn" style="margin-top:8px">STOPP!</button>`;
@@ -690,9 +807,8 @@ function stopMewing() {
   if (p >= 45 && p <= 55) { xp = 20; label = '🎯 PERFECT!'; } else if (p >= 38 && p <= 62) { xp = 10; label = '✅ Gut!'; }
   grantMinigameXP(xp, label);
 }
-
 function startJawline() {
-  if (Date.now() - state.lastMinigame < MINIGAME_COOLDOWN) { showToast('Cooldown aktiv!'); return; }
+  if (Date.now() - state.lastMinigame < PSL_MINIGAME_COOLDOWN) { showToast('Cooldown aktiv!'); return; }
   if (jawlineState.active) return; jawlineState.active = true; jawlineState.count = 0; jawlineState.startTime = Date.now();
   const area = document.getElementById('jawlineArea'); if (!area) return;
   area.innerHTML = `<div class="jawline-counter" id="jawlineCounter">0 / 20</div><button class="jawline-btn-big" id="jawlineClickBtn">CLENCH!</button>`;
@@ -706,9 +822,8 @@ function finishJawline() {
   if (elapsed < 3) { xp = 25; label = `🔥 Blazing! ${elapsed.toFixed(1)}s`; } else if (elapsed < 5) { xp = 18; label = `⚡ Schnell! ${elapsed.toFixed(1)}s`; } else if (elapsed < 8) { xp = 10; label = `✅ OK! ${elapsed.toFixed(1)}s`; } else { xp = 5; label = `🐢 Langsam! ${elapsed.toFixed(1)}s`; }
   grantMinigameXP(xp, label);
 }
-
 function startReaction() {
-  if (Date.now() - state.lastMinigame < MINIGAME_COOLDOWN) { showToast('Cooldown aktiv!'); return; }
+  if (Date.now() - state.lastMinigame < PSL_MINIGAME_COOLDOWN) { showToast('Cooldown aktiv!'); return; }
   if (reactionState.active) return; reactionState.active = true; reactionState.phase = 'waiting';
   const area = document.getElementById('reactionArea'); if (!area) return;
   area.innerHTML = `<div class="reaction-box waiting" id="reactionBox">Warte auf GRÜN…</div>`;
@@ -738,7 +853,6 @@ function renderCharacter(highlightCat=null) {
   }).join('');
   document.getElementById('charCount').textContent = `(${filled}/${CAT_KEYS.length})`;
 }
-
 function renderBestDraw() {
   const box = document.getElementById('bestDraw');
   if (!state.bestDraw) {
@@ -750,7 +864,6 @@ function renderBestDraw() {
   box.className = `best-draw ${b.rarity === 'legendary' ? 'legendary' : ''}`; box.style.setProperty('--c', color);
   box.innerHTML = `<div class="best-label">🏆 Beste Ziehung</div><div class="best-content"><div class="best-emoji">${b.emoji}</div><div class="best-info"><div class="best-cat">${b.categoryName}</div><div class="best-name">${b.name}</div><div class="best-rar">${RAR_NAME[b.rarity]}</div></div></div>`;
 }
-
 function renderCollection() {
   const grid = document.getElementById('collectionGrid');
   grid.innerHTML = CAT_KEYS.map(k => {
@@ -764,7 +877,6 @@ function renderCollection() {
   const seen = countSeen();
   document.getElementById('colBadge').textContent = `${seen}/${TOTAL_ITEMS}`; document.getElementById('colTitle').textContent = `(${seen}/${TOTAL_ITEMS})`;
 }
-
 function renderInventory() {
   const grid = document.getElementById('invGrid'); document.getElementById('invBadge').textContent = state.inventory.length; document.getElementById('invTitle').textContent = `(${state.inventory.length})`;
   if (state.inventory.length === 0) { grid.innerHTML = '<p class="empty-inv">Noch keine Items — öffne eine Kiste!</p>'; return; }
@@ -774,7 +886,6 @@ function renderInventory() {
     return `<div class="inv-item" style="--c:${RAR_COLOR[item.rarity]}"><div class="inv-emoji">${item.emoji}</div><div class="inv-cat">${item.categoryName}</div><div class="inv-name">${item.name}</div><div class="inv-rar">${RAR_NAME[item.rarity]}</div><button class="sell-btn" data-id="${item.id}">${sellPrice} 🪙${bonus > 0 ? ` (+${bonus})` : ''}</button></div>`;
   }).join('');
 }
-
 function renderWorld() {
   const world = getWorld(state.prestige); const hero = document.getElementById('worldHero');
   hero.style.setProperty('--wc', world.color); hero.style.setProperty('--wc-glow', world.color + '40');
@@ -788,7 +899,6 @@ function renderWorld() {
   const btn = document.getElementById('prestigeBtn'); btn.disabled = !canPrestige();
   btn.textContent = canPrestige() ? `✨ Wiedergeburt #${state.prestige + 1} vollziehen!` : `Noch ${TOTAL_ITEMS - seen} Items sammeln`;
 }
-
 function renderAchievements() {
   const grid = document.getElementById('achGrid'); if (!grid) return;
   const unlockedCount = Object.keys(state.achievements).length;
@@ -799,7 +909,6 @@ function renderAchievements() {
     return `<div class="ach-card ${unlocked ? 'unlocked' : 'locked'}${special}"><div class="ach-emoji">${unlocked ? ach.emoji : '🔒'}</div><div class="ach-name">${ach.name}</div><div class="ach-desc">${ach.desc}</div>${unlocked ? '<div class="ach-check">✓</div>' : ''}</div>`;
   }).join('');
 }
-
 function checkAchievements() {
   const newOnes = [];
   for (const ach of ACHIEVEMENTS) {
@@ -879,15 +988,33 @@ async function openLuckyChest() {
 
 function updateAll() {
   renderHeaderStats(); renderCharacter(); renderBestDraw(); renderCollection(); renderInventory(); renderWorld(); renderPslTab(); renderAchievements(); updateLuckyBtn();
+  if(document.querySelector('.tab-content[data-content="minigames"]').classList.contains('active')) renderCoinMinigames();
 }
 
-function buildStrip(caseType, winner, winnerIdx) { const strip = []; for (let i = 0; i < 40; i++) strip.push(i === winnerIdx ? winner : rollItem(caseType)); return strip; }
+// --- LUCK MULTIPLIER CHEST LOGIC ---
+function buildStrip(caseType, winner, winnerIdx) {
+  const strip = [];
+  for (let i = 0; i < 40; i++) {
+    if (i === winnerIdx) { strip.push(winner); }
+    else {
+      if (Math.random() < 0.2) {
+        strip.push({ isLuck: true, mult: LUCK_VALUES[Math.floor(Math.random() * LUCK_VALUES.length)] });
+      } else {
+        strip.push(rollItem(caseType, 0));
+      }
+    }
+  }
+  return strip;
+}
+
 function renderStrip(items) {
   document.getElementById('strip').innerHTML = items.map(item => {
+    if (item.isLuck) return `<div class="strip-item luck-slot" style="--rc:#22c55e"><div class="strip-item-emoji">🍀</div><div class="strip-item-cat">LUCK</div><div class="strip-item-name">${item.mult}x LUCK</div><div class="strip-item-rar" style="color:#22c55e">MULTIPLIER</div></div>`;
     if (item.isMystery) return `<div class="strip-item mystery-slot" style="--rc:#a855f7"><div class="strip-item-emoji">🎁</div><div class="strip-item-cat">Mystery</div><div class="strip-item-name">???</div><div class="strip-item-rar" style="color:#a855f7">???</div></div>`;
     return `<div class="strip-item" style="--rc:${RAR_COLOR[item.rarity]}"><div class="strip-item-emoji">${item.emoji}</div><div class="strip-item-cat">${item.categoryName}</div><div class="strip-item-name">${item.name}</div><div class="strip-item-rar">${item.rarity}</div></div>`;
   }).join('');
 }
+
 function animateStrip(targetIdx) {
   return new Promise(resolve => {
     const strip = document.getElementById('strip'); const vp = document.getElementById('viewport');
@@ -902,54 +1029,136 @@ function animateStrip(targetIdx) {
 async function openCase(caseType) {
   if (isSpinning || isLuckySpinning) return;
   const c = CASES[caseType]; if (state.coins < c.price) { showToast('Nicht genug Coins!'); return; }
-  state.coins -= c.price; isSpinning = true; renderHeaderStats(); flashCoins();
-  document.querySelectorAll('.open-btn').forEach(b => b.disabled = true); hideResult(); document.getElementById('placeholder').classList.add('hidden');
-  const winner = rollItem(caseType); const strip = buildStrip(caseType, winner, 35); renderStrip(strip);
-  await animateStrip(35);
+  
+  state.coins -= c.price; 
+  isSpinning = true; 
+  activeCaseType = caseType;
+  accumulatedLuck = 0;
+  
+  renderHeaderStats(); flashCoins();
+  document.querySelectorAll('.open-btn').forEach(b => b.disabled = true); 
+  hideResult(); document.getElementById('placeholder').classList.add('hidden');
+  
+  await executeSpinSequence();
+}
+
+async function executeSpinSequence() {
+  const isLuckRoll = Math.random() < LUCK_MULTIPLIER_CHANCE;
+  
+  if (isLuckRoll) {
+    // Es ist ein Luck Multiplier!
+    const mult = LUCK_VALUES[Math.floor(Math.random() * LUCK_VALUES.length)];
+    accumulatedLuck += mult;
+    
+    const stripItem = { isLuck: true, mult: mult };
+    const strip = buildStrip(activeCaseType, stripItem, 35);
+    renderStrip(strip);
+    await animateStrip(35);
+    
+    // Zeige Luck Result Panel an
+    const panel = document.getElementById('resultPanel');
+    panel.className = 'result-panel show luck-panel';
+    panel.innerHTML = `
+      <div class="result-emoji">🍀</div>
+      <div class="result-cat" style="color:#22c55e">LUCK MULTIPLIER</div>
+      <div class="result-name" style="color:#22c55e">+${mult}x LUCK!</div>
+      <div style="font-size:0.9rem; margin-bottom:12px; color:#86efac;">Gesammelt: <strong>${accumulatedLuck}x Luck</strong></div>
+      <button class="sell-btn" id="spinAgainBtn" style="background:#22c55e; color:#fff; border-color:#22c55e;">Weiter drehen mit ${accumulatedLuck}x Luck!</button>
+    `;
+    screenFlash(false);
+    showToast(`🍀 ${mult}x LUCK GEZOGEN!`, 'good');
+    
+    document.getElementById('spinAgainBtn').onclick = async () => {
+      panel.classList.remove('show');
+      await executeSpinSequence();
+    };
+  } else {
+    // Normales Item mit gesammeltem Luck würfeln
+    const winner = rollItem(activeCaseType, accumulatedLuck);
+    const strip = buildStrip(activeCaseType, winner, 35);
+    renderStrip(strip);
+    await animateStrip(35);
+    processItemResult(winner);
+  }
+}
+
+function processItemResult(winner) {
   const isDuplicate = !!state.collection[winner.category]?.[winner.rarity];
-  if (!state.collection[winner.category]) state.collection[winner.category] = {}; state.collection[winner.category][winner.rarity] = true;
+  if (!state.collection[winner.category]) state.collection[winner.category] = {}; 
+  state.collection[winner.category][winner.rarity] = true;
+  
   let isBestDrawUpgrade = false;
-  if (!state.bestDraw || RAR_ORDER[winner.rarity] > RAR_ORDER[state.bestDraw.rarity]) { state.bestDraw = { ...winner, id: state.nextId++ }; isBestDrawUpgrade = true; }
-  let dupBonus = 0; if (isDuplicate) { dupBonus = Math.floor(SELL_VALUES[winner.rarity] * DUP_BONUS_RATE); state.coins += dupBonus; }
-  const equippedBefore = getEquipped(); const prevInCat = equippedBefore[winner.category];
+  if (!state.bestDraw || RAR_ORDER[winner.rarity] > RAR_ORDER[state.bestDraw.rarity]) { 
+    state.bestDraw = { ...winner, id: state.nextId++ }; 
+    isBestDrawUpgrade = true; 
+  }
+  
+  let dupBonus = 0; 
+  if (isDuplicate) { 
+    dupBonus = Math.floor(SELL_VALUES[winner.rarity] * DUP_BONUS_RATE); 
+    state.coins += dupBonus; 
+  }
+  
+  const equippedBefore = getEquipped(); 
+  const prevInCat = equippedBefore[winner.category];
   const isUpgrade = !prevInCat || RAR_ORDER[winner.rarity] > RAR_ORDER[prevInCat.rarity];
-  const invItem = { ...winner, id: state.nextId++ }; state.inventory.push(invItem);
-  state.stats.totalDraws++; if (winner.rarity === 'legendary') { state.stats.firstLegendary = true; state.stats.legendaryCount++; }
+  
+  const invItem = { ...winner, id: state.nextId++ }; 
+  state.inventory.push(invItem);
+  
+  state.stats.totalDraws++; 
+  if (winner.rarity === 'legendary') { state.stats.firstLegendary = true; state.stats.legendaryCount++; }
   if (winner.isMystery) state.stats.firstMystery = true;
-  let xp = DRAW_XP[winner.rarity]; if (winner.isMystery) xp *= 2;
+  
+  let xp = DRAW_XP[winner.rarity]; 
+  if (winner.isMystery) xp *= 2;
+  if (accumulatedLuck > 0) xp += (accumulatedLuck * 5); // Bonus XP für Luck-Sammlung
+  
   const badgeRect = document.getElementById('pslBadge').getBoundingClientRect();
   addPslXP(xp, badgeRect.left + badgeRect.width/2 - 30, badgeRect.top + badgeRect.height/2);
-  updateAll(); saveState(); if (isUpgrade) renderCharacter(winner.category);
+  
+  updateAll(); saveState(); 
+  if (isUpgrade) renderCharacter(winner.category);
+  
   if (winner.isMystery) showMysteryReveal(winner, isUpgrade, dupBonus, isDuplicate, xp);
   else showResult(winner, isUpgrade, dupBonus, isDuplicate, xp);
-  if (winner.rarity === 'legendary') screenFlash(winner.isMystery);
+  
+  if (winner.rarity === 'legendary' || accumulatedLuck > 0) screenFlash(winner.isMystery);
+  
   setTimeout(() => {
     if (winner.isMystery) showToast(`🎁 MYSTERY! ${RAR_NAME[winner.rarity]} (+${xp} XP)!`, 'purple');
     else if (isBestDrawUpgrade) showToast(`🏆 Neue beste Ziehung: ${RAR_NAME[winner.rarity]}!`, 'gold');
     else if (isDuplicate) showToast(`📦 Duplikat → +${dupBonus} 🪙 Bonus!`, 'good');
     else if (isUpgrade) showToast(`⬆️ Upgrade: ${winner.categoryName}!`, 'good');
   }, winner.isMystery ? 1200 : 200);
+  
   checkAchievements();
-  isSpinning = false; document.querySelectorAll('.open-btn').forEach(b => b.disabled = false);
+  isSpinning = false; 
+  document.querySelectorAll('.open-btn').forEach(b => b.disabled = false);
 }
 
 function buildTags(isUpgrade, dupBonus, isDuplicate, isMystery, xp) {
-  const tags = []; if (isMystery) tags.push('<span class="tag mystery">🎁 MYSTERY</span>');
+  const tags = []; 
+  if (isMystery) tags.push('<span class="tag mystery">🎁 MYSTERY</span>');
   if (isUpgrade) tags.push('<span class="tag upgrade">⬆️ UPGRADE!</span>');
   if (isDuplicate) tags.push(`<span class="tag duplicate">📦 +${dupBonus} 🪙</span>`);
-  tags.push(`<span class="tag xp">+${xp} PSL-XP</span>`); return `<div class="tag-row">${tags.join('')}</div>`;
+  if (accumulatedLuck > 0) tags.push(`<span class="tag luck">🍀 ${accumulatedLuck}x LUCK</span>`);
+  tags.push(`<span class="tag xp">+${xp} PSL-XP</span>`); 
+  return `<div class="tag-row">${tags.join('')}</div>`;
 }
+
 function showResult(item, isUpgrade, dupBonus, isDuplicate, xp) {
   const panel = document.getElementById('resultPanel'); const color = RAR_COLOR[item.rarity]; const sellPrice = getSellPrice(item);
+  panel.className = 'result-panel show';
   panel.style.background = `linear-gradient(135deg, ${color}22, ${color}11)`; panel.style.border = `1px solid ${color}`; panel.style.color = color;
   panel.innerHTML = `${buildTags(isUpgrade, dupBonus, isDuplicate, item.isMystery, xp)}<div class="result-emoji mystery-reveal">${item.emoji === '🎁' ? CAT[item.category].e : item.emoji}</div><div class="result-cat">${item.categoryName}</div><div class="result-name">${item.name}</div><div class="result-rarity" style="color:${color}">${RAR_NAME[item.rarity]}</div><button class="sell-btn" data-id="${item.id}">Verkaufen für ${sellPrice} 🪙</button>`;
-  panel.classList.add('show');
 }
 function showMysteryReveal(item, isUpgrade, dupBonus, isDuplicate, xp) {
   const panel = document.getElementById('resultPanel');
+  panel.className = 'result-panel show';
   panel.style.background = 'linear-gradient(135deg, #a855f733, #7c3aed22)'; panel.style.border = '1px solid #a855f7'; panel.style.color = '#a855f7';
   panel.innerHTML = `<div class="result-emoji" style="font-size:3rem;animation:pulse 0.5s infinite">🎁</div><div class="result-name">Mystery Item</div><div class="result-rarity">Wird geöffnet…</div>`;
-  panel.classList.add('show'); setTimeout(() => showResult(item, isUpgrade, dupBonus, isDuplicate, xp), 900);
+  setTimeout(() => showResult(item, isUpgrade, dupBonus, isDuplicate, xp), 900);
 }
 function hideResult() { document.getElementById('resultPanel').classList.remove('show'); }
 
@@ -971,21 +1180,17 @@ function doPrestige() {
   checkAchievements();
 }
 
-// Globale Event-Listener (funktionieren perfekt auf Touch & Maus)
+// Globale Event-Listener
 document.addEventListener('pointerdown', (e) => {
-  // Tab-Wechsel
   const tab = e.target.closest('.tab');
   if (tab && tab.dataset.tab) { switchTab(tab.dataset.tab); return; }
 
-  // Kiste öffnen
   const ob = e.target.closest('.open-btn'); 
   if (ob && ob.dataset.case) { openCase(ob.dataset.case); return; }
 
-  // Item verkaufen
   const sb = e.target.closest('.sell-btn'); 
   if (sb && sb.dataset.id) { sellItem(sb.dataset.id); return; }
   
-  // Celebration schließen
   if (e.target.closest('#celebrationCloseBtn')) { document.getElementById('celebration').classList.remove('show'); }
 });
 
@@ -998,7 +1203,6 @@ document.getElementById('resetBtn').addEventListener('pointerdown', () => {
   updateAll(); saveState();
 });
 
-// Speichern, wenn das Handy in den Hintergrund geht (iOS/Android optimiert)
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') saveState(); });
 
 renderCases();
