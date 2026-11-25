@@ -22,6 +22,8 @@
   .stat-pill.flash { transform: scale(1.15); }
   .reset-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #9ca3af; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; }
   .reset-btn:hover { border-color: #ef4444; color: #ef4444; }
+  .admin-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: #9ca3af; padding: 6px 10px; border-radius: 8px; font-size: 0.9rem; margin-right: 4px; }
+  .admin-btn:hover { border-color: #a855f7; color: #a855f7; }
 
   .tabs { display: flex; gap: 6px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; flex-wrap: wrap; overflow-x: auto; }
   .tab { background: transparent; border: none; color: #9ca3af; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
@@ -74,9 +76,9 @@
   .placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #6b7280; font-size: 1rem; pointer-events: none; }
   .placeholder.hidden { display: none; }
 
-  .result-panel { max-width: 700px; margin: 0 auto 30px; padding: 18px 24px; border-radius: 14px; text-align: center; opacity: 0; transform: translateY(-10px) scale(0.95); transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none; }
+  .result-panel { max-width: 700px; margin: 0 auto 30px; padding: 18px 24px; border-radius: 14px; text-align: center; opacity: 0; transform: translateY(-10px) scale(0.95); transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none; border: 2px solid transparent; }
   .result-panel.show { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-  .result-panel.luck-panel { background: linear-gradient(135deg, #22c55e33, #16a34a11); border: 2px solid #22c55e; color: #86efac; }
+  .result-panel.luck-panel { color: #fff; }
   .tag-row { display:flex; gap:6px; justify-content:center; margin-bottom:8px; flex-wrap:wrap; }
   .tag { display: inline-block; font-size: 0.65rem; padding: 3px 10px; border-radius: 999px; font-weight: bold; letter-spacing: 1px; }
   .tag.upgrade { background: linear-gradient(135deg,#22c55e,#16a34a); color:#fff; }
@@ -298,6 +300,7 @@
       <div class="stat-pill psl" id="pslBadge">💀 Sub 3</div>
       <div class="stat-pill luck" id="luckBadge">🍀 1x</div>
       <div class="stat-pill world" id="worldBadge">🌍 Normal</div>
+      <button class="admin-btn" id="adminBtn" title="Admin Code">⚙️</button>
       <button class="reset-btn" id="resetBtn">↻</button>
     </div>
   </header>
@@ -322,7 +325,7 @@
     </div>
 
     <div class="minigames-section">
-      <div class="mg-header">🎮 Mini-Games (Verdiene 100 Coins pro Spiel!)</div>
+      <div class="mg-header">🎮 Mini-Games (Je schwerer, desto mehr Coins!)</div>
       <div class="minigames-grid" id="coinMinigamesGrid"></div>
     </div>
 
@@ -399,7 +402,7 @@
 </div>
 
 <script>
-const SAVE_KEY = 'looksmaxxing_save_v4';
+const SAVE_KEY = 'looksmaxxing_save_v5';
 
 const RAR_COLOR = { common:'#9ca3af', uncommon:'#22c55e', rare:'#3b82f6', epic:'#a855f7', legendary:'#f59e0b' };
 const RAR_NAME = { common:'Common', uncommon:'Uncommon', rare:'Rare', epic:'Epic', legendary:'Legendary ✨' };
@@ -414,9 +417,8 @@ const MINIGAME_COOLDOWN = 6000;
 const LUCKY_WEIGHTS = [20, 18, 15, 12, 10, 8, 6, 4, 3, 2, 1, 0.5, 0.3, 0.15, 0.04, 0.01];
 const LUCKY_PENALTY = 100;
 const LUCK_MULTIPLIER_CHANCE = 0.20;
-const LUCK_VALUES = [2, 3, 5, 8];
+const LUCK_VALUES = [2, 3, 5, 8, 10, 20];
 
-// 40 Kategorien x 5 Tiers = 200 Items
 const CAT = {
   groesse: { n:'Körpergröße', e:'📏', t:['1,72 m','1,78 m','1,84 m','1,88 m','1,95 m'] },
   augenfarbe: { n:'Augenfarbe', e:'👁️', t:['Braun','Haselnuss','Grün','Eisblau','Stechend Blau'] },
@@ -460,7 +462,7 @@ const CAT = {
   style: { n:'Style', e:'👔', t:['Unkoordiniert','Basic','Gut','Stylisch','GQ Cover'] }
 };
 const CAT_KEYS = Object.keys(CAT);
-const TOTAL_ITEMS = CAT_KEYS.length * 5; // 200
+const TOTAL_ITEMS = CAT_KEYS.length * 5;
 
 const CASES = {
   free: { name:'Free Chest', emoji:'🎁', price:0, cls:'free', weights:{ common:80, uncommon:15, rare:4, epic:0.9, legendary:0.1 } },
@@ -503,7 +505,7 @@ const PSL_TIERS = [
   { name:'Chad', score:'6.5', xp:3500, emoji:'👑', color:'#f59e0b', sell:55, rating:'8.5/10', rizz:'Godlike', model:'90%', desc:'Chad — Top 1%.' },
   { name:'Adam Lite', score:'7.0', xp:6000, emoji:'💎', color:'#fbbf24', sell:70, rating:'9/10', rizz:'Elite', model:'95%', desc:'Adam Lite — Elite.' },
   { name:'Adam', score:'7.5', xp:10000, emoji:'🌟', color:'#ef4444', sell:85, rating:'9.5/10', rizz:'Mythisch', model:'99%', desc:'Adam — God Tier.' },
-  { name:'True Adam', score:'8.0', xp:15000, emoji:'🧬', color:'#ec4899', sell:100, rating:'10/10', rizz:'Legendär', model:'100%', desc:'Peak Human.' }
+  { name:'True Adam', score:'8.0', xp:15000, emoji:'🧬', color:'#ec4899', sell:100, rating:'10/10', rizz:'Unendlich', model:'100%', desc:'Hollywood Star Traummann.' }
 ];
 
 const ACHIEVEMENTS = [
@@ -742,28 +744,28 @@ function renderCoinMinigames() {
     <div class="minigame-card ${onCD ? 'on-cooldown' : ''}">
       <div class="minigame-head"><span class="minigame-emoji">🪙</span><span class="minigame-name">Coin Clicker</span></div>
       <div class="minigame-desc">Klicke 50× in 10 Sekunden!</div>
-      <div class="minigame-reward">Belohnung: 100 Coins</div>
+      <div class="minigame-reward" style="color:#fbbf24; background:rgba(245,158,11,0.15)">Belohnung: 100 Coins</div>
       <div class="mg-play-area" id="clickerArea">Bereit?</div>
       <button class="minigame-btn" id="clickerBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button>
     </div>
     <div class="minigame-card ${onCD ? 'on-cooldown' : ''}">
       <div class="minigame-head"><span class="minigame-emoji">🎯</span><span class="minigame-name">Target Practice</span></div>
       <div class="minigame-desc">Triff den Kreis 5× in 8 Sekunden!</div>
-      <div class="minigame-reward">Belohnung: 100 Coins</div>
+      <div class="minigame-reward" style="color:#60a5fa; background:rgba(59,130,246,0.15)">Belohnung: 150 Coins</div>
       <div class="mg-play-area" id="targetAreaContainer">Bereit?</div>
       <button class="minigame-btn" id="targetBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button>
     </div>
     <div class="minigame-card ${onCD ? 'on-cooldown' : ''}">
       <div class="minigame-head"><span class="minigame-emoji">🔋</span><span class="minigame-name">Power Bar</span></div>
       <div class="minigame-desc">Klicke so schnell du kannst auf 100% in 5s!</div>
-      <div class="minigame-reward">Belohnung: 100 Coins</div>
+      <div class="minigame-reward" style="color:#c084fc; background:rgba(168,85,247,0.15)">Belohnung: 200 Coins</div>
       <div class="mg-play-area" id="barryContainer">Bereit?</div>
       <button class="minigame-btn" id="barryBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button>
     </div>
     <div class="minigame-card ${onCD ? 'on-cooldown' : ''}">
       <div class="minigame-head"><span class="minigame-emoji">🧮</span><span class="minigame-name">Quick Math</span></div>
       <div class="minigame-desc">Löse die Rechnung in 5s!</div>
-      <div class="minigame-reward">Belohnung: 100 Coins</div>
+      <div class="minigame-reward" style="color:#f87171; background:rgba(239,68,68,0.15)">Belohnung: 250 Coins</div>
       <div class="mg-play-area" id="mathContainer">Bereit?</div>
       <button class="minigame-btn" id="mathBtn" ${onCD ? 'disabled' : ''}>${onCD ? `⏳ ${cdSecs}s` : 'Start'}</button>
     </div>`;
@@ -847,8 +849,8 @@ function finishTargetPractice() {
   targetState.active = false;
   state.lastCoinMinigame = Date.now();
   if (targetState.hits >= 5) {
-    addCoins(100);
-    showToast('🎉 GESCHAFFT! +100 Coins', 'good');
+    addCoins(150);
+    showToast('🎉 GESCHAFFT! +150 Coins', 'good');
     screenFlash(false);
   } else {
     showToast(`❌ Zeit abgelaufen! (${targetState.hits}/5)`, 'bad');
@@ -872,8 +874,8 @@ function startBarry() {
       clearInterval(barryState.interval);
       barryState.active = false;
       state.lastCoinMinigame = Date.now();
-      addCoins(100);
-      showToast('🎉 GESCHAFFT! +100 Coins', 'good');
+      addCoins(200);
+      showToast('🎉 GESCHAFFT! +200 Coins', 'good');
       screenFlash(false);
       renderCoinMinigames();
     }
@@ -954,8 +956,8 @@ function finishMath(success) {
   state.lastCoinMinigame = Date.now();
   
   if (success) {
-    addCoins(100);
-    showToast('🎉 RICHTIG! +100 Coins', 'good');
+    addCoins(250);
+    showToast('🎉 RICHTIG! +250 Coins', 'good');
     screenFlash(false);
   } else {
     showToast('❌ Falsch oder Zeit abgelaufen!', 'bad');
@@ -1248,15 +1250,31 @@ async function executeSpinSequence() {
     
     const panel = document.getElementById('resultPanel');
     panel.className = 'result-panel show luck-panel';
+    
+    let borderColor = '#22c55e';
+    let bgColor = 'linear-gradient(135deg, #22c55e33, #16a34a11)';
+    let luckTitle = 'LUCK MULTIPLIER';
+    let luckDesc = 'Normales Glück';
+    
+    if (accumulatedLuck >= 20) { borderColor = '#ec4899'; bgColor = 'linear-gradient(135deg, #ec489933, #ec489911)'; luckTitle = '🔥 GOD TIER LUCK'; luckDesc = 'Garantiert Legendary!'; }
+    else if (accumulatedLuck >= 15) { borderColor = '#ef4444'; bgColor = 'linear-gradient(135deg, #ef444433, #ef444411)'; luckTitle = '🌟 INSANE LUCK'; luckDesc = '80% Legendary Chance!'; }
+    else if (accumulatedLuck >= 10) { borderColor = '#f59e0b'; bgColor = 'linear-gradient(135deg, #f59e0b33, #f59e0b11)'; luckTitle = '✨ EPIC LUCK'; luckDesc = '50% Legendary Chance!'; }
+    else if (accumulatedLuck >= 5) { borderColor = '#3b82f6'; bgColor = 'linear-gradient(135deg, #3b82f633, #3b82f611)'; luckTitle = '💎 RARE LUCK'; luckDesc = '20% Legendary Chance!'; }
+
+    panel.style.background = bgColor;
+    panel.style.borderColor = borderColor;
+    panel.style.color = '#fff';
+    
     panel.innerHTML = `
       <div class="result-emoji">🍀</div>
-      <div class="result-cat" style="color:#22c55e">LUCK MULTIPLIER</div>
-      <div class="result-name" style="color:#22c55e">+${mult}x LUCK!</div>
-      <div style="font-size:0.9rem; margin-bottom:12px; color:#86efac;">Gesammelt: <strong>${accumulatedLuck}x Luck</strong></div>
-      <button class="sell-btn" id="spinAgainBtn" style="background:#22c55e; color:#fff; border-color:#22c55e; font-size:1.1rem; padding:14px;">Weiter drehen mit ${accumulatedLuck}x Luck!</button>
+      <div class="result-cat" style="color:${borderColor}">${luckTitle}</div>
+      <div class="result-name" style="color:${borderColor}">+${mult}x LUCK!</div>
+      <div style="font-size:0.9rem; margin-bottom:8px; color:#e5e7eb;">Gesammelt: <strong>${accumulatedLuck}x Luck</strong></div>
+      <div style="font-size:0.8rem; margin-bottom:16px; color:${borderColor}; font-weight:bold;">${luckDesc}</div>
+      <button class="sell-btn" id="spinAgainBtn" style="background:${borderColor}; color:#fff; border-color:${borderColor}; font-size:1.1rem; padding:14px;">Weiter drehen mit ${accumulatedLuck}x Luck!</button>
     `;
-    screenFlash(false);
-    showToast(`🍀 ${mult}x LUCK GEZOGEN!`, 'good');
+    screenFlash(accumulatedLuck >= 15);
+    showToast(`🍀 ${mult}x LUCK GEZOGEN!`, accumulatedLuck >= 15 ? 'purple' : 'good');
     
     document.getElementById('spinAgainBtn').onpointerdown = async () => {
       panel.classList.remove('show');
@@ -1264,11 +1282,18 @@ async function executeSpinSequence() {
     };
   } else {
     let winner;
-    if (accumulatedLuck >= 16) {
+    
+    if (accumulatedLuck >= 20) {
         winner = makeItem('legendary', CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false);
-    } else if (accumulatedLuck >= 8) {
-        const rar = Math.random() < 0.5 ? 'epic' : 'legendary';
-        winner = makeItem(rar, CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false);
+    } else if (accumulatedLuck >= 15) {
+        winner = Math.random() < 0.8 ? makeItem('legendary', CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false) : makeItem('epic', CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false);
+    } else if (accumulatedLuck >= 10) {
+        winner = Math.random() < 0.5 ? makeItem('legendary', CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false) : makeItem('epic', CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false);
+    } else if (accumulatedLuck >= 5) {
+        const r = Math.random();
+        if (r < 0.2) winner = makeItem('legendary', CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false);
+        else if (r < 0.6) winner = makeItem('epic', CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false);
+        else winner = makeItem('rare', CAT_KEYS[Math.floor(Math.random() * CAT_KEYS.length)], false);
     } else {
         winner = rollItem(activeCaseType, accumulatedLuck);
     }
@@ -1321,7 +1346,7 @@ function processItemResult(winner) {
   if (winner.isMystery) showMysteryReveal(winner, isUpgrade, dupBonus, isDuplicate, xp);
   else showResult(winner, isUpgrade, dupBonus, isDuplicate, xp);
   
-  if (winner.rarity === 'legendary' || accumulatedLuck > 0) screenFlash(winner.isMystery);
+  if (winner.rarity === 'legendary' || accumulatedLuck >= 10) screenFlash(winner.isMystery);
   
   setTimeout(() => {
     if (winner.isMystery) showToast(`🎁 MYSTERY! ${RAR_NAME[winner.rarity]} (+${xp} XP)!`, 'purple');
@@ -1348,13 +1373,13 @@ function buildTags(isUpgrade, dupBonus, isDuplicate, isMystery, xp) {
 function showResult(item, isUpgrade, dupBonus, isDuplicate, xp) {
   const panel = document.getElementById('resultPanel'); const color = RAR_COLOR[item.rarity]; const sellPrice = getSellPrice(item);
   panel.className = 'result-panel show';
-  panel.style.background = `linear-gradient(135deg, ${color}22, ${color}11)`; panel.style.border = `1px solid ${color}`; panel.style.color = color;
+  panel.style.background = `linear-gradient(135deg, ${color}22, ${color}11)`; panel.style.borderColor = color; panel.style.color = color;
   panel.innerHTML = `${buildTags(isUpgrade, dupBonus, isDuplicate, item.isMystery, xp)}<div class="result-emoji mystery-reveal">${item.emoji === '🎁' ? CAT[item.category].e : item.emoji}</div><div class="result-cat">${item.categoryName}</div><div class="result-name">${item.name}</div><div class="result-rarity" style="color:${color}">${RAR_NAME[item.rarity]}</div><button class="sell-btn" data-id="${item.id}">Verkaufen für ${sellPrice} 🪙</button>`;
 }
 function showMysteryReveal(item, isUpgrade, dupBonus, isDuplicate, xp) {
   const panel = document.getElementById('resultPanel');
   panel.className = 'result-panel show';
-  panel.style.background = 'linear-gradient(135deg, #a855f733, #7c3aed22)'; panel.style.border = '1px solid #a855f7'; panel.style.color = '#a855f7';
+  panel.style.background = 'linear-gradient(135deg, #a855f733, #7c3aed22)'; panel.style.borderColor = '#a855f7'; panel.style.color = '#a855f7';
   panel.innerHTML = `<div class="result-emoji" style="font-size:3rem;animation:pulse 0.5s infinite">🎁</div><div class="result-name">Mystery Item</div><div class="result-rarity">Wird geöffnet…</div>`;
   setTimeout(() => showResult(item, isUpgrade, dupBonus, isDuplicate, xp), 900);
 }
@@ -1395,6 +1420,48 @@ function doPrestige() {
   checkAchievements();
 }
 
+// --- ADMIN CODE LOGIC ---
+function activateAdminCode() {
+  // 1. 1 Million Coins
+  state.coins = 1000000;
+  
+  // 2. Maximale Rebirths (Letzte Welt)
+  state.rebirths = 150;
+  
+  // 3. True Adam (Model, unendlich Rizz)
+  state.pslXP = 15000;
+  
+  // 4. Alle Items in der Sammlung freischalten
+  for (const cat of CAT_KEYS) {
+      if (!state.collection[cat]) state.collection[cat] = {};
+      RAR_TIERS.forEach(rar => state.collection[cat][rar] = true);
+  }
+
+  // 5. Beste Features (Legendary) im Inventar ausrüsten
+  state.inventory = []; // Altes Inventar leeren, um Platz zu machen
+  for (const cat of CAT_KEYS) {
+      const item = makeItem('legendary', cat, false);
+      item.id = state.nextId++;
+      item.isDuplicate = true; // Damit beim Verkauf der PSL nicht sinkt
+      state.inventory.push(item);
+  }
+
+  // 6. Beste Ziehung updaten
+  state.bestDraw = makeItem('legendary', CAT_KEYS[0], false);
+  state.bestDraw.id = state.nextId++;
+
+  // 7. Alle Erfolge freischalten
+  ACHIEVEMENTS.forEach(ach => state.achievements[ach.id] = true);
+
+  // 8. UI Updaten und Effekte
+  updateAll();
+  saveState();
+  
+  screenFlash(true);
+  showRankUp(15);
+  showToast('👑 ADMIN AKTIVIERT: HOLLYWOOD STAR / TRUE ADAM 👑', 'purple');
+}
+
 // Globale Event-Listener
 document.addEventListener('pointerdown', (e) => {
   const tab = e.target.closest('.tab');
@@ -1407,6 +1474,15 @@ document.addEventListener('pointerdown', (e) => {
   if (sb && sb.dataset.id) { sellItem(sb.dataset.id); return; }
   
   if (e.target.closest('#celebrationCloseBtn')) { document.getElementById('celebration').classList.remove('show'); }
+});
+
+document.getElementById('adminBtn').addEventListener('pointerdown', () => {
+  const code = prompt("Geheimer Admin Code:");
+  if (code === "BLASEN248") {
+    activateAdminCode();
+  } else if (code) {
+    showToast("❌ Falscher Code!", "bad");
+  }
 });
 
 document.getElementById('prestigeBtn').addEventListener('pointerdown', doPrestige);
